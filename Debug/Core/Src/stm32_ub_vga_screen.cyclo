@@ -1,0 +1,9 @@
+../Core/Src/stm32_ub_vga_screen.c:38:6:UB_VGA_Screen_Init	3
+../Core/Src/stm32_ub_vga_screen.c:73:6:UB_VGA_FillScreen	3
+../Core/Src/stm32_ub_vga_screen.c:89:6:UB_VGA_SetPixel	3
+../Core/Src/stm32_ub_vga_screen.c:103:6:P_VGA_InitIO	1
+../Core/Src/stm32_ub_vga_screen.c:172:6:P_VGA_InitTIM	1
+../Core/Src/stm32_ub_vga_screen.c:244:6:P_VGA_InitINT	1
+../Core/Src/stm32_ub_vga_screen.c:285:6:P_VGA_InitDMA	1
+../Core/Src/stm32_ub_vga_screen.c:330:6:TIM2_IRQHandler	6
+../Core/Src/stm32_ub_vga_screen.c:386:6:DMA2_Stream5_IRQHandler	2

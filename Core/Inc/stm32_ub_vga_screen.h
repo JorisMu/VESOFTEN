@@ -54,14 +54,14 @@ typedef struct {
   uint32_t start_adr;   // start_adres
   uint32_t dma2_cr_reg; // Register constant CR-Register
 }VGA_t;
-VGA_t VGA;
+extern VGA_t VGA;
 
 
 
 //--------------------------------------------------------------
 // Display RAM
 //--------------------------------------------------------------
-uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
+extern uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 
 
 
@@ -73,7 +73,7 @@ uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 // Frq       = 168MHz/1/12 = 14MHz
 //
 //--------------------------------------------------------------
-#define VGA_TIM1_PERIODE      11
+#define VGA_TIM1_PERIODE      10-1
 #define VGA_TIM1_PRESCALE      0
 
 
@@ -88,12 +88,13 @@ uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 // 1TIC      = 11,90ns
 //
 //--------------------------------------------------------------
-#define  VGA_TIM2_HSYNC_PERIODE   2667
+#define  VGA_TIM2_HSYNC_PERIODE   2002-1
 #define  VGA_TIM2_HSYNC_PRESCALE     0
 
-#define  VGA_TIM2_HSYNC_IMP       320  // HSync-length (3,81us)
+#define  VGA_TIM2_HSYNC_IMP       240  // HSync-length (3,81us)
 #define  VGA_TIM2_HTRIGGER_START  480  // HSync+BackPorch (5,71us)
-#define  VGA_TIM2_DMA_DELAY        60  // ease the delay when DMA START (Optimization = none)
+#define  VGA_TIM2_DMA_DELAY       200  // ease the delay when DMA START (Optimization = none)
+									   //DMA delay not perfect jet
 //#define  VGA_TIM2_DMA_DELAY        30  // ease the delay when DMA START (Optimization = -O1)
 
 
