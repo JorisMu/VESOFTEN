@@ -12,25 +12,7 @@ De applicatie is verdeeld in drie lagen, visueel weergegeven als sectoren van ee
 
 Deze gelaagde aanpak zorgt voor een duidelijke scheiding van verantwoordelijkheden (Separation of Concerns), wat de software beter onderhoudbaar, testbaar en uitbreidbaar maakt.
 
-```mermaid
-graph TD
-    script_source[script]
-    vga_display[VGA output]
-
-    subgraph "Application System"
-        FrontLayer("1. Front layer")
-        LogicLayer("2. Logic layer")
-        IOLayer("3. I/O-layer")
-
-        %% Impliciete communicatie tussen lagen
-        FrontLayer --> LogicLayer
-        LogicLayer --> IOLayer
-    end
-
-    script_source -- "script commando's" --> FrontLayer
-    IOLayer -- "VGA output" --> vga_display
-    IOLayer -- "feedback: error messages" --> script_source
-```
+![3-Lagen Diagram](docs/diagram_vga_system.png)
 
 ## Layer Details
 
