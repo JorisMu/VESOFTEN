@@ -12,7 +12,7 @@ De applicatie is verdeeld in drie lagen, visueel weergegeven als sectoren van ee
 
 Deze gelaagde aanpak zorgt voor een duidelijke scheiding van verantwoordelijkheden (Separation of Concerns), wat de software beter onderhoudbaar, testbaar en uitbreidbaar maakt.
 
-![3-Lagen Diagram](docs/diagram_vga_system.png)
+![3-Lagen Diagram](diagram_vga_system.png)
 
 ## Layer Details
 
