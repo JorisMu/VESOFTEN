@@ -23,6 +23,8 @@ int main(void)
 
 	UB_VGA_FillScreen(VGA_COL_BLUE);
 
+	UB_VGA_DrawBitmap(5, 100, 100);
+
   while(1)
   {
 

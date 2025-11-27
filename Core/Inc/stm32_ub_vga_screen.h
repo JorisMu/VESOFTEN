@@ -128,11 +128,37 @@ extern uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 #define VGA_GPIO_HINIBBLE  ((uint16_t)0xFF00) // GPIO_Pin_8 to GPIO_Pin_15
 
 //--------------------------------------------------------------
+// Bitmap Definitions
+//--------------------------------------------------------------
+typedef struct {
+    uint16_t width;
+    uint16_t height;
+    const uint8_t (*data)[16]; // Pointer to an array of 16 uint8_t
+} Bitmap_t;
+
+// Enum for bitmap IDs
+typedef enum {
+    BITMAP_ARROW_UP = 0,
+    BITMAP_ARROW_RIGHT,
+    BITMAP_ARROW_DOWN,
+    BITMAP_ARROW_LEFT,
+    BITMAP_SMILEY_ANGRY,
+    BITMAP_SMILEY_HAPPY,
+    // Add more as needed
+    NUM_BITMAPS
+} BITMAP_ID;
+
+//--------------------------------------------------------------
 // Global Function call
 //--------------------------------------------------------------
 void UB_VGA_Screen_Init(void);
 void UB_VGA_FillScreen(uint8_t color);
 void UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color);
+void UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness);
+void UB_VGA_DrawRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t filled);
+void UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color);
+void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, const char* style);
+void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup);
 
 //--------------------------------------------------------------
 #endif // __STM32F4_UB_VGA_SCREEN_H

@@ -414,4 +414,33 @@ void DMA2_Stream5_IRQHandler(void)
   }
 }
 
+// Array of all available bitmaps
+const Bitmap_t vga_bitmaps[] = {
+    {16, 16, bitmap_data_arrow_up_16x16},       // BITMAP_ARROW_UP
+    {16, 16, bitmap_data_arrow_right_16x16},    // BITMAP_ARROW_RIGHT
+    {16, 16, bitmap_data_arrow_down_16x16},     // BITMAP_ARROW_DOWN
+    {16, 16, bitmap_data_arrow_left_16x16},     // BITMAP_ARROW_LEFT
+    {16, 16, bitmap_data_smiley_angry_16x16},   // BITMAP_SMILEY_ANGRY
+    {16, 16, bitmap_data_smiley_happy_16x16}    // BITMAP_SMILEY_HAPPY
+};
+
+
+void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
+    if (id >= NUM_BITMAPS) {
+        // Invalid bitmap ID
+        return;
+    }
+
+    const Bitmap_t *bitmap = &vga_bitmaps[id];
+
+    for (uint16_t y = 0; y < bitmap->height; y++) {
+        for (uint16_t x = 0; x < bitmap->width; x++) {
+            uint8_t color = bitmap->data[y][x];
+            if (color != BITMAP_TRANSPARENT_COLOR) { // Check for transparent color
+                UB_VGA_SetPixel(x_lup + x, y_lup + y, color);
+            }
+        }
+    }
+}
+
 
