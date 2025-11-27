@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Algemene informatie
+## Algemene informatie
 - De API controleert alle parameters voordat deze naar de I/O-layer worden gestuurd.  
 - Ongeldige parameters genereren een foutmelding naar de front layer.  
 - Alle coördinaten zijn gebaseerd op een scherm van breedte X en hoogte Y.  
@@ -24,7 +24,7 @@
 
 ---
 
-## 2. Lijn tekenen
+## 1. Lijn tekenen
 **Functie:**  
 `lijn(x, y, x2, y2, kleur, dikte)`
 
@@ -42,7 +42,7 @@ Controleert de parameters en tekent een lijn op het scherm als ze geldig zijn.
 
 ---
 
-## 3. Rechthoek tekenen
+## 2. Rechthoek tekenen
 **Functie:**  
 `rechthoek(x_lup, y_lup, breedte, hoogte, kleur, gevuld)`
 
@@ -61,7 +61,7 @@ Controleert de parameters en tekent een rechthoek als ze geldig zijn.
 
 ---
 
-## 4. Tekst plaatsen
+## 3. Tekst plaatsen
 **Functie:**  
 `tekst(x, y, kleur, tekst, fontnaam, fontgrootte, fontstijl)`
 
@@ -82,7 +82,7 @@ Controleert de parameters en toont tekst op het scherm als ze geldig zijn.
 
 ---
 
-## 5. Bitmap tekenen
+## 4. Bitmap tekenen
 **Functie:**  
 `bitmap(nr, x_lup, y_lup)`
 
@@ -99,7 +99,7 @@ Controleert de parameters en tekent de bitmap op het scherm als ze geldig zijn.
 
 ---
 
-## 6. Scherm wissen
+## 5. Scherm wissen
 **Functie:**  
 `clearscherm(kleur)`
 
