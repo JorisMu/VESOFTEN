@@ -1,59 +1,114 @@
-# Tekentaken / API Functiebeschrijving
+# Tekentaken API – Volledige Documentatie
 
-Deze API bevat functies om lijnen, vormen, tekst en bitmaps op het scherm te tekenen.
+**Versie:** 1.0  
+**Auteur:** Max  
+**Doel:** Deze API biedt functies om lijnen, rechthoeken, tekst en bitmaps op het scherm te tekenen, inclusief parametercontrole en foutafhandeling.
 
 ---
 
-## 1. Lijn tekenen
+## 1. Algemene informatie
+- De API controleert alle parameters voordat deze naar de I/O-layer worden gestuurd.  
+- Ongeldige parameters genereren een foutmelding naar de front layer.  
+- Alle coördinaten zijn gebaseerd op een scherm van breedte X en hoogte Y.  
+- Kleurwaarden moeten binnen het ondersteunde kleurenspectrum liggen.  
+
+---
+
+## Foutcodes
+| Code | Betekenis |
+|------|-----------|
+| `OK` | Parameters zijn geldig, functie uitgevoerd |
+| `ERROR_INVALID_PARAM` | Een parameter is ongeldig (bijv. buiten scherm) |
+| `ERROR_OUT_OF_BOUNDS` | Coördinaten liggen buiten het scherm |
+| `ERROR_INVALID_COLOR` | Kleur is niet gedefinieerd of onjuist |
+
+---
+
+## 2. Lijn tekenen
 **Functie:**  
 `lijn(x, y, x2, y2, kleur, dikte)`
 
+**Parameters:**  
+- `x, y, x2, y2` : coördinaten van begin- en eindpunt  
+- `kleur` : gewenste kleur  
+- `dikte` : lijndikte
+
+**Return:**  
+- `OK` als de lijn getekend kan worden  
+- `ERROR_OUT_OF_BOUNDS` of `ERROR_INVALID_PARAM` bij fouten
+
 **Beschrijving:**  
-Tekent een lijn van punt **(x, y)** naar **(x2, y2)** met de opgegeven **kleur** en **dikte**.
+Controleert de parameters en tekent een lijn op het scherm als ze geldig zijn.
 
 ---
 
-## 2. Rechthoek tekenen
+## 3. Rechthoek tekenen
 **Functie:**  
 `rechthoek(x_lup, y_lup, breedte, hoogte, kleur, gevuld)`
 
+**Parameters:**  
+- `x_lup, y_lup` : linkerbovenhoek  
+- `breedte, hoogte` : afmetingen  
+- `kleur` : kleur van rand of vulling  
+- `gevuld` : 1 = gevuld, 0 = alleen rand
+
+**Return:**  
+- `OK` bij succes  
+- `ERROR_INVALID_PARAM` of `ERROR_OUT_OF_BOUNDS` bij fouten
+
 **Beschrijving:**  
-Tekent een rechthoek met linkerbovenhoek **(x_lup, y_lup)**.  
-- `gevuld = 1` → Rechthoek is volledig gevuld in de opgegeven kleur  
-- `gevuld = 0` → Alleen een rand (1 px dik)
+Controleert de parameters en tekent een rechthoek als ze geldig zijn.
 
 ---
 
-## 3. Tekst plaatsen
+## 4. Tekst plaatsen
 **Functie:**  
 `tekst(x, y, kleur, tekst, fontnaam, fontgrootte, fontstijl)`
 
+**Parameters:**  
+- `x, y` : positie  
+- `kleur` : tekstkleur  
+- `tekst` : string die getoond wordt  
+- `fontnaam` : Arial, Consolas  
+- `fontgrootte` : 1 of 2  
+- `fontstijl` : normaal, vet, cursief
+
+**Return:**  
+- `OK` bij succes  
+- `ERROR_INVALID_PARAM` bij fouten (bijv. lettertype niet ondersteund)
+
 **Beschrijving:**  
-Tekent tekst op positie **(x, y)**.  
-Ondersteunde opties:  
-- **Fontnaam:** arial, consolas  
-- **Fontgrootte:** 1 of 2  
-- **Fontstijl:** normaal, vet, cursief  
+Controleert de parameters en toont tekst op het scherm als ze geldig zijn.
 
 ---
 
-## 4. Bitmap tekenen
+## 5. Bitmap tekenen
 **Functie:**  
 `bitmap(nr, x_lup, y_lup)`
 
+**Parameters:**  
+- `nr` : bitmap-nummer (bijv. pijl of smiley)  
+- `x_lup, y_lup` : linkerbovenhoek van de bitmap
+
+**Return:**  
+- `OK` bij succes  
+- `ERROR_INVALID_PARAM` als bitmap niet bestaat of coördinaten ongeldig zijn
+
 **Beschrijving:**  
-Tekent een vooraf ingestelde bitmap op positie **(x_lup, y_lup)**.  
-Beschikbare bitmaps omvatten:  
-- pijlen (4 richtingen)  
-- smileys (boos, blij)
+Controleert de parameters en tekent de bitmap op het scherm als ze geldig zijn.
 
 ---
 
-## 5. Scherm wissen
+## 6. Scherm wissen
 **Functie:**  
 `clearscherm(kleur)`
 
-**Beschrijving:**  
-Maakt het volledige scherm leeg en vult het met de opgegeven kleur.
+**Parameters:**  
+- `kleur` : kleur waarmee het scherm wordt gevuld
 
----
+**Return:**  
+- `OK` bij succes  
+- `ERROR_INVALID_COLOR` als de kleur ongeldig is
+
+**Beschrijving:**  
+Maakt het volledige scherm leeg en vult het met de opgegeven kleur als deze geldig is.
