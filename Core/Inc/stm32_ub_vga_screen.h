@@ -36,10 +36,6 @@
 #define  VGA_COL_MAGENTA        0xE3
 #define  VGA_COL_YELLOW         0xFC
 
-#define BITMAP_TRANSPARENT_COLOR 0xFE
-
-
-
 //--------------------------------------------------------------
 // define the VGA_display
 //--------------------------------------------------------------
@@ -129,26 +125,6 @@ extern uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 //--------------------------------------------------------------
 #define VGA_GPIO_HINIBBLE  ((uint16_t)0xFF00) // GPIO_Pin_8 to GPIO_Pin_15
 
-//--------------------------------------------------------------
-// Bitmap Definitions
-//--------------------------------------------------------------
-typedef struct {
-    uint16_t width;
-    uint16_t height;
-    const uint8_t (*data)[16]; // Pointer to an array of 16 uint8_t
-} Bitmap_t;
-
-// Enum for bitmap IDs
-typedef enum {
-    BITMAP_ARROW_UP = 0,
-    BITMAP_ARROW_RIGHT,
-    BITMAP_ARROW_DOWN,
-    BITMAP_ARROW_LEFT,
-    BITMAP_SMILEY_ANGRY,
-    BITMAP_SMILEY_HAPPY,
-    // Add more as needed
-    NUM_BITMAPS
-} BITMAP_ID;
 
 //--------------------------------------------------------------
 // Global Function call
