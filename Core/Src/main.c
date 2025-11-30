@@ -23,9 +23,7 @@ int main(void)
 
 	UB_VGA_FillScreen(VGA_COL_BLUE);
 
-	UB_VGA_DrawBitmap(5, 100, 100);
-
-
+	UB_VGA_DrawText(10,50, VGA_COL_WHITE, "TEST WTF lower case isn't working", "consolas", 1, "normaal");
 
   while(1)
   {

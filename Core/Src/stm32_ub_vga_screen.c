@@ -21,6 +21,10 @@
 //--------------------------------------------------------------
 #include "stm32_ub_vga_screen.h"
 #include "bitmaps.h"
+#include "fonts.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
 VGA_t VGA;
 uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
@@ -416,8 +420,6 @@ void DMA2_Stream5_IRQHandler(void)
 }
 
 
-
-
 void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
     if (id >= NUM_BITMAPS) {
         // Invalid bitmap ID
@@ -437,3 +439,117 @@ void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
 }
 
 
+
+void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, const char* style)
+{
+    // --- 1. Find the selected font ---
+    const FontDef_t* font_def = NULL;
+    if (font_name == NULL || *font_name == '\0') {
+        font_def = available_fonts[0].font_def;
+    } else {
+        for (uint8_t i = 0; i < NUM_AVAILABLE_FONTS; i++) {
+            if (strcmp(font_name, available_fonts[i].name) == 0) {
+                font_def = available_fonts[i].font_def;
+                break;
+            }
+        }
+    }
+    if (font_def == NULL) {
+        font_def = available_fonts[0].font_def;
+    }
+
+    // --- 2. Set up drawing parameters ---
+    bool is_vet = false;
+    bool is_italic = false;
+    if (style != NULL) {
+        if (strcmp(style, "vet") == 0) {
+            is_vet = true;
+        } else if (strcmp(style, "cursief") == 0) {
+            is_italic = true;
+        }
+    }
+    if (size == 0) size = 1;
+
+    uint16_t current_x = x;
+    uint16_t current_y = y;
+
+    // --- 3. Loop through text and draw each character ---
+    while (*text) {
+        char character = *text++;
+        uint8_t char_width = 0;
+        uint8_t char_spacing = 1;
+        const uint8_t* font_char_data = NULL;
+
+        if (character == '\n') {
+            current_y += (font_def->height * size) + 2;
+            current_x = x;
+            continue;
+        }
+        if (character == '\r') {
+            current_x = x;
+            continue;
+        }
+        if (character < 0 || character >= 128) {
+             character = '?';
+        }
+
+        // --- 4. Get character bitmap data and width ---
+        if (font_def->chars == NULL) { // Fixed-width font logic
+            char_width = 5;
+            font_char_data = font_mono5x7_data[(uint8_t)character];
+        } else { // Proportional font logic
+            const FontChar_t* font_char = &font_def->chars[(uint8_t)character];
+            char_width = font_char->width;
+            font_char_data = font_char->data;
+        }
+
+        if (char_width == 0 || font_char_data == NULL) {
+            // If character is undefined, use the width of a space to advance
+            if(font_def->chars != NULL) char_width = font_def->chars[' '].width;
+            else char_width = 5;
+        } else {
+            // --- 5. Draw the character with style and scaling ---
+            for (uint8_t col = 0; col < char_width; col++) {
+                uint8_t col_data = font_char_data[col];
+                for (uint8_t row = 0; row < font_def->height; row++) {
+                    if ((col_data >> row) & 0x01) {
+                        
+                        // Italic slant calculation
+                        int8_t x_offset = 0;
+                        if (is_italic) {
+                            x_offset = (font_def->height - row) / 2 - 1;
+                        }
+
+                        // vet widening
+                        uint8_t block_width = size;
+                        if (is_vet) {
+                            block_width++;
+                        }
+                        
+                        // Draw the scaled and styled pixel/block
+                        uint16_t px = current_x + (col * size) + x_offset;
+                        uint16_t py = current_y + (row * size);
+                        for(uint8_t i = 0; i < block_width; i++) {
+                            for(uint8_t j = 0; j < size; j++) {
+                                UB_VGA_SetPixel(px + i, py + j, color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // --- 6. Advance cursor ---
+        uint8_t total_char_width = char_width;
+        if (is_italic) total_char_width += 2; // Add max slant offset to width
+        if (is_vet) total_char_width++;
+        
+        current_x += (total_char_width + char_spacing) * size;
+
+        // Simple word wrap
+        if (current_x + (char_width * size) > VGA_DISPLAY_X) {
+            current_y += (font_def->height * size) + 2;
+            current_x = x;
+        }
+    }
+}
