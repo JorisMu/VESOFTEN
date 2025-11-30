@@ -438,7 +438,35 @@ void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
     }
 }
 
+void UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color)
+{
+    int16_t x = radius;
+    int16_t y = 0;
+    int16_t err = 0;
 
+    while (x >= y)
+    {
+        UB_VGA_SetPixel(center_x + x, center_y + y, color);
+        UB_VGA_SetPixel(center_x + y, center_y + x, color);
+        UB_VGA_SetPixel(center_x - y, center_y + x, color);
+        UB_VGA_SetPixel(center_x - x, center_y + y, color);
+        UB_VGA_SetPixel(center_x - x, center_y - y, color);
+        UB_VGA_SetPixel(center_x - y, center_y - x, color);
+        UB_VGA_SetPixel(center_x + y, center_y - x, color);
+        UB_VGA_SetPixel(center_x + x, center_y - y, color);
+
+        if (err <= 0)
+        {
+            y += 1;
+            err += 2*y + 1;
+        }
+        if (err > 0)
+        {
+            x -= 1;
+            err -= 2*x + 1;
+        }
+    }
+}
 
 void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, const char* style)
 {
