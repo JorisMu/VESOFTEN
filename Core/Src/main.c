@@ -25,6 +25,8 @@ int main(void)
 
 	UB_VGA_DrawBitmap(5, 100, 100);
 
+
+
   while(1)
   {
 

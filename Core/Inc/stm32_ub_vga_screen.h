@@ -36,6 +36,8 @@
 #define  VGA_COL_MAGENTA        0xE3
 #define  VGA_COL_YELLOW         0xFC
 
+#define BITMAP_TRANSPARENT_COLOR 0xFE
+
 
 
 //--------------------------------------------------------------
