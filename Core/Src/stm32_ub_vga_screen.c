@@ -438,6 +438,77 @@ void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
     }
 }
 
+// Internal helper function to draw a 1-pixel thick line
+static void P_VGA_DrawSinglePixelLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color)
+{
+    int16_t dx = abs(x2 - x1);
+    int16_t sx = x1 < x2 ? 1 : -1;
+    int16_t dy = -abs(y2 - y1);
+    int16_t sy = y1 < y2 ? 1 : -1;
+    int16_t err = dx + dy;
+    int16_t e2;
+
+    for (;;) {
+        UB_VGA_SetPixel(x1, y1, color);
+        if (x1 == x2 && y1 == y2) break;
+        e2 = 2 * err;
+        if (e2 >= dy) {
+            err += dy;
+            x1 += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
+void UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness)
+{
+    if (thickness == 0) thickness = 1; // Ensure minimum thickness
+
+    // Calculate absolute difference for determining line steepness
+    int16_t dx_abs = abs(x2 - x1);
+    int16_t dy_abs = abs(y2 - y1);
+
+    // Initial offset for centering the thick line
+    int16_t offset_start = -(thickness / 2);
+
+    // Draw multiple parallel lines
+    for (int i = 0; i < thickness; i++) {
+        if (dx_abs > dy_abs) { // Mostly horizontal line, offset vertically
+            P_VGA_DrawSinglePixelLine(x1, y1 + offset_start + i, x2, y2 + offset_start + i, color);
+        } else { // Mostly vertical line, offset horizontally
+            P_VGA_DrawSinglePixelLine(x1 + offset_start + i, y1, x2 + offset_start + i, y2, color);
+        }
+    }
+}
+
+void UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled)
+{
+    if (width == 0 || height == 0) return;
+
+    uint16_t x2 = x_lup + width - 1;
+    uint16_t y2 = y_lup + height - 1;
+
+    if (filled) {
+        uint16_t x, y;
+        for (y = y_lup; y <= y2; y++) {
+            if (y >= VGA_DISPLAY_Y) break;
+            for (x = x_lup; x <= x2; x++) {
+                 if (x >= VGA_DISPLAY_X) break;
+                UB_VGA_SetPixel(x, y, color);
+            }
+        }
+    } else {
+        // Draw 4 lines. The 'thickness' parameter is passed as 1.
+        UB_VGA_DrawLine(x_lup, y_lup, x2, y_lup, color, 1); // Top
+        UB_VGA_DrawLine(x_lup, y2, x2, y2, color, 1);       // Bottom
+        UB_VGA_DrawLine(x_lup, y_lup, x_lup, y2, color, 1); // Left
+        UB_VGA_DrawLine(x2, y_lup, x2, y2, color, 1);       // Right
+    }
+}
+
 void UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color)
 {
     int16_t x = radius;

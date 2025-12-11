@@ -110,31 +110,31 @@ Draws a circle.
 
 ---
 
-### Complex Drawing (Placeholders)
+### Complex Drawing
 
-The following functions are placeholders and are not yet fully implemented. They require additional data (like font bitmaps or bitmap data) to be fully functional.
+The following functions provide advanced drawing capabilities, such as rendering text with various fonts and styles, and drawing pre-defined bitmap images.
 
 ---
 
 #### `void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, const char* style)`
 
-*(Placeholder)* Intended to draw text on the screen.
+Draws text on the screen using a variety of fonts and styles. The function supports both fixed-width and proportional fonts, as well as scaling, bold, and italic styles.
 
 -   **`x`**: The x-coordinate of the starting point for the text.
 -   **`y`**: The y-coordinate of the starting point for the text.
 -   **`color`**: The color of the text.
 -   **`text`**: A pointer to the string of characters to be displayed.
 -   **`font`**: A string indicating the desired font (e.g., "consolas", "arial").
--   **`size`**: An integer indicating the font size (e.g., `1`, `2`).
--   **`style`**: A string indicating the font style (e.g., "normaal", "vet", "cursief").
+-   **`size`**: A multiplier for the font size (e.g., `1` for normal, `2` for double size).
+-   **`style`**: A string indicating the font style (e.g., "vet" for bold, "cursief" for italic).
 
 ---
 
 #### `void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup)`
 
-*(Placeholder)* Intended to draw a bitmap image on the screen.
+Draws a pre-defined bitmap image on the screen from the `bitmaps.c` library.
 
--   **`id`**: An identifier for the bitmap to be drawn. Examples include: `0` for arrow up, `1` for arrow right, `2` for arrow down, `3` for arrow left, `4` for angry smiley, `5` for happy smiley. (Specific IDs depend on implementation).
--   **`x_lup`**: The x-coordinate of the top-left corner where the bitmap should be drawn (linker_upper_pixel).
--   **`y_lup`**: The y-coordinate of the top-left corner where the bitmap should be drawn (linker_upper_pixel).
+-   **`id`**: An identifier for the bitmap to be drawn. (e.g., `0` for arrow, `4` for smiley). The specific IDs are defined by the `vga_bitmaps` array.
+-   **`x_lup`**: The x-coordinate of the top-left corner where the bitmap should be drawn.
+-   **`y_lup`**: The y-coordinate of the top-left corner where the bitmap should be drawn.
 

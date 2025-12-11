@@ -23,10 +23,9 @@ int main(void)
 
 	UB_VGA_FillScreen(VGA_COL_BLUE);
 
-	UB_VGA_DrawText(10,50, VGA_COL_WHITE, "TEST WTF lower case isn't working", "consolas", 1, "normaal");
+	UB_VGA_DrawLine(40,10,60,100, VGA_COL_RED, 10);
 
-
-	UB_VGA_DrawText(10,100, VGA_COL_WHITE, "TEST WTF lower case isn't working", "default", 1, "vet");
+	UB_VGA_DrawRectangle(10,10, 20, 20, VGA_COL_RED, 0 );
 
   while(1)
   {
