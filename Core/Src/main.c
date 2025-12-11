@@ -25,6 +25,9 @@ int main(void)
 
 	UB_VGA_DrawText(10,50, VGA_COL_WHITE, "TEST WTF lower case isn't working", "consolas", 1, "normaal");
 
+
+	UB_VGA_DrawText(10,100, VGA_COL_WHITE, "TEST WTF lower case isn't working", "default", 1, "vet");
+
   while(1)
   {
 

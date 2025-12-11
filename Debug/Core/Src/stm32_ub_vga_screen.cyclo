@@ -8,4 +8,5 @@
 ../Core/Src/stm32_ub_vga_screen.c:335:6:TIM2_IRQHandler	6
 ../Core/Src/stm32_ub_vga_screen.c:391:6:DMA2_Stream5_IRQHandler	2
 ../Core/Src/stm32_ub_vga_screen.c:423:6:UB_VGA_DrawBitmap	5
-../Core/Src/stm32_ub_vga_screen.c:443:6:UB_VGA_DrawText	28
+../Core/Src/stm32_ub_vga_screen.c:441:6:UB_VGA_DrawCircle	4
+../Core/Src/stm32_ub_vga_screen.c:471:6:UB_VGA_DrawText	27
