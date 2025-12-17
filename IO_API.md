@@ -25,17 +25,23 @@ The display resolution is fixed and defined by the following constants:
 
 The color format is 8-bit R3G3B2 (3 bits for Red, 3 bits for Green, 2 bits for Blue). The following color constants are available:
 
-| Color Name      | Macro                | Hex Value | Binary (R3G3B2)   |
-| --------------- | -------------------- | --------- | ----------------- |
-| Black           | `VGA_COL_BLACK`      | `0x00`    | `000 000 00`      |
-| Blue            | `VGA_COL_BLUE`       | `0x03`    | `000 000 11`      |
-| Green           | `VGA_COL_GREEN`      | `0x1C`    | `000 111 00`      |
-| Red             | `VGA_COL_RED`        | `0xE0`    | `111 000 00`      |
-| White           | `VGA_COL_WHITE`      | `0xFF`    | `111 111 11`      |
-| Cyan            | `VGA_COL_CYAN`       | `0x1F`    | `000 111 11`      |
-| Magenta         | `VGA_COL_MAGENTA`    | `0xE3`    | `111 000 11`      |
-| Yellow          | `VGA_COL_YELLOW`     | `0xFC`    | `111 111 00`      |
-| Brown           | `VGA_COL_BROWN`      | `0xA0`    | `101 000 00`      |
+| Color Name    | Macro                  | Hex Value | Binary (R3 G3 B2) |
+| ------------- | --------------------- | --------- | -----------------       |
+| Black         | `VGA_COL_BLACK`         | `0x00`      | `000 000 00`        |
+| Blue          | `VGA_COL_BLUE         ` | `0x03`      | `000 000 11`        |
+| Light Blue    | `VGA_COL_LIGHT_BLUE   ` | `0x4B`      | `010 010 11`        |
+| Green         | `VGA_COL_GREEN        ` | `0x1C`      | `000 111 00`        |
+| Light Green   | `VGA_COL_LIGHT_GREEN  ` | `0x9E`      | `100 111 10`        |
+| Cyan          | `VGA_COL_CYAN         ` | `0x1F`      | `000 111 11`        |
+| Light Cyan    | `VGA_COL_LIGHT_CYAN   ` | `0x5F`      | `010 111 11`        |
+| Red           | `VGA_COL_RED          ` | `0xE0`      | `111 000 00`        |
+| Light Red     | `VGA_COL_LIGHT_RED    ` | `0xF2`      | `111 100 10`        |
+| Magenta       | `VGA_COL_MAGENTA      ` | `0xE3`      | `111 000 11`        |
+| Light Magenta | `VGA_COL_LIGHT_MAGENTA` | `0xF7`      | `111 101 11`        |
+| Brown         | `VGA_COL_BROWN        ` | `0x88`      | `100 010 00`        |
+| Yellow        | `VGA_COL_YELLOW       ` | `0xFC`      | `111 111 00`        |
+| Grey          | `VGA_COL_GREY         ` | `0x92`      | `100 100 10`        |
+| White         | `VGA_COL_WHITE        ` | `0xFF`      | `111 111 11`        |
 
 ---
 
