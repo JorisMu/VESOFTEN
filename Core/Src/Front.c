@@ -1,34 +1,9 @@
-#include <stdio.h>
+#include <front.h>
 #include <logic.h>
+
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-typedef enum 
-{
-    CMD_LIJN,
-    CMD_RECHTHOEK,
-    CMD_TEKST,
-    CMD_BITMAP,
-    CMD_CLEARSCHERM,
-    CMD_WACHT,
-    CMD_HERHAAL,
-    CMD_CIRKEL,
-    CMD_FIGUUR,
-    CMD_UNKNOWN
-} CommandType;
-
-typedef struct 
-{
-    CommandType type;
-    int x, y, x2, y2, breedte, hoogte, dikte, radius, start, aantal;
-    int gevuld;
-    int bitmap_nr;
-    char kleur[20];
-    char tekst[110];
-    char fontnaam[30];
-    int fontgrootte;
-    char fontstijl[20];
-} Command;
 
 static FrontStatus parse_command(const char* input, Command* cmd)
 {
@@ -136,44 +111,87 @@ static FrontStatus parse_command(const char* input, Command* cmd)
     return FRONT_OK;
 }
 
-void front_handler(Command* cmd) {
-    char resultaat;
+void front_handle_input(const char* input_line) {
+
+    Command cmd;
+    FrontStatus parse_status = parse_command(input_line, &cmd);
+
+    if(parse_status != FRONT_OK) {
+        printf("%s\n", status_to_string(parse_status));
+        return;
+    }
+
+    Resultaat result;
 
     switch(cmd->type) 
     {
         case CMD_LIJN:
-            resultaat = lijn(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->kleur, cmd->dikte);
+            result = lijn(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->kleur, cmd->dikte);
             break;
         case CMD_RECHTHOEK:
-            resultaat = rechthoek(cmd->x, cmd->y, cmd->breedte, cmd->hoogte, cmd->kleur, cmd->gevuld);
+            result = rechthoek(cmd->x, cmd->y, cmd->breedte, cmd->hoogte, cmd->kleur, cmd->gevuld);
             break;
         case CMD_TEKS:
-            resultaat = tekst(cmd->x, cmd->y, cmd->kleur, cmd->tekst, cmd->fontnaam, cmd->fontgrootte, cmd->fontstijl);
+            result = tekst(cmd->x, cmd->y, cmd->kleur, cmd->tekst, cmd->fontnaam, cmd->fontgrootte, cmd->fontstijl);
             break;
         case CMD_CIRKEL:
-            resultaat = cirkel(cmd->x, cmd->y, cmd->radius, cmd->kleur);
+            result = cirkel(cmd->x, cmd->y, cmd->radius, cmd->kleur);
             break;
         case CMD_FIGUUR:
-            resultaat = figuur(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->x3, cmd->y3, cmd->x4, cmd->y4, cmd->x5, cmd->y5, cmd->kleur);
+            result = figuur(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->x3, cmd->y3, cmd->x4, cmd->y4, cmd->x5, cmd->y5, cmd->kleur);
             break;
         case CMD_CLEARSCHERM:
-            resultaat = clearscherm(cmd->kleur);
+            result = clearscherm(cmd->kleur);
             break;
         case CMD_BITMAP:
-            resultaat = bitmap(cmd->bitmap_nr, cmd->x, cmd->y);
+            result = bitmap(cmd->bitmap_nr, cmd->x, cmd->y);
             break;
         case CMD_WACHT:
-            resultaat = wait(cmd->aantal);
+            result = wait(cmd->aantal);
             break;
         case CMD_HERHAAL:
-            resultaat = herhaal(cmd->start, cmd->aantal);
+            result = herhaal(cmd->start, cmd->aantal);
             break;
         default:
             printf("Onbekend commando\n");
             return;
     }
 
-    handle_logic_result(resultaat);
+    if(result != OK)
+        printf("%s\n", status_to_string(result));
+}
+
+const char* status_to_string(int code) {
+    switch(code) {
+        // Front Layer errors
+        case FRONT_OK: return "FRONT OK";
+        case FRONT_ERROR_EMPTY_INPUT: return "FRONT ERROR: lege input";
+        case FRONT_ERROR_PARSE: return "FRONT ERROR: parser fout";
+        case FRONT_ERROR_UNKNOWN_COMMAND: return "FRONT ERROR: onbekend commando";
+
+        // Logic Layer errors (start bij 100)
+        case OK: return "LOGIC OK";
+        case ERROR_INVALID_COLOR: return "LOGIC ERROR: ongeldig kleur";
+        case ERROR_INVALID_PARAM_THICKNESS: return "LOGIC ERROR: ongeldig dikte";
+        case ERROR_INVALID_PARAM_SIZE: return "LOGIC ERROR: ongeldige afmetingen";
+        case ERROR_INVALID_PARAM_FILLED: return "LOGIC ERROR: ongeldig gevuld veld";
+        case ERROR_INVALID_PARAM_FONTNAME: return "LOGIC ERROR: ongeldige fontnaam";
+        case ERROR_INVALID_PARAM_FONTSIZE: return "LOGIC ERROR: ongeldige fontgrootte";
+        case ERROR_INVALID_PARAM_FONSTYLE: return "LOGIC ERROR: ongeldig fontstijl";
+        case ERROR_INVALID_PARAM: return "LOGIC ERROR: ongeldig parameter";
+        case ERROR_OUT_OF_BOUNDS: return "LOGIC ERROR: coördinaten buiten scherm";
+        case ERROR_TEXT_TOO_LONG: return "LOGIC ERROR: tekst te lang";
+        case ERROR_TOO_MANY_REPEATS: return "LOGIC ERROR: te veel herhalingen";
+
+        // I/O / VGA Layer errors (200+)
+        case VGA_OK: return "VGA OK";
+        case ERROR_VGA: return "IO ERROR: VGA fout";
+        case ERROR_VGA_INVALID_COORDINATE: return "IO ERROR: VGA ongeldig coördinaat";
+        case ERROR_VGA_INVALID_PARAMETER: return "IO ERROR: VGA ongeldig parameter";
+
+        // Default
+        default: return "Onbekende foutcode";
+    }
 }
 
 
