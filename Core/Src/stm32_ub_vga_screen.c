@@ -75,7 +75,7 @@ void UB_VGA_Screen_Init(void)
 //--------------------------------------------------------------
 // fill the DMA RAM buffer with one color
 //--------------------------------------------------------------
-void UB_VGA_FillScreen(uint8_t color)
+VGA_Status UB_VGA_FillScreen(uint8_t color)
 {
   uint16_t xp,yp;
 
@@ -84,6 +84,7 @@ void UB_VGA_FillScreen(uint8_t color)
       UB_VGA_SetPixel(xp,yp,color);
     }
   }
+  return VGA_SUCCESS;
 }
 
 
@@ -91,13 +92,15 @@ void UB_VGA_FillScreen(uint8_t color)
 // put one Pixel on the screen with one color
 // Important : the last Pixel+1 from every line must be black (don't know why??)
 //--------------------------------------------------------------
-void UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
+VGA_Status UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
 {
-  if(xp>=VGA_DISPLAY_X) xp=0;
-  if(yp>=VGA_DISPLAY_Y) yp=0;
+  if(xp>=VGA_DISPLAY_X) return VGA_ERROR_INVALID_COORDINATE;
+  if(yp>=VGA_DISPLAY_Y) return VGA_ERROR_INVALID_COORDINATE;
 
   // Write pixel to ram
   VGA_RAM1[(yp*(VGA_DISPLAY_X+1))+xp]=color;
+
+  return VGA_SUCCESS;
 }
 
 
@@ -420,13 +423,16 @@ void DMA2_Stream5_IRQHandler(void)
 }
 
 
-void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
+VGA_Status UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
     if (id >= NUM_BITMAPS) {
-        // Invalid bitmap ID
-        return;
+        return VGA_ERROR_INVALID_PARAMETER;
     }
 
     const Bitmap_t *bitmap = &vga_bitmaps[id];
+
+    if ((x_lup + bitmap->width > VGA_DISPLAY_X) || (y_lup + bitmap->height > VGA_DISPLAY_Y)) {
+        return VGA_ERROR_INVALID_COORDINATE;
+    }
 
     for (uint16_t y = 0; y < bitmap->height; y++) {
         for (uint16_t x = 0; x < bitmap->width; x++) {
@@ -436,6 +442,7 @@ void UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
             }
         }
     }
+    return VGA_SUCCESS;
 }
 
 // Internal helper function to draw a 1-pixel thick line
@@ -463,9 +470,9 @@ static void P_VGA_DrawSinglePixelLine(uint16_t x1, uint16_t y1, uint16_t x2, uin
     }
 }
 
-void UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness)
+VGA_Status UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness)
 {
-    if (thickness == 0) thickness = 1; // Ensure minimum thickness
+    if (thickness == 0) return VGA_ERROR_INVALID_PARAMETER;
 
     // Calculate absolute difference for determining line steepness
     int16_t dx_abs = abs(x2 - x1);
@@ -482,21 +489,22 @@ void UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t
             P_VGA_DrawSinglePixelLine(x1 + offset_start + i, y1, x2 + offset_start + i, y2, color);
         }
     }
+    return VGA_SUCCESS;
 }
 
-void UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled)
+VGA_Status UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled)
 {
-    if (width == 0 || height == 0) return;
+    if (width == 0 || height == 0) return VGA_ERROR_INVALID_PARAMETER;
 
     uint16_t x2 = x_lup + width - 1;
     uint16_t y2 = y_lup + height - 1;
 
+    if (x2 >= VGA_DISPLAY_X || y2 >= VGA_DISPLAY_Y) return VGA_ERROR_INVALID_COORDINATE;
+
     if (filled) {
         uint16_t x, y;
         for (y = y_lup; y <= y2; y++) {
-            if (y >= VGA_DISPLAY_Y) break;
             for (x = x_lup; x <= x2; x++) {
-                 if (x >= VGA_DISPLAY_X) break;
                 UB_VGA_SetPixel(x, y, color);
             }
         }
@@ -507,10 +515,13 @@ void UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16
         UB_VGA_DrawLine(x_lup, y_lup, x_lup, y2, color, 1); // Left
         UB_VGA_DrawLine(x2, y_lup, x2, y2, color, 1);       // Right
     }
+    return VGA_SUCCESS;
 }
 
-void UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color)
+VGA_Status UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color)
 {
+    if (radius == 0) return VGA_ERROR_INVALID_PARAMETER;
+
     int16_t x = radius;
     int16_t y = 0;
     int16_t err = 0;
@@ -537,20 +548,30 @@ void UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, ui
             err -= 2*x + 1;
         }
     }
+    return VGA_SUCCESS;
 }
 
-void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, const char* style)
+VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, const char* style)
 {
     // --- 1. Font Selection (Simplified logic) ---
-    const FontDef_t* font_def = available_fonts[0].font_def; // Default
+    const FontDef_t* font_def = NULL; // Default
+	bool font_found = false;
     if (font_name != NULL && *font_name != '\0') {
         for (uint8_t i = 0; i < NUM_AVAILABLE_FONTS; i++) {
             if (strcmp(font_name, available_fonts[i].name) == 0) {
                 font_def = available_fonts[i].font_def;
+				font_found = true;
                 break;
             }
         }
     }
+	else
+	{
+		font_def = available_fonts[0].font_def;
+		font_found = true;
+	}
+
+	if(!font_found) return VGA_ERROR_INVALID_PARAMETER;
 
     // --- 2. Style Parameters ---
     bool is_vet = (style != NULL && strcmp(style, "vet") == 0);
@@ -625,7 +646,7 @@ void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, co
                     for(uint8_t bw = 0; bw < block_width; bw++) {
                         for(uint8_t bs = 0; bs < size; bs++) {
                             if(draw_x + bw >= 0) { // Simple safety check
-                                UB_VGA_SetPixel(draw_x + bw, draw_y + bs, color);
+                                if(UB_VGA_SetPixel(draw_x + bw, draw_y + bs, color) != VGA_SUCCESS) return VGA_ERROR_INVALID_COORDINATE;
                             }
                         }
                     }
@@ -650,5 +671,6 @@ void UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, co
             current_x = x;
         }
     }
+	return VGA_SUCCESS;
 }
 
