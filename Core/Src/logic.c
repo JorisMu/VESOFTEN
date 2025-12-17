@@ -1,5 +1,4 @@
 #include "logic.h"
-#include "bitmap.h"
 //dingen die nog gedaan moeten worden:
 // - Errors (Dikte, frontletters, frontstyle, enz...)
 // - herhaal functionaliteit
@@ -21,9 +20,9 @@ const char *stijlen[] = {
 	"normaal", "vet", "cursief"
 };
 
-static int aantal = sizeof(kleuren) / sizeof(kleuren[0]);
-static int aantal = sizeof(fontnamen) / sizeof(fontnamen[0]);
-static int aantal = sizeof(stijlen) / sizeof(stijlen[0]);
+static int aantal_kleur = sizeof(kleuren) / sizeof(kleuren[0]);
+static int aantal_fontnaam = sizeof(fontnamen) / sizeof(fontnamen[0]);
+static int aantal_stijl = sizeof(stijlen) / sizeof(stijlen[0]);
 
 static int contains(const char *items[], const int aantal, const char *item) {
 	for (int i = 0; i < aantal; i++) {
@@ -35,15 +34,15 @@ static int contains(const char *items[], const int aantal, const char *item) {
 }
 
 int validColor(const char *kleur) {
-	return contains(kleuren, aantal, kleur);
+	return contains(kleuren, aantal_kleur, kleur);
 }
 
 int validFont(const char *fontnaam) {
-	return contains(fontnamen, aantal, fontnaam);
+	return contains(fontnamen, aantal_fontnaam, fontnaam);
 }
 
 int validFontstijl(const char *stijl) {
-	return contains(stijlen, aantal, stijl);
+	return contains(stijlen, aantal_stijl, stijl);
 }
 
 /* ===================== MAIN COMMANDO’S ===================== */
@@ -63,9 +62,6 @@ Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
-    printf("Lijn tekenen van (%d,%d) naar (%d,%d) met kleur %d en dikte %d\n",
-           x, y, x2, y2, kleur, dikte);
-
     return OK;
 }
 
@@ -84,8 +80,6 @@ Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
-    printf("Rechthoek tekenen op (%d,%d) met breedte %d, hoogte %d, kleur %d, %s\n",
-           x_lup, y_lup, breedte, hoogte, kleur, gevuld ? "gevuld" : "niet gevuld");
     return OK;
 }
 
@@ -100,8 +94,6 @@ Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fon
     if (!validColor(kleur) || validFont(fontnaam) || validFontstijl(fontstijl) || (fontgrootte != 1 && fontgrootte != 2))
         return ERROR_INVALID_PARAM;
 
-    printf("Tekst '%s' tekenen op (%d,%d) met kleur %d, font '%s', grootte %d, stijl '%s'\n",
-           tekst, x, y, kleur, fontnaam, fontgrootte, fontstijl);
     return OK;
 }
 
@@ -123,7 +115,6 @@ Resultaat clearscherm(char kleur[20]) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
-    printf("Scherm wissen met kleur %d\n", kleur);
     return OK;
 }
 
