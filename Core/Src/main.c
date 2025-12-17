@@ -21,6 +21,10 @@ int main(void)
 
 	UB_VGA_Screen_Init(); // Init VGA-Screen
 
+	UB_VGA_FillScreen(VGA_COL_RED);
+
+	UB_VGA_DrawLine(3,3 ,30,30, VGA_COL_LIGHT_BLUE, 7);
+
   while(1)
   {
     // All drawing is done once, so loop is empty.
