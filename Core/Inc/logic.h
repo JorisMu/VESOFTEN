@@ -5,9 +5,15 @@
 
 typedef enum {
     OK,
-    ERROR_INVALID_PARAM,
+    ERROR_INVALID_COLOR,
+    ERROR_INVALID_PARAM_THICKNESS,
+	ERROR_INVALID_PARAM_SIZE,
+	ERROR_INVALID_PARAM_FILLED,
+	ERROR_INVALID_PARAM_FONTNAME,
+	ERROR_INVALID_PARAM_FONTSIZE,
+	ERROR_INVALID_PARAM_FONSTYLE,
+	ERROR_INVALID_PARAM,
     ERROR_OUT_OF_BOUNDS,
-    ERROR_INVALID_COLOR
 } Resultaat;
 
 // Schermdimensies
@@ -20,5 +26,11 @@ Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20
 Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fontnaam, int fontgrootte, const char *fontstijl);
 Resultaat bitmap(int nr, int x_lup, int y_lup);
 Resultaat clearscherm(char kleur[20]);
+
+//extra functies
+Resultaat wacht(int msecs);
+Resultaat herhaal(int aantal, int hoevaak);
+Resultaat cirkel(int x, int y, int radius, char kleur[20]);
+Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, char kleur[20]);
 
 #endif

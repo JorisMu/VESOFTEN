@@ -48,6 +48,13 @@ void LED_On(int led) {
     GPIOD_ODR |= (1 << (12 + led));
 }
 
+static const char *testen[] = {
+	"zwart", "blauw", "lichtblauw", "groen", "lichtgroen",
+	"cyaan", "lichtcyaan", "rood", "lichtrood", "magenta",
+	"lichtmagenta", "bruin", "geel", "grijs", "wit",
+	"rose", "paars"
+};
+
 
 
 int main(void)
@@ -61,7 +68,10 @@ int main(void)
 	LED_Init();   // LED configureren
 	//char kleur[20] = "blauw";
 
-	LED_On(lijn(60,60, 60, 60, "blauw", 3));     // LED aanzetten
+	LED_On(lijn(60,60,60,60, "blaauw", 3));     // LED aanzetten
+
+
+	// LED_On(contains(testen, aantal, "blauw"));
 
   while(1)
   {

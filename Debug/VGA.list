@@ -7,45 +7,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         000023c4  08000190  08000190  00001190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000234  08002554  08002554  00003554  2**2
+  2 .rodata       00000388  08002554  08002554  00003554  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08002788  08002788  0000405c  2**0
+  3 .ARM.extab    00000000  080028dc  080028dc  000040a0  2**0
                   CONTENTS
-  4 .ARM          00000008  08002788  08002788  00003788  2**2
+  4 .ARM          00000008  080028dc  080028dc  000038dc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08002790  08002790  0000405c  2**0
+  5 .preinit_array 00000000  080028e4  080028e4  000040a0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08002790  08002790  00003790  2**2
+  6 .init_array   00000004  080028e4  080028e4  000038e4  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08002794  08002794  00003794  2**2
+  7 .fini_array   00000004  080028e8  080028e8  000038e8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         0000005c  20000000  08002798  00004000  2**2
+  8 .data         000000a0  20000000  080028ec  00004000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00012e68  2000005c  080027f4  0000405c  2**2
+  9 .bss          00012e68  200000a0  0800298c  000040a0  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  20012ec4  080027f4  00004ec4  2**0
+ 10 ._user_heap_stack 00000600  20012f08  0800298c  00004f08  2**0
                   ALLOC
- 11 .ARM.attributes 00000030  00000000  00000000  0000405c  2**0
+ 11 .ARM.attributes 00000030  00000000  00000000  000040a0  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000563b  00000000  00000000  0000408c  2**0
+ 12 .debug_info   000058b6  00000000  00000000  000040d0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000107c  00000000  00000000  000096c7  2**0
+ 13 .debug_abbrev 000010c4  00000000  00000000  00009986  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000778  00000000  00000000  0000a748  2**3
+ 14 .debug_aranges 000007b0  00000000  00000000  0000aa50  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000583  00000000  00000000  0000aec0  2**0
+ 15 .debug_rnglists 000005ae  00000000  00000000  0000b200  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0000e6be  00000000  00000000  0000b443  2**0
+ 16 .debug_macro  0000e6be  00000000  00000000  0000b7ae  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00005b6c  00000000  00000000  00019b01  2**0
+ 17 .debug_line   00005d33  00000000  00000000  00019e6c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0004945a  00000000  00000000  0001f66d  2**0
+ 18 .debug_str    0004956f  00000000  00000000  0001fb9f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00068ac7  2**0
+ 19 .comment      00000043  00000000  00000000  0006910e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000027d4  00000000  00000000  00068b0c  2**2
+ 20 .debug_frame  000028d8  00000000  00000000  00069154  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000059  00000000  00000000  0006b2e0  2**0
+ 21 .debug_line_str 00000059  00000000  00000000  0006ba2c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -62,7 +62,7 @@ Disassembly of section .text:
  80001a2:	2301      	movs	r3, #1
  80001a4:	7023      	strb	r3, [r4, #0]
  80001a6:	bd10      	pop	{r4, pc}
- 80001a8:	2000005c 	.word	0x2000005c
+ 80001a8:	200000a0 	.word	0x200000a0
  80001ac:	00000000 	.word	0x00000000
  80001b0:	0800253c 	.word	0x0800253c
 
@@ -75,7 +75,7 @@ Disassembly of section .text:
  80001be:	f3af 8000 	nop.w
  80001c2:	bd08      	pop	{r3, pc}
  80001c4:	00000000 	.word	0x00000000
- 80001c8:	20000060 	.word	0x20000060
+ 80001c8:	200000a4 	.word	0x200000a4
  80001cc:	0800253c 	.word	0x0800253c
 
 080001d0 <strcmp>:
@@ -149,309 +149,326 @@ Disassembly of section .text:
  800028c:	4770      	bx	lr
  800028e:	bf00      	nop
 
-08000290 <lijn>:
-#include "logic.h"
+08000290 <contains>:
+    "cyaan", "lichtcyaan", "rood", "lichtrood", "magenta",
+    "lichtmagenta", "bruin", "geel", "grijs", "wit",
+	"rose", "paars"
+};
 
-// Teken een lijn (zoals eerder)
-Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
+static int contains(const char *items[], const int aantal, const char *item) {
  8000290:	b580      	push	{r7, lr}
- 8000292:	b088      	sub	sp, #32
- 8000294:	af04      	add	r7, sp, #16
+ 8000292:	b086      	sub	sp, #24
+ 8000294:	af00      	add	r7, sp, #0
  8000296:	60f8      	str	r0, [r7, #12]
  8000298:	60b9      	str	r1, [r7, #8]
  800029a:	607a      	str	r2, [r7, #4]
- 800029c:	603b      	str	r3, [r7, #0]
-    if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE ||
- 800029e:	68fb      	ldr	r3, [r7, #12]
- 80002a0:	2b00      	cmp	r3, #0
- 80002a2:	db18      	blt.n	80002d6 <lijn+0x46>
- 80002a4:	68fb      	ldr	r3, [r7, #12]
- 80002a6:	f5b3 7f48 	cmp.w	r3, #800	@ 0x320
- 80002aa:	da14      	bge.n	80002d6 <lijn+0x46>
- 80002ac:	68bb      	ldr	r3, [r7, #8]
- 80002ae:	2b00      	cmp	r3, #0
- 80002b0:	db11      	blt.n	80002d6 <lijn+0x46>
- 80002b2:	68bb      	ldr	r3, [r7, #8]
- 80002b4:	f5b3 7f16 	cmp.w	r3, #600	@ 0x258
- 80002b8:	da0d      	bge.n	80002d6 <lijn+0x46>
- 80002ba:	687b      	ldr	r3, [r7, #4]
- 80002bc:	2b00      	cmp	r3, #0
- 80002be:	db0a      	blt.n	80002d6 <lijn+0x46>
-        x2 < 0 || x2 >= SCHERM_BREEDTE || y2 < 0 || y2 >= SCHERM_HOOGTE)
- 80002c0:	687b      	ldr	r3, [r7, #4]
- 80002c2:	f5b3 7f48 	cmp.w	r3, #800	@ 0x320
- 80002c6:	da06      	bge.n	80002d6 <lijn+0x46>
- 80002c8:	683b      	ldr	r3, [r7, #0]
- 80002ca:	2b00      	cmp	r3, #0
- 80002cc:	db03      	blt.n	80002d6 <lijn+0x46>
- 80002ce:	683b      	ldr	r3, [r7, #0]
- 80002d0:	f5b3 7f16 	cmp.w	r3, #600	@ 0x258
- 80002d4:	db01      	blt.n	80002da <lijn+0x4a>
-        return ERROR_OUT_OF_BOUNDS;
- 80002d6:	2302      	movs	r3, #2
- 80002d8:	e019      	b.n	800030e <lijn+0x7e>
-    if (dikte <= 0)
- 80002da:	69fb      	ldr	r3, [r7, #28]
- 80002dc:	2b00      	cmp	r3, #0
- 80002de:	dc01      	bgt.n	80002e4 <lijn+0x54>
-        return ERROR_INVALID_PARAM;
- 80002e0:	2301      	movs	r3, #1
- 80002e2:	e014      	b.n	800030e <lijn+0x7e>
-    if (validColor(kleur))
- 80002e4:	69b8      	ldr	r0, [r7, #24]
- 80002e6:	f000 f819 	bl	800031c <validColor>
- 80002ea:	4603      	mov	r3, r0
- 80002ec:	2b00      	cmp	r3, #0
- 80002ee:	d001      	beq.n	80002f4 <lijn+0x64>
-        return ERROR_INVALID_COLOR;
- 80002f0:	2303      	movs	r3, #3
- 80002f2:	e00c      	b.n	800030e <lijn+0x7e>
-
-    printf("Lijn tekenen van (%d,%d) naar (%d,%d) met kleur %d en dikte %d\n",
- 80002f4:	69fb      	ldr	r3, [r7, #28]
- 80002f6:	9302      	str	r3, [sp, #8]
- 80002f8:	69bb      	ldr	r3, [r7, #24]
- 80002fa:	9301      	str	r3, [sp, #4]
- 80002fc:	683b      	ldr	r3, [r7, #0]
- 80002fe:	9300      	str	r3, [sp, #0]
- 8000300:	687b      	ldr	r3, [r7, #4]
- 8000302:	68ba      	ldr	r2, [r7, #8]
- 8000304:	68f9      	ldr	r1, [r7, #12]
- 8000306:	4804      	ldr	r0, [pc, #16]	@ (8000318 <lijn+0x88>)
- 8000308:	f001 faa4 	bl	8001854 <iprintf>
-           x, y, x2, y2, kleur, dikte);
-    return OK;
- 800030c:	2300      	movs	r3, #0
+	for (int i = 0; i < aantal; i++) {
+ 800029c:	2300      	movs	r3, #0
+ 800029e:	617b      	str	r3, [r7, #20]
+ 80002a0:	e010      	b.n	80002c4 <contains+0x34>
+		if (strcmp(item, items[i]) == 0) {
+ 80002a2:	697b      	ldr	r3, [r7, #20]
+ 80002a4:	009b      	lsls	r3, r3, #2
+ 80002a6:	68fa      	ldr	r2, [r7, #12]
+ 80002a8:	4413      	add	r3, r2
+ 80002aa:	681b      	ldr	r3, [r3, #0]
+ 80002ac:	4619      	mov	r1, r3
+ 80002ae:	6878      	ldr	r0, [r7, #4]
+ 80002b0:	f7ff ff8e 	bl	80001d0 <strcmp>
+ 80002b4:	4603      	mov	r3, r0
+ 80002b6:	2b00      	cmp	r3, #0
+ 80002b8:	d101      	bne.n	80002be <contains+0x2e>
+			return 1;  // gevonden
+ 80002ba:	2301      	movs	r3, #1
+ 80002bc:	e007      	b.n	80002ce <contains+0x3e>
+	for (int i = 0; i < aantal; i++) {
+ 80002be:	697b      	ldr	r3, [r7, #20]
+ 80002c0:	3301      	adds	r3, #1
+ 80002c2:	617b      	str	r3, [r7, #20]
+ 80002c4:	697a      	ldr	r2, [r7, #20]
+ 80002c6:	68bb      	ldr	r3, [r7, #8]
+ 80002c8:	429a      	cmp	r2, r3
+ 80002ca:	dbea      	blt.n	80002a2 <contains+0x12>
+		}
+	}
+	return 0;  // niet gevonden
+ 80002cc:	2300      	movs	r3, #0
 }
- 800030e:	4618      	mov	r0, r3
- 8000310:	3710      	adds	r7, #16
- 8000312:	46bd      	mov	sp, r7
- 8000314:	bd80      	pop	{r7, pc}
- 8000316:	bf00      	nop
- 8000318:	08002554 	.word	0x08002554
+ 80002ce:	4618      	mov	r0, r3
+ 80002d0:	3718      	adds	r7, #24
+ 80002d2:	46bd      	mov	sp, r7
+ 80002d4:	bd80      	pop	{r7, pc}
+	...
 
-0800031c <validColor>:
-
-    printf("Scherm wissen met kleur %d\n", kleur);
-    return OK;
-}
+080002d8 <validColor>:
 
 int validColor(const char *kleur) {
- 800031c:	b5b0      	push	{r4, r5, r7, lr}
- 800031e:	b094      	sub	sp, #80	@ 0x50
- 8000320:	af00      	add	r7, sp, #0
- 8000322:	6078      	str	r0, [r7, #4]
-    // Lijst van toegestane kleuren
-    const char *kleuren[] = {
- 8000324:	4b16      	ldr	r3, [pc, #88]	@ (8000380 <validColor+0x64>)
- 8000326:	f107 040c 	add.w	r4, r7, #12
- 800032a:	461d      	mov	r5, r3
- 800032c:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 800032e:	c40f      	stmia	r4!, {r0, r1, r2, r3}
- 8000330:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 8000332:	c40f      	stmia	r4!, {r0, r1, r2, r3}
- 8000334:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 8000336:	c40f      	stmia	r4!, {r0, r1, r2, r3}
- 8000338:	e895 0007 	ldmia.w	r5, {r0, r1, r2}
- 800033c:	e884 0007 	stmia.w	r4, {r0, r1, r2}
-        "zwart", "blauw", "lichtblauw", "groen", "lichtgroen",
-        "cyaan", "lichtcyaan", "rood", "lichtrood", "magenta",
-        "lichtmagenta", "bruin", "geel", "grijs", "wit"
-    };
-    int aantalKleuren = sizeof(kleuren) / sizeof(kleuren[0]);
- 8000340:	230f      	movs	r3, #15
- 8000342:	64bb      	str	r3, [r7, #72]	@ 0x48
+ 80002d8:	b580      	push	{r7, lr}
+ 80002da:	b084      	sub	sp, #16
+ 80002dc:	af00      	add	r7, sp, #0
+ 80002de:	6078      	str	r0, [r7, #4]
+//            return 1;  // kleur gevonden
+//        }
+//    }
+//    return 0;  // kleur niet gevonden
 
-    for (int i = 0; i < aantalKleuren; i++) {
- 8000344:	2300      	movs	r3, #0
- 8000346:	64fb      	str	r3, [r7, #76]	@ 0x4c
- 8000348:	e011      	b.n	800036e <validColor+0x52>
-        if (strcmp(kleur, kleuren[i]) == 0) {
- 800034a:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 800034c:	009b      	lsls	r3, r3, #2
- 800034e:	3350      	adds	r3, #80	@ 0x50
- 8000350:	443b      	add	r3, r7
- 8000352:	f853 3c44 	ldr.w	r3, [r3, #-68]
- 8000356:	4619      	mov	r1, r3
- 8000358:	6878      	ldr	r0, [r7, #4]
- 800035a:	f7ff ff39 	bl	80001d0 <strcmp>
- 800035e:	4603      	mov	r3, r0
- 8000360:	2b00      	cmp	r3, #0
- 8000362:	d101      	bne.n	8000368 <validColor+0x4c>
-            return 0;  // kleur gevonden
- 8000364:	2300      	movs	r3, #0
- 8000366:	e007      	b.n	8000378 <validColor+0x5c>
-    for (int i = 0; i < aantalKleuren; i++) {
- 8000368:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 800036a:	3301      	adds	r3, #1
- 800036c:	64fb      	str	r3, [r7, #76]	@ 0x4c
- 800036e:	6cfa      	ldr	r2, [r7, #76]	@ 0x4c
- 8000370:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
- 8000372:	429a      	cmp	r2, r3
- 8000374:	dbe9      	blt.n	800034a <validColor+0x2e>
-        }
-    }
-    return 1;  // kleur niet gevonden
- 8000376:	2301      	movs	r3, #1
+	int aantal = sizeof(kleuren) / sizeof(kleuren[0]);
+ 80002e0:	2311      	movs	r3, #17
+ 80002e2:	60fb      	str	r3, [r7, #12]
+	return contains(kleuren, aantal, kleur);
+ 80002e4:	687a      	ldr	r2, [r7, #4]
+ 80002e6:	68f9      	ldr	r1, [r7, #12]
+ 80002e8:	4803      	ldr	r0, [pc, #12]	@ (80002f8 <validColor+0x20>)
+ 80002ea:	f7ff ffd1 	bl	8000290 <contains>
+ 80002ee:	4603      	mov	r3, r0
 }
- 8000378:	4618      	mov	r0, r3
- 800037a:	3750      	adds	r7, #80	@ 0x50
- 800037c:	46bd      	mov	sp, r7
- 800037e:	bdb0      	pop	{r4, r5, r7, pc}
- 8000380:	08002710 	.word	0x08002710
+ 80002f0:	4618      	mov	r0, r3
+ 80002f2:	3710      	adds	r7, #16
+ 80002f4:	46bd      	mov	sp, r7
+ 80002f6:	bd80      	pop	{r7, pc}
+ 80002f8:	20000000 	.word	0x20000000
 
-08000384 <LED_Init>:
+080002fc <lijn>:
+}
+
+/* ===================== COMMANDO’S ===================== */
+
+// Teken een lijn (zoals eerder)
+Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
+ 80002fc:	b580      	push	{r7, lr}
+ 80002fe:	b088      	sub	sp, #32
+ 8000300:	af04      	add	r7, sp, #16
+ 8000302:	60f8      	str	r0, [r7, #12]
+ 8000304:	60b9      	str	r1, [r7, #8]
+ 8000306:	607a      	str	r2, [r7, #4]
+ 8000308:	603b      	str	r3, [r7, #0]
+    if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE ||
+ 800030a:	68fb      	ldr	r3, [r7, #12]
+ 800030c:	2b00      	cmp	r3, #0
+ 800030e:	db18      	blt.n	8000342 <lijn+0x46>
+ 8000310:	68fb      	ldr	r3, [r7, #12]
+ 8000312:	f5b3 7f48 	cmp.w	r3, #800	@ 0x320
+ 8000316:	da14      	bge.n	8000342 <lijn+0x46>
+ 8000318:	68bb      	ldr	r3, [r7, #8]
+ 800031a:	2b00      	cmp	r3, #0
+ 800031c:	db11      	blt.n	8000342 <lijn+0x46>
+ 800031e:	68bb      	ldr	r3, [r7, #8]
+ 8000320:	f5b3 7f16 	cmp.w	r3, #600	@ 0x258
+ 8000324:	da0d      	bge.n	8000342 <lijn+0x46>
+ 8000326:	687b      	ldr	r3, [r7, #4]
+ 8000328:	2b00      	cmp	r3, #0
+ 800032a:	db0a      	blt.n	8000342 <lijn+0x46>
+        x2 < 0 || x2 >= SCHERM_BREEDTE || y2 < 0 || y2 >= SCHERM_HOOGTE)
+ 800032c:	687b      	ldr	r3, [r7, #4]
+ 800032e:	f5b3 7f48 	cmp.w	r3, #800	@ 0x320
+ 8000332:	da06      	bge.n	8000342 <lijn+0x46>
+ 8000334:	683b      	ldr	r3, [r7, #0]
+ 8000336:	2b00      	cmp	r3, #0
+ 8000338:	db03      	blt.n	8000342 <lijn+0x46>
+ 800033a:	683b      	ldr	r3, [r7, #0]
+ 800033c:	f5b3 7f16 	cmp.w	r3, #600	@ 0x258
+ 8000340:	db01      	blt.n	8000346 <lijn+0x4a>
+        return ERROR_OUT_OF_BOUNDS;
+ 8000342:	2309      	movs	r3, #9
+ 8000344:	e019      	b.n	800037a <lijn+0x7e>
+
+    if (dikte <= 0)
+ 8000346:	69fb      	ldr	r3, [r7, #28]
+ 8000348:	2b00      	cmp	r3, #0
+ 800034a:	dc01      	bgt.n	8000350 <lijn+0x54>
+        return ERROR_INVALID_PARAM_THICKNESS;
+ 800034c:	2302      	movs	r3, #2
+ 800034e:	e014      	b.n	800037a <lijn+0x7e>
+
+    if (!validColor(kleur))
+ 8000350:	69b8      	ldr	r0, [r7, #24]
+ 8000352:	f7ff ffc1 	bl	80002d8 <validColor>
+ 8000356:	4603      	mov	r3, r0
+ 8000358:	2b00      	cmp	r3, #0
+ 800035a:	d101      	bne.n	8000360 <lijn+0x64>
+        return ERROR_INVALID_COLOR;
+ 800035c:	2301      	movs	r3, #1
+ 800035e:	e00c      	b.n	800037a <lijn+0x7e>
+
+    printf("Lijn tekenen van (%d,%d) naar (%d,%d) met kleur %d en dikte %d\n",
+ 8000360:	69fb      	ldr	r3, [r7, #28]
+ 8000362:	9302      	str	r3, [sp, #8]
+ 8000364:	69bb      	ldr	r3, [r7, #24]
+ 8000366:	9301      	str	r3, [sp, #4]
+ 8000368:	683b      	ldr	r3, [r7, #0]
+ 800036a:	9300      	str	r3, [sp, #0]
+ 800036c:	687b      	ldr	r3, [r7, #4]
+ 800036e:	68ba      	ldr	r2, [r7, #8]
+ 8000370:	68f9      	ldr	r1, [r7, #12]
+ 8000372:	4804      	ldr	r0, [pc, #16]	@ (8000384 <lijn+0x88>)
+ 8000374:	f001 fa6e 	bl	8001854 <iprintf>
+           x, y, x2, y2, kleur, dikte);
+
+    return OK;
+ 8000378:	2300      	movs	r3, #0
+}
+ 800037a:	4618      	mov	r0, r3
+ 800037c:	3710      	adds	r7, #16
+ 800037e:	46bd      	mov	sp, r7
+ 8000380:	bd80      	pop	{r7, pc}
+ 8000382:	bf00      	nop
+ 8000384:	08002618 	.word	0x08002618
+
+08000388 <LED_Init>:
 
 #define RCC_AHB1ENR (*(volatile uint32_t*)(RCC_BASE + 0x30))
 #define GPIOD_MODER (*(volatile uint32_t*)(GPIOD_BASE + 0x00))
 #define GPIOD_ODR   (*(volatile uint32_t*)(GPIOD_BASE + 0x14))
 
 void LED_Init(void) {
- 8000384:	b480      	push	{r7}
- 8000386:	b083      	sub	sp, #12
- 8000388:	af00      	add	r7, sp, #0
+ 8000388:	b480      	push	{r7}
+ 800038a:	b083      	sub	sp, #12
+ 800038c:	af00      	add	r7, sp, #0
     // 1️⃣ Clock enable voor GPIOD
     RCC_AHB1ENR |= (1 << 3); // GPIODEN = 1
- 800038a:	4b16      	ldr	r3, [pc, #88]	@ (80003e4 <LED_Init+0x60>)
- 800038c:	681b      	ldr	r3, [r3, #0]
- 800038e:	4a15      	ldr	r2, [pc, #84]	@ (80003e4 <LED_Init+0x60>)
- 8000390:	f043 0308 	orr.w	r3, r3, #8
- 8000394:	6013      	str	r3, [r2, #0]
+ 800038e:	4b16      	ldr	r3, [pc, #88]	@ (80003e8 <LED_Init+0x60>)
+ 8000390:	681b      	ldr	r3, [r3, #0]
+ 8000392:	4a15      	ldr	r2, [pc, #84]	@ (80003e8 <LED_Init+0x60>)
+ 8000394:	f043 0308 	orr.w	r3, r3, #8
+ 8000398:	6013      	str	r3, [r2, #0]
 
     // 2️⃣ PD12–PD15 als output
     for (int i = 12; i <= 15; i++) {
- 8000396:	230c      	movs	r3, #12
- 8000398:	607b      	str	r3, [r7, #4]
- 800039a:	e019      	b.n	80003d0 <LED_Init+0x4c>
+ 800039a:	230c      	movs	r3, #12
+ 800039c:	607b      	str	r3, [r7, #4]
+ 800039e:	e019      	b.n	80003d4 <LED_Init+0x4c>
         GPIOD_MODER &= ~(3 << (i*2)); // clear MODER
- 800039c:	4b12      	ldr	r3, [pc, #72]	@ (80003e8 <LED_Init+0x64>)
- 800039e:	681b      	ldr	r3, [r3, #0]
- 80003a0:	687a      	ldr	r2, [r7, #4]
- 80003a2:	0052      	lsls	r2, r2, #1
- 80003a4:	2103      	movs	r1, #3
- 80003a6:	fa01 f202 	lsl.w	r2, r1, r2
- 80003aa:	43d2      	mvns	r2, r2
- 80003ac:	4611      	mov	r1, r2
- 80003ae:	4a0e      	ldr	r2, [pc, #56]	@ (80003e8 <LED_Init+0x64>)
- 80003b0:	400b      	ands	r3, r1
- 80003b2:	6013      	str	r3, [r2, #0]
+ 80003a0:	4b12      	ldr	r3, [pc, #72]	@ (80003ec <LED_Init+0x64>)
+ 80003a2:	681b      	ldr	r3, [r3, #0]
+ 80003a4:	687a      	ldr	r2, [r7, #4]
+ 80003a6:	0052      	lsls	r2, r2, #1
+ 80003a8:	2103      	movs	r1, #3
+ 80003aa:	fa01 f202 	lsl.w	r2, r1, r2
+ 80003ae:	43d2      	mvns	r2, r2
+ 80003b0:	4611      	mov	r1, r2
+ 80003b2:	4a0e      	ldr	r2, [pc, #56]	@ (80003ec <LED_Init+0x64>)
+ 80003b4:	400b      	ands	r3, r1
+ 80003b6:	6013      	str	r3, [r2, #0]
         GPIOD_MODER |=  (1 << (i*2)); // output mode
- 80003b4:	4b0c      	ldr	r3, [pc, #48]	@ (80003e8 <LED_Init+0x64>)
- 80003b6:	681b      	ldr	r3, [r3, #0]
- 80003b8:	687a      	ldr	r2, [r7, #4]
- 80003ba:	0052      	lsls	r2, r2, #1
- 80003bc:	2101      	movs	r1, #1
- 80003be:	fa01 f202 	lsl.w	r2, r1, r2
- 80003c2:	4611      	mov	r1, r2
- 80003c4:	4a08      	ldr	r2, [pc, #32]	@ (80003e8 <LED_Init+0x64>)
- 80003c6:	430b      	orrs	r3, r1
- 80003c8:	6013      	str	r3, [r2, #0]
+ 80003b8:	4b0c      	ldr	r3, [pc, #48]	@ (80003ec <LED_Init+0x64>)
+ 80003ba:	681b      	ldr	r3, [r3, #0]
+ 80003bc:	687a      	ldr	r2, [r7, #4]
+ 80003be:	0052      	lsls	r2, r2, #1
+ 80003c0:	2101      	movs	r1, #1
+ 80003c2:	fa01 f202 	lsl.w	r2, r1, r2
+ 80003c6:	4611      	mov	r1, r2
+ 80003c8:	4a08      	ldr	r2, [pc, #32]	@ (80003ec <LED_Init+0x64>)
+ 80003ca:	430b      	orrs	r3, r1
+ 80003cc:	6013      	str	r3, [r2, #0]
     for (int i = 12; i <= 15; i++) {
- 80003ca:	687b      	ldr	r3, [r7, #4]
- 80003cc:	3301      	adds	r3, #1
- 80003ce:	607b      	str	r3, [r7, #4]
- 80003d0:	687b      	ldr	r3, [r7, #4]
- 80003d2:	2b0f      	cmp	r3, #15
- 80003d4:	dde2      	ble.n	800039c <LED_Init+0x18>
+ 80003ce:	687b      	ldr	r3, [r7, #4]
+ 80003d0:	3301      	adds	r3, #1
+ 80003d2:	607b      	str	r3, [r7, #4]
+ 80003d4:	687b      	ldr	r3, [r7, #4]
+ 80003d6:	2b0f      	cmp	r3, #15
+ 80003d8:	dde2      	ble.n	80003a0 <LED_Init+0x18>
     }
 }
- 80003d6:	bf00      	nop
- 80003d8:	bf00      	nop
- 80003da:	370c      	adds	r7, #12
- 80003dc:	46bd      	mov	sp, r7
- 80003de:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80003e2:	4770      	bx	lr
- 80003e4:	40023830 	.word	0x40023830
- 80003e8:	40020c00 	.word	0x40020c00
+ 80003da:	bf00      	nop
+ 80003dc:	bf00      	nop
+ 80003de:	370c      	adds	r7, #12
+ 80003e0:	46bd      	mov	sp, r7
+ 80003e2:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80003e6:	4770      	bx	lr
+ 80003e8:	40023830 	.word	0x40023830
+ 80003ec:	40020c00 	.word	0x40020c00
 
-080003ec <LED_On>:
+080003f0 <LED_On>:
 
 void LED_On(int led) {
- 80003ec:	b480      	push	{r7}
- 80003ee:	b083      	sub	sp, #12
- 80003f0:	af00      	add	r7, sp, #0
- 80003f2:	6078      	str	r0, [r7, #4]
+ 80003f0:	b480      	push	{r7}
+ 80003f2:	b083      	sub	sp, #12
+ 80003f4:	af00      	add	r7, sp, #0
+ 80003f6:	6078      	str	r0, [r7, #4]
     // LED 0 = PD12, 1 = PD13, 2 = PD14, 3 = PD15
     if (led < 0 || led > 3) return;
- 80003f4:	687b      	ldr	r3, [r7, #4]
- 80003f6:	2b00      	cmp	r3, #0
- 80003f8:	db14      	blt.n	8000424 <LED_On+0x38>
- 80003fa:	687b      	ldr	r3, [r7, #4]
- 80003fc:	2b03      	cmp	r3, #3
- 80003fe:	dc11      	bgt.n	8000424 <LED_On+0x38>
+ 80003f8:	687b      	ldr	r3, [r7, #4]
+ 80003fa:	2b00      	cmp	r3, #0
+ 80003fc:	db14      	blt.n	8000428 <LED_On+0x38>
+ 80003fe:	687b      	ldr	r3, [r7, #4]
+ 8000400:	2b03      	cmp	r3, #3
+ 8000402:	dc11      	bgt.n	8000428 <LED_On+0x38>
 
     // Eerst alle LEDjes uit
     GPIOD_ODR &= ~((1 << 12) | (1 << 13) | (1 << 14) | (1 << 15));
- 8000400:	4b0b      	ldr	r3, [pc, #44]	@ (8000430 <LED_On+0x44>)
- 8000402:	681b      	ldr	r3, [r3, #0]
- 8000404:	4a0a      	ldr	r2, [pc, #40]	@ (8000430 <LED_On+0x44>)
- 8000406:	f423 4370 	bic.w	r3, r3, #61440	@ 0xf000
- 800040a:	6013      	str	r3, [r2, #0]
+ 8000404:	4b0b      	ldr	r3, [pc, #44]	@ (8000434 <LED_On+0x44>)
+ 8000406:	681b      	ldr	r3, [r3, #0]
+ 8000408:	4a0a      	ldr	r2, [pc, #40]	@ (8000434 <LED_On+0x44>)
+ 800040a:	f423 4370 	bic.w	r3, r3, #61440	@ 0xf000
+ 800040e:	6013      	str	r3, [r2, #0]
 
     // Dan het juiste LEDje aan
     GPIOD_ODR |= (1 << (12 + led));
- 800040c:	4b08      	ldr	r3, [pc, #32]	@ (8000430 <LED_On+0x44>)
- 800040e:	681b      	ldr	r3, [r3, #0]
- 8000410:	687a      	ldr	r2, [r7, #4]
- 8000412:	320c      	adds	r2, #12
- 8000414:	2101      	movs	r1, #1
- 8000416:	fa01 f202 	lsl.w	r2, r1, r2
- 800041a:	4611      	mov	r1, r2
- 800041c:	4a04      	ldr	r2, [pc, #16]	@ (8000430 <LED_On+0x44>)
- 800041e:	430b      	orrs	r3, r1
- 8000420:	6013      	str	r3, [r2, #0]
- 8000422:	e000      	b.n	8000426 <LED_On+0x3a>
+ 8000410:	4b08      	ldr	r3, [pc, #32]	@ (8000434 <LED_On+0x44>)
+ 8000412:	681b      	ldr	r3, [r3, #0]
+ 8000414:	687a      	ldr	r2, [r7, #4]
+ 8000416:	320c      	adds	r2, #12
+ 8000418:	2101      	movs	r1, #1
+ 800041a:	fa01 f202 	lsl.w	r2, r1, r2
+ 800041e:	4611      	mov	r1, r2
+ 8000420:	4a04      	ldr	r2, [pc, #16]	@ (8000434 <LED_On+0x44>)
+ 8000422:	430b      	orrs	r3, r1
+ 8000424:	6013      	str	r3, [r2, #0]
+ 8000426:	e000      	b.n	800042a <LED_On+0x3a>
     if (led < 0 || led > 3) return;
- 8000424:	bf00      	nop
+ 8000428:	bf00      	nop
 }
- 8000426:	370c      	adds	r7, #12
- 8000428:	46bd      	mov	sp, r7
- 800042a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800042e:	4770      	bx	lr
- 8000430:	40020c14 	.word	0x40020c14
+ 800042a:	370c      	adds	r7, #12
+ 800042c:	46bd      	mov	sp, r7
+ 800042e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000432:	4770      	bx	lr
+ 8000434:	40020c14 	.word	0x40020c14
 
-08000434 <main>:
+08000438 <main>:
+};
 
 
 
 int main(void)
 {
- 8000434:	b580      	push	{r7, lr}
- 8000436:	b082      	sub	sp, #8
- 8000438:	af02      	add	r7, sp, #8
+ 8000438:	b580      	push	{r7, lr}
+ 800043a:	b082      	sub	sp, #8
+ 800043c:	af02      	add	r7, sp, #8
 	SystemInit(); // System speed to 168MHz
- 800043a:	f001 f875 	bl	8001528 <SystemInit>
+ 800043e:	f001 f873 	bl	8001528 <SystemInit>
 
 	UB_VGA_Screen_Init(); // Init VGA-Screen
- 800043e:	f000 f87b 	bl	8000538 <UB_VGA_Screen_Init>
+ 8000442:	f000 f879 	bl	8000538 <UB_VGA_Screen_Init>
 
 	UB_VGA_FillScreen(VGA_COL_BLUE);
- 8000442:	2003      	movs	r0, #3
- 8000444:	f000 f8b8 	bl	80005b8 <UB_VGA_FillScreen>
+ 8000446:	2003      	movs	r0, #3
+ 8000448:	f000 f8b6 	bl	80005b8 <UB_VGA_FillScreen>
 
 	LED_Init();   // LED configureren
- 8000448:	f7ff ff9c 	bl	8000384 <LED_Init>
+ 800044c:	f7ff ff9c 	bl	8000388 <LED_Init>
 	//char kleur[20] = "blauw";
 
-	LED_On(lijn(60,60, 900, 60, "blauw", 3));     // LED aanzetten
- 800044c:	2303      	movs	r3, #3
- 800044e:	9301      	str	r3, [sp, #4]
- 8000450:	4b07      	ldr	r3, [pc, #28]	@ (8000470 <main+0x3c>)
- 8000452:	9300      	str	r3, [sp, #0]
- 8000454:	233c      	movs	r3, #60	@ 0x3c
- 8000456:	f44f 7261 	mov.w	r2, #900	@ 0x384
- 800045a:	213c      	movs	r1, #60	@ 0x3c
- 800045c:	203c      	movs	r0, #60	@ 0x3c
- 800045e:	f7ff ff17 	bl	8000290 <lijn>
- 8000462:	4603      	mov	r3, r0
- 8000464:	4618      	mov	r0, r3
- 8000466:	f7ff ffc1 	bl	80003ec <LED_On>
+	LED_On(lijn(60,60,60,60, "blaauw", 3));     // LED aanzetten
+ 8000450:	2303      	movs	r3, #3
+ 8000452:	9301      	str	r3, [sp, #4]
+ 8000454:	4b06      	ldr	r3, [pc, #24]	@ (8000470 <main+0x38>)
+ 8000456:	9300      	str	r3, [sp, #0]
+ 8000458:	233c      	movs	r3, #60	@ 0x3c
+ 800045a:	223c      	movs	r2, #60	@ 0x3c
+ 800045c:	213c      	movs	r1, #60	@ 0x3c
+ 800045e:	203c      	movs	r0, #60	@ 0x3c
+ 8000460:	f7ff ff4c 	bl	80002fc <lijn>
+ 8000464:	4603      	mov	r3, r0
+ 8000466:	4618      	mov	r0, r3
+ 8000468:	f7ff ffc2 	bl	80003f0 <LED_On>
+
+
+	// LED_On(contains(testen, aantal, "blauw"));
 
   while(1)
- 800046a:	bf00      	nop
- 800046c:	e7fd      	b.n	800046a <main+0x36>
- 800046e:	bf00      	nop
- 8000470:	0800274c 	.word	0x0800274c
+ 800046c:	bf00      	nop
+ 800046e:	e7fd      	b.n	800046c <main+0x34>
+ 8000470:	080028a0 	.word	0x080028a0
 
 08000474 <NVIC_Init>:
   * @param  NVIC_InitStruct: pointer to a NVIC_InitTypeDef structure that contains
@@ -672,8 +689,8 @@ void UB_VGA_Screen_Init(void)
  80005a6:	3708      	adds	r7, #8
  80005a8:	46bd      	mov	sp, r7
  80005aa:	bd80      	pop	{r7, pc}
- 80005ac:	20000078 	.word	0x20000078
- 80005b0:	20000084 	.word	0x20000084
+ 80005ac:	200000bc 	.word	0x200000bc
+ 80005b0:	200000c8 	.word	0x200000c8
  80005b4:	40026488 	.word	0x40026488
 
 080005b8 <UB_VGA_FillScreen>:
@@ -777,7 +794,7 @@ void UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
  8000644:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000648:	4770      	bx	lr
  800064a:	bf00      	nop
- 800064c:	20000084 	.word	0x20000084
+ 800064c:	200000c8 	.word	0x200000c8
 
 08000650 <P_VGA_InitIO>:
 //--------------------------------------------------------------
@@ -1212,7 +1229,7 @@ void P_VGA_InitDMA(void)
  8000896:	bd80      	pop	{r7, pc}
  8000898:	40026488 	.word	0x40026488
  800089c:	40021015 	.word	0x40021015
- 80008a0:	20000084 	.word	0x20000084
+ 80008a0:	200000c8 	.word	0x200000c8
  80008a4:	40010000 	.word	0x40010000
 
 080008a8 <TIM2_IRQHandler>:
@@ -1341,8 +1358,8 @@ void TIM2_IRQHandler(void)
  800094a:	bf00      	nop
  800094c:	bd80      	pop	{r7, pc}
  800094e:	bf00      	nop
- 8000950:	20000078 	.word	0x20000078
- 8000954:	20000084 	.word	0x20000084
+ 8000950:	200000bc 	.word	0x200000bc
+ 8000954:	200000c8 	.word	0x200000c8
  8000958:	40020400 	.word	0x40020400
  800095c:	40026488 	.word	0x40026488
  8000960:	40010000 	.word	0x40010000
@@ -3909,21 +3926,21 @@ LoopFillZerobss:
  80016aa:	f000 f977 	bl	800199c <__libc_init_array>
 /* Call the application's entry point.*/
   bl  main
- 80016ae:	f7fe fec1 	bl	8000434 <main>
+ 80016ae:	f7fe fec3 	bl	8000438 <main>
   bx  lr    
  80016b2:	4770      	bx	lr
   ldr   sp, =_estack     /* set stack pointer */
  80016b4:	20020000 	.word	0x20020000
   ldr  r3, =_sidata
- 80016b8:	08002798 	.word	0x08002798
+ 80016b8:	080028ec 	.word	0x080028ec
   ldr  r0, =_sdata
  80016bc:	20000000 	.word	0x20000000
   ldr  r3, =_edata
- 80016c0:	2000005c 	.word	0x2000005c
+ 80016c0:	200000a0 	.word	0x200000a0
   ldr  r2, =_sbss
- 80016c4:	2000005c 	.word	0x2000005c
+ 80016c4:	200000a0 	.word	0x200000a0
   ldr  r3, = _ebss
- 80016c8:	20012ec4 	.word	0x20012ec4
+ 80016c8:	20012f08 	.word	0x20012f08
 
 080016cc <ADC_IRQHandler>:
  * @retval None       
@@ -3977,7 +3994,7 @@ Infinite_Loop:
  800172c:	0800189b 	.word	0x0800189b
  8001730:	080018d3 	.word	0x080018d3
  8001734:	080018f7 	.word	0x080018f7
- 8001738:	20012d74 	.word	0x20012d74
+ 8001738:	20012db8 	.word	0x20012db8
 
 0800173c <stdio_exit_handler>:
  800173c:	4a02      	ldr	r2, [pc, #8]	@ (8001748 <stdio_exit_handler+0xc>)
@@ -3985,9 +4002,9 @@ Infinite_Loop:
  8001740:	4803      	ldr	r0, [pc, #12]	@ (8001750 <stdio_exit_handler+0x14>)
  8001742:	f000 b869 	b.w	8001818 <_fwalk_sglue>
  8001746:	bf00      	nop
- 8001748:	20000000 	.word	0x20000000
+ 8001748:	20000044 	.word	0x20000044
  800174c:	08002281 	.word	0x08002281
- 8001750:	20000010 	.word	0x20000010
+ 8001750:	20000054 	.word	0x20000054
 
 08001754 <cleanup_stdio>:
  8001754:	6841      	ldr	r1, [r0, #4]
@@ -4012,9 +4029,9 @@ Infinite_Loop:
  8001780:	f000 bd7e 	b.w	8002280 <_fflush_r>
  8001784:	bd10      	pop	{r4, pc}
  8001786:	bf00      	nop
- 8001788:	20012d74 	.word	0x20012d74
- 800178c:	20012ddc 	.word	0x20012ddc
- 8001790:	20012e44 	.word	0x20012e44
+ 8001788:	20012db8 	.word	0x20012db8
+ 800178c:	20012e20 	.word	0x20012e20
+ 8001790:	20012e88 	.word	0x20012e88
 
 08001794 <global_stdio_init.part.0>:
  8001794:	b510      	push	{r4, lr}
@@ -4035,21 +4052,21 @@ Infinite_Loop:
  80017ba:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
  80017be:	2112      	movs	r1, #18
  80017c0:	f7ff bf86 	b.w	80016d0 <std>
- 80017c4:	20012eac 	.word	0x20012eac
- 80017c8:	20012d74 	.word	0x20012d74
+ 80017c4:	20012ef0 	.word	0x20012ef0
+ 80017c8:	20012db8 	.word	0x20012db8
  80017cc:	0800173d 	.word	0x0800173d
 
 080017d0 <__sfp_lock_acquire>:
  80017d0:	4801      	ldr	r0, [pc, #4]	@ (80017d8 <__sfp_lock_acquire+0x8>)
  80017d2:	f000 b908 	b.w	80019e6 <__retarget_lock_acquire_recursive>
  80017d6:	bf00      	nop
- 80017d8:	20012eb5 	.word	0x20012eb5
+ 80017d8:	20012ef9 	.word	0x20012ef9
 
 080017dc <__sfp_lock_release>:
  80017dc:	4801      	ldr	r0, [pc, #4]	@ (80017e4 <__sfp_lock_release+0x8>)
  80017de:	f000 b903 	b.w	80019e8 <__retarget_lock_release_recursive>
  80017e2:	bf00      	nop
- 80017e4:	20012eb5 	.word	0x20012eb5
+ 80017e4:	20012ef9 	.word	0x20012ef9
 
 080017e8 <__sinit>:
  80017e8:	b510      	push	{r4, lr}
@@ -4069,7 +4086,7 @@ Infinite_Loop:
  800180c:	e7f2      	b.n	80017f4 <__sinit+0xc>
  800180e:	bf00      	nop
  8001810:	08001755 	.word	0x08001755
- 8001814:	20012eac 	.word	0x20012eac
+ 8001814:	20012ef0 	.word	0x20012ef0
 
 08001818 <_fwalk_sglue>:
  8001818:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -4112,7 +4129,7 @@ Infinite_Loop:
  800186c:	f85d eb04 	ldr.w	lr, [sp], #4
  8001870:	b004      	add	sp, #16
  8001872:	4770      	bx	lr
- 8001874:	2000000c 	.word	0x2000000c
+ 8001874:	20000050 	.word	0x20000050
 
 08001878 <__sread>:
  8001878:	b510      	push	{r4, lr}
@@ -4197,7 +4214,7 @@ Infinite_Loop:
  8001926:	b103      	cbz	r3, 800192a <_close_r+0x1a>
  8001928:	6023      	str	r3, [r4, #0]
  800192a:	bd38      	pop	{r3, r4, r5, pc}
- 800192c:	20012eb0 	.word	0x20012eb0
+ 800192c:	20012ef4 	.word	0x20012ef4
 
 08001930 <_lseek_r>:
  8001930:	b538      	push	{r3, r4, r5, lr}
@@ -4215,7 +4232,7 @@ Infinite_Loop:
  800194a:	b103      	cbz	r3, 800194e <_lseek_r+0x1e>
  800194c:	6023      	str	r3, [r4, #0]
  800194e:	bd38      	pop	{r3, r4, r5, pc}
- 8001950:	20012eb0 	.word	0x20012eb0
+ 8001950:	20012ef4 	.word	0x20012ef4
 
 08001954 <_read_r>:
  8001954:	b538      	push	{r3, r4, r5, lr}
@@ -4233,7 +4250,7 @@ Infinite_Loop:
  800196e:	b103      	cbz	r3, 8001972 <_read_r+0x1e>
  8001970:	6023      	str	r3, [r4, #0]
  8001972:	bd38      	pop	{r3, r4, r5, pc}
- 8001974:	20012eb0 	.word	0x20012eb0
+ 8001974:	20012ef4 	.word	0x20012ef4
 
 08001978 <_write_r>:
  8001978:	b538      	push	{r3, r4, r5, lr}
@@ -4251,7 +4268,7 @@ Infinite_Loop:
  8001992:	b103      	cbz	r3, 8001996 <_write_r+0x1e>
  8001994:	6023      	str	r3, [r4, #0]
  8001996:	bd38      	pop	{r3, r4, r5, pc}
- 8001998:	20012eb0 	.word	0x20012eb0
+ 8001998:	20012ef4 	.word	0x20012ef4
 
 0800199c <__libc_init_array>:
  800199c:	b570      	push	{r4, r5, r6, lr}
@@ -4279,10 +4296,10 @@ Infinite_Loop:
  80019ce:	4798      	blx	r3
  80019d0:	3601      	adds	r6, #1
  80019d2:	e7f2      	b.n	80019ba <__libc_init_array+0x1e>
- 80019d4:	08002790 	.word	0x08002790
- 80019d8:	08002790 	.word	0x08002790
- 80019dc:	08002790 	.word	0x08002790
- 80019e0:	08002794 	.word	0x08002794
+ 80019d4:	080028e4 	.word	0x080028e4
+ 80019d8:	080028e4 	.word	0x080028e4
+ 80019dc:	080028e4 	.word	0x080028e4
+ 80019e0:	080028e8 	.word	0x080028e8
 
 080019e4 <__retarget_lock_init_recursive>:
  80019e4:	4770      	bx	lr
@@ -4363,7 +4380,7 @@ Infinite_Loop:
  8001a76:	e7ca      	b.n	8001a0e <_free_r+0x22>
  8001a78:	bd38      	pop	{r3, r4, r5, pc}
  8001a7a:	bf00      	nop
- 8001a7c:	20012ebc 	.word	0x20012ebc
+ 8001a7c:	20012f00 	.word	0x20012f00
 
 08001a80 <sbrk_aligned>:
  8001a80:	b570      	push	{r4, r5, r6, lr}
@@ -4393,7 +4410,7 @@ Infinite_Loop:
  8001aba:	d1f2      	bne.n	8001aa2 <sbrk_aligned+0x22>
  8001abc:	e7ef      	b.n	8001a9e <sbrk_aligned+0x1e>
  8001abe:	bf00      	nop
- 8001ac0:	20012eb8 	.word	0x20012eb8
+ 8001ac0:	20012efc 	.word	0x20012efc
 
 08001ac4 <_malloc_r>:
  8001ac4:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -4503,19 +4520,19 @@ Infinite_Loop:
  8001bba:	6005      	str	r5, [r0, #0]
  8001bbc:	e7d6      	b.n	8001b6c <_malloc_r+0xa8>
  8001bbe:	bf00      	nop
- 8001bc0:	20012ebc 	.word	0x20012ebc
+ 8001bc0:	20012f00 	.word	0x20012f00
 
 08001bc4 <__malloc_lock>:
  8001bc4:	4801      	ldr	r0, [pc, #4]	@ (8001bcc <__malloc_lock+0x8>)
  8001bc6:	f7ff bf0e 	b.w	80019e6 <__retarget_lock_acquire_recursive>
  8001bca:	bf00      	nop
- 8001bcc:	20012eb4 	.word	0x20012eb4
+ 8001bcc:	20012ef8 	.word	0x20012ef8
 
 08001bd0 <__malloc_unlock>:
  8001bd0:	4801      	ldr	r0, [pc, #4]	@ (8001bd8 <__malloc_unlock+0x8>)
  8001bd2:	f7ff bf09 	b.w	80019e8 <__retarget_lock_release_recursive>
  8001bd6:	bf00      	nop
- 8001bd8:	20012eb4 	.word	0x20012eb4
+ 8001bd8:	20012ef8 	.word	0x20012ef8
 
 08001bdc <__sfputc_r>:
  8001bdc:	6893      	ldr	r3, [r2, #8]
@@ -4781,11 +4798,11 @@ Infinite_Loop:
  8001e44:	4630      	mov	r0, r6
  8001e46:	f000 f879 	bl	8001f3c <_printf_i>
  8001e4a:	e7e4      	b.n	8001e16 <_vfiprintf_r+0x1e6>
- 8001e4c:	08002752 	.word	0x08002752
- 8001e50:	0800275c 	.word	0x0800275c
+ 8001e4c:	080028a7 	.word	0x080028a7
+ 8001e50:	080028b1 	.word	0x080028b1
  8001e54:	00000000 	.word	0x00000000
  8001e58:	08001c0b 	.word	0x08001c0b
- 8001e5c:	08002758 	.word	0x08002758
+ 8001e5c:	080028ad 	.word	0x080028ad
 
 08001e60 <_printf_common>:
  8001e60:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -5114,8 +5131,8 @@ Infinite_Loop:
  8002168:	2500      	movs	r5, #0
  800216a:	f104 0619 	add.w	r6, r4, #25
  800216e:	e7f5      	b.n	800215c <_printf_i+0x220>
- 8002170:	08002763 	.word	0x08002763
- 8002174:	08002774 	.word	0x08002774
+ 8002170:	080028b8 	.word	0x080028b8
+ 8002174:	080028c9 	.word	0x080028c9
 
 08002178 <__sflush_r>:
  8002178:	f9b1 200c 	ldrsh.w	r2, [r1, #12]
@@ -5404,7 +5421,7 @@ Infinite_Loop:
  80023ee:	e7f4      	b.n	80023da <__swsetup_r+0x8e>
  80023f0:	2000      	movs	r0, #0
  80023f2:	e7f7      	b.n	80023e4 <__swsetup_r+0x98>
- 80023f4:	2000000c 	.word	0x2000000c
+ 80023f4:	20000050 	.word	0x20000050
 
 080023f8 <_sbrk_r>:
  80023f8:	b538      	push	{r3, r4, r5, lr}
@@ -5420,7 +5437,7 @@ Infinite_Loop:
  800240e:	b103      	cbz	r3, 8002412 <_sbrk_r+0x1a>
  8002410:	6023      	str	r3, [r4, #0]
  8002412:	bd38      	pop	{r3, r4, r5, pc}
- 8002414:	20012eb0 	.word	0x20012eb0
+ 8002414:	20012ef4 	.word	0x20012ef4
 
 08002418 <__swhatbuf_r>:
  8002418:	b570      	push	{r4, r5, r6, lr}
@@ -5520,7 +5537,7 @@ Infinite_Loop:
  80024f6:	6023      	str	r3, [r4, #0]
  80024f8:	bd38      	pop	{r3, r4, r5, pc}
  80024fa:	bf00      	nop
- 80024fc:	20012eb0 	.word	0x20012eb0
+ 80024fc:	20012ef4 	.word	0x20012ef4
 
 08002500 <_isatty_r>:
  8002500:	b538      	push	{r3, r4, r5, lr}
@@ -5536,7 +5553,7 @@ Infinite_Loop:
  8002516:	b103      	cbz	r3, 800251a <_isatty_r+0x1a>
  8002518:	6023      	str	r3, [r4, #0]
  800251a:	bd38      	pop	{r3, r4, r5, pc}
- 800251c:	20012eb0 	.word	0x20012eb0
+ 800251c:	20012ef4 	.word	0x20012ef4
 
 08002520 <_sbrk>:
  8002520:	4a04      	ldr	r2, [pc, #16]	@ (8002534 <_sbrk+0x14>)
@@ -5549,8 +5566,8 @@ Infinite_Loop:
  800252e:	4403      	add	r3, r0
  8002530:	6013      	str	r3, [r2, #0]
  8002532:	4770      	bx	lr
- 8002534:	20012ec0 	.word	0x20012ec0
- 8002538:	20012ec8 	.word	0x20012ec8
+ 8002534:	20012f04 	.word	0x20012f04
+ 8002538:	20012f08 	.word	0x20012f08
 
 0800253c <_init>:
  800253c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
