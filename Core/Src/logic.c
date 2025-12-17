@@ -77,8 +77,13 @@ uint8_t kleurToCode(char kleur[]) {
 
 // Teken een lijn (zoals eerder)
 Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
-    if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE || x2 < 0 || x2 >= SCHERM_BREEDTE || y2 < 0 || y2 >= SCHERM_HOOGTE)
-        return ERROR_OUT_OF_BOUNDS;
+    if (x < 0 || x >= SCHERM_BREEDTE ||
+    	y < 0 || y >= SCHERM_HOOGTE ||
+		x2 < 0 || x2 >= SCHERM_BREEDTE ||
+		y2 < 0 || y2 >= SCHERM_HOOGTE)
+    {
+    	return ERROR_OUT_OF_BOUNDS;
+    }
 
     if (dikte <= 0)
         return ERROR_INVALID_PARAM_THICKNESS;
@@ -86,22 +91,10 @@ Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
-    if (UB_VGA_DrawLine(x,y,x2,y2,kleurToCode(kleur), dikte) != 0)
-        return ERROR_VGA;
-
     // stuur naar VGA scherm
     int status = UB_VGA_DrawLine(x, y, x2, y2, kleurToCode(kleur), dikte);
-
-    switch (status) {
-        case 0:
-            // Alles OK
-            break;
-        case 1:
-            return ERROR_VGA_INVALID_COORDINATE;
-        case 2:
-            return ERROR_VGA_INVALID_PARAMETER;
-        default:
-            return ERROR_VGA;
+    if (status != 0) {
+    	return vgaStatusToResultaat(status);
     }
 
     return OK;
@@ -115,17 +108,23 @@ Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20
     if (breedte <= 0 || hoogte <= 0)
         return ERROR_INVALID_PARAM_SIZE;
 
-    if (gevuld != 0)
+    if (gevuld < 0 || gevuld > 1)
         return ERROR_INVALID_PARAM_FILLED;
 
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
+    // stuur naar VGA scherm
+    int status = UB_VGA_DrawRectangle(x_lup, y_lup, breedte, hoogte, kleurToCode(kleur), gevuld);
+    if (status != 0) {
+        return vgaStatusToResultaat(status);
+    }
+
     return OK;
 }
 
 // Teken tekst
-Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fontnaam, int fontgrootte, const char *fontstijl) {
+Resultaat tekst(int x, int y, char kleur[20], const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]) {
     if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
@@ -134,12 +133,17 @@ Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fon
 
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
-    if (validFont(fontnaam))
+    if (!validFont(fontnaam))
         return ERROR_INVALID_PARAM_FONTNAME;
-    if (validFontstijl(fontstijl))
+    if (!validFontstijl(fontstijl))
         return ERROR_INVALID_PARAM_FONSTYLE;
     if (fontgrootte != 1 && fontgrootte != 2)
         return ERROR_INVALID_PARAM_FONTSIZE;
+
+    int status = UB_VGA_DrawText(x, y, kleurToCode(kleur), tekst, fontnaam, 1, fontstijl);
+    if (status != 0) {
+        return vgaStatusToResultaat(status);
+    }
 
     return OK;
 }
@@ -153,6 +157,10 @@ Resultaat bitmap(int nr, int x_lup, int y_lup) {
     if (nr < 0 || nr > 5)
         return ERROR_INVALID_PARAM;
 
+    int status = UB_VGA_DrawBitmap(nr, x_lup, y_lup);
+    if (status != 0) {
+        return vgaStatusToResultaat(status);
+    }
     return OK;
 }
 
@@ -163,17 +171,8 @@ Resultaat clearscherm(char kleur[20]) {
 
     //stuur naar VGA scherm
     int status = UB_VGA_FillScreen(kleurToCode(kleur));
-
-    switch (status) {
-        case 0:
-            // Alles OK
-            break;
-        case 1:
-            return ERROR_VGA_INVALID_COORDINATE;
-        case 2:
-            return ERROR_VGA_INVALID_PARAMETER;
-        default:
-            return ERROR_VGA;
+    if (status != 0) {
+        return vgaStatusToResultaat(status);
     }
 
     return OK;
@@ -212,6 +211,12 @@ Resultaat cirkel(int x, int y, int radius, char kleur[20]) {
         return ERROR_INVALID_COLOR;
     }
 
+    // stuur naar VGA scherm
+    int status = UB_VGA_DrawCircle(x, y, radius, kleurToCode(kleur));
+    if (status != 0) {
+        return vgaStatusToResultaat(status);
+    }
+
     return OK;
 }
 
@@ -236,3 +241,15 @@ Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,
     return OK;
 }
 
+Resultaat vgaStatusToResultaat(int status) {
+    switch (status) {
+        case 0:
+            return OK;  // Alles OK
+        case 1:
+            return ERROR_VGA_INVALID_COORDINATE;
+        case 2:
+            return ERROR_VGA_INVALID_PARAMETER;
+        default:
+            return ERROR_VGA;
+    }
+}

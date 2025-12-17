@@ -59,21 +59,43 @@ int main(void)
 	LED_Init();   // LED configureren
 
 	//clearscherm function
-	if (clearscherm("grijs")==0) {
+	/*if (clearscherm("wit")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}
+	}*/
 
-	//lijn function
-	if (lijn(3,3,30,30,"blauw", 7)==0) {
+	/*//lijn function
+	if (lijn(3,5,30,30,"blauw", 5)==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}
+	}*/
 
+	//rechthoek function
+	/*if (rechthoek(10,10,30,20,"zwart",1)==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}*/
 
-	// LED_On(contains(testen, aantal, "blauw"));
+	/*if (cirkel(120,160,79,"groen")==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}*/
+
+	/*if (tekst(10,20, "wit","the quick brown fox jumps over the lazy dog", "consolas", 1, "vet")==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}*/
+
+	/*if (bitmap(0,50,50)==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}*/
 
   while(1)
   {
