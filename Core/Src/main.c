@@ -57,11 +57,20 @@ int main(void)
 	UB_VGA_FillScreen(VGA_COL_BLUE);
 
 	LED_Init();   // LED configureren
-	//char kleur[20] = "blauw";
 
-	LED_On(lijn(60,60,60,60, "blauw", 3));     // LED aanzetten
+	//clearscherm function
+	if (clearscherm("grijs")==0) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}
 
-	clearscherm("grijs");
+	//lijn function
+	if (lijn(3,3,30,30,"blauw", 7)==0) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}
 
 
 	// LED_On(contains(testen, aantal, "blauw"));

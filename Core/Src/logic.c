@@ -5,6 +5,9 @@
 // - herhaal functionaliteit
 // - functies van de high layer direct uitvoeren wanneer functie niet in error schiet
 
+//functies af:
+//clearscherm
+
 
 // Lijst van toegestane kleuren
 const char *kleuren[] = {
@@ -83,6 +86,24 @@ Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
+    if (UB_VGA_DrawLine(x,y,x2,y2,kleurToCode(kleur), dikte) != 0)
+        return ERROR_VGA;
+
+    // stuur naar VGA scherm
+    int status = UB_VGA_DrawLine(x, y, x2, y2, kleurToCode(kleur), dikte);
+
+    switch (status) {
+        case 0:
+            // Alles OK
+            break;
+        case 1:
+            return ERROR_VGA_INVALID_COORDINATE;
+        case 2:
+            return ERROR_VGA_INVALID_PARAMETER;
+        default:
+            return ERROR_VGA;
+    }
+
     return OK;
 }
 
@@ -140,9 +161,20 @@ Resultaat clearscherm(char kleur[20]) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
-    // Scherm vullen
-    if (UB_VGA_FillScreen(kleurToCode(kleur)) != 0)
-        return ERROR_VGA_FAIL;
+    //stuur naar VGA scherm
+    int status = UB_VGA_FillScreen(kleurToCode(kleur));
+
+    switch (status) {
+        case 0:
+            // Alles OK
+            break;
+        case 1:
+            return ERROR_VGA_INVALID_COORDINATE;
+        case 2:
+            return ERROR_VGA_INVALID_PARAMETER;
+        default:
+            return ERROR_VGA;
+    }
 
     return OK;
 }
