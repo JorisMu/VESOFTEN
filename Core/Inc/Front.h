@@ -33,7 +33,7 @@ typedef enum {
 
 typedef struct {
     CommandType type;
-    int x, y, x2, y2, breedte, hoogte, dikte, radius, start, aantal;
+    int x, y, x2, y2, x3,y3, x4, y4, x5, y5, breedte, hoogte, dikte, radius, start, aantal;
     int gevuld;
     int bitmap_nr;
     char kleur[20];

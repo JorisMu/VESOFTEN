@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static FrontStatus parse_command(const char* input, Command* cmd)
+FrontStatus parse_command(const char* input, Command* cmd)
 {
     if(input == NULL || cmd == NULL || strlen(input) == 0)
         return FRONT_ERROR_EMPTY_INPUT;
@@ -42,7 +42,7 @@ static FrontStatus parse_command(const char* input, Command* cmd)
     // Functie tekst: tekst, x, y, kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl (normaal, vet, cursief)
     else if(strcmp(Commando, "TEKST") == 0) 
     {
-        cmd->type = CMD_TEKS;
+        cmd->type = CMD_TEKST;
         int n = sscanf(input, "TEKST,%d,%d,%19[^,],%109[^,],%29[^,],%d,%19[^,]",
                        &cmd->x, &cmd->y, cmd->kleur, cmd->tekst, cmd->fontnaam, &cmd->fontgrootte, cmd->fontstijl);
         if(n != 7) return FRONT_ERROR_PARSE;
@@ -114,52 +114,53 @@ static FrontStatus parse_command(const char* input, Command* cmd)
 void front_handle_input(const char* input_line) {
 
     Command cmd;
-    FrontStatus parse_status = parse_command(input_line, &cmd);
 
+    FrontStatus parse_status = parse_command(input_line, &cmd);
     if(parse_status != FRONT_OK) {
         printf("%s\n", status_to_string(parse_status));
         return;
     }
 
-    Resultaat result;
+    Resultaat result = OK; // default
 
-    switch(cmd->type) 
+    switch(cmd.type)
     {
         case CMD_LIJN:
-            result = lijn(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->kleur, cmd->dikte);
+            result = lijn(cmd.x, cmd.y, cmd.x2, cmd.y2, cmd.kleur, cmd.dikte);
             break;
         case CMD_RECHTHOEK:
-            result = rechthoek(cmd->x, cmd->y, cmd->breedte, cmd->hoogte, cmd->kleur, cmd->gevuld);
+            result = rechthoek(cmd.x, cmd.y, cmd.breedte, cmd.hoogte, cmd.kleur, cmd.gevuld);
             break;
-        case CMD_TEKS:
-            result = tekst(cmd->x, cmd->y, cmd->kleur, cmd->tekst, cmd->fontnaam, cmd->fontgrootte, cmd->fontstijl);
+        case CMD_TEKST:
+            result = tekst(cmd.x, cmd.y, cmd.kleur, cmd.tekst, cmd.fontnaam, cmd.fontgrootte, cmd.fontstijl);
             break;
         case CMD_CIRKEL:
-            result = cirkel(cmd->x, cmd->y, cmd->radius, cmd->kleur);
+            result = cirkel(cmd.x, cmd.y, cmd.radius, cmd.kleur);
             break;
         case CMD_FIGUUR:
-            result = figuur(cmd->x, cmd->y, cmd->x2, cmd->y2, cmd->x3, cmd->y3, cmd->x4, cmd->y4, cmd->x5, cmd->y5, cmd->kleur);
+            result = figuur(cmd.x, cmd.y, cmd.x2, cmd.y2, cmd.x3, cmd.y3, cmd.x4, cmd.y4, cmd.x5, cmd.y5, cmd.kleur);
             break;
         case CMD_CLEARSCHERM:
-            result = clearscherm(cmd->kleur);
+            result = clearscherm(cmd.kleur);
             break;
         case CMD_BITMAP:
-            result = bitmap(cmd->bitmap_nr, cmd->x, cmd->y);
+            result = bitmap(cmd.bitmap_nr, cmd.x, cmd.y);
             break;
         case CMD_WACHT:
-            result = wait(cmd->aantal);
+            result = wacht(cmd.aantal);  // cmd.aantal is int, geschikt voor wait()
             break;
         case CMD_HERHAAL:
-            result = herhaal(cmd->start, cmd->aantal);
+            result = herhaal(cmd.start, cmd.aantal);
             break;
         default:
-            printf("Onbekend commando\n");
+            printf("FRONT ERROR: Onbekend commando\n");
             return;
     }
 
     if(result != OK)
         printf("%s\n", status_to_string(result));
 }
+
 
 const char* status_to_string(int code) {
     switch(code) {

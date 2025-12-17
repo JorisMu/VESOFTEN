@@ -1,3 +1,4 @@
+"./Core/Src/Front.o"
 "./Core/Src/main.o"
 "./Core/Src/misc.o"
 "./Core/Src/startup_stm32f4xx.o"
