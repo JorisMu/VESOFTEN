@@ -61,6 +61,8 @@ int main(void)
 
 	LED_On(lijn(60,60,60,60, "blauw", 3));     // LED aanzetten
 
+	clearscherm("grijs");
+
 
 	// LED_On(contains(testen, aantal, "blauw"));
 

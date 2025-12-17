@@ -28,15 +28,19 @@
 //--------------------------------------------------------------
 #define  VGA_COL_BLACK          0x00
 #define  VGA_COL_BLUE           0x03
+#define  VGA_COL_LIGHT_BLUE     0x5F
 #define  VGA_COL_GREEN          0x1C
-#define  VGA_COL_RED            0xE0
-#define  VGA_COL_WHITE          0xFF
-
+#define  VGA_COL_LIGHT_GREEN    0x9E
 #define  VGA_COL_CYAN           0x1F
+#define  VGA_COL_LIGHT_CYAN     0xDF
+#define  VGA_COL_RED            0xE0
+#define  VGA_COL_LIGHT_RED      0xF2
 #define  VGA_COL_MAGENTA        0xE3
+#define  VGA_COL_LIGHT_MAGENTA  0xF7
+#define  VGA_COL_BROWN          0x88
 #define  VGA_COL_YELLOW         0xFC
-
-
+#define  VGA_COL_GREY           0x92
+#define  VGA_COL_WHITE          0xFF
 
 //--------------------------------------------------------------
 // define the VGA_display
@@ -127,12 +131,28 @@ extern uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 //--------------------------------------------------------------
 #define VGA_GPIO_HINIBBLE  ((uint16_t)0xFF00) // GPIO_Pin_8 to GPIO_Pin_15
 
+
+//--------------------------------------------------------------
+// VGA Status enum for error handling
+//--------------------------------------------------------------
+typedef enum {
+    VGA_SUCCESS = 0,                // Operation successful
+    VGA_ERROR_INVALID_COORDINATE,   // Coordinate out of bounds
+    VGA_ERROR_INVALID_PARAMETER     // Other invalid parameter (e.g., radius=0)
+} VGA_Status;
+
+
 //--------------------------------------------------------------
 // Global Function call
 //--------------------------------------------------------------
 void UB_VGA_Screen_Init(void);
-void UB_VGA_FillScreen(uint8_t color);
-void UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color);
+VGA_Status UB_VGA_FillScreen(uint8_t color);
+VGA_Status UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color);
+VGA_Status UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness);
+VGA_Status UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled);
+VGA_Status UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color);
+VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, const char* style);
+VGA_Status UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup);
 
 //--------------------------------------------------------------
 #endif // __STM32F4_UB_VGA_SCREEN_H

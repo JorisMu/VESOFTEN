@@ -1,4 +1,5 @@
 #include "logic.h"
+#include "stm32_ub_vga_screen.h"
 //dingen die nog gedaan moeten worden:
 // - Errors (Dikte, frontletters, frontstyle, enz...)
 // - herhaal functionaliteit
@@ -45,6 +46,27 @@ int validFontstijl(const char *stijl) {
 	return contains(stijlen, aantal_stijl, stijl);
 }
 
+uint8_t kleurToCode(char kleur[]) {
+	uint8_t code;
+
+	if (strcmp(kleur, "zwart") == 0) code = VGA_COL_BLACK;
+	else if (strcmp(kleur, "blauw") == 0) code = VGA_COL_BLUE;
+	else if (strcmp(kleur, "lichtblauw") == 0) code = VGA_COL_LIGHT_BLUE;
+	else if (strcmp(kleur, "groen") == 0) code = VGA_COL_GREEN;
+ 	else if (strcmp(kleur, "lichtgroen") == 0) code = VGA_COL_LIGHT_GREEN;
+	else if (strcmp(kleur, "cyaan") == 0) code = VGA_COL_CYAN;
+	else if (strcmp(kleur, "lichtcyaan") == 0) code = VGA_COL_LIGHT_CYAN;
+	else if (strcmp(kleur, "rood") == 0) code = VGA_COL_RED;
+	else if (strcmp(kleur, "lichtrood") == 0) code = VGA_COL_LIGHT_RED;
+	else if (strcmp(kleur, "magenta") == 0) code = VGA_COL_MAGENTA;
+	else if (strcmp(kleur, "lichtmagenta") == 0) code = VGA_COL_LIGHT_MAGENTA;
+	else if (strcmp(kleur, "bruin") == 0) code = VGA_COL_BROWN;
+	else if (strcmp(kleur, "geel") == 0) code = VGA_COL_YELLOW;
+	else if (strcmp(kleur, "grijs") == 0) code = VGA_COL_GREY;
+	else if (strcmp(kleur, "wit") == 0) code = VGA_COL_WHITE;
+	return code;
+}
+
 /* ===================== MAIN COMMANDO’S ===================== */
 
 
@@ -52,8 +74,7 @@ int validFontstijl(const char *stijl) {
 
 // Teken een lijn (zoals eerder)
 Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
-    if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE ||
-        x2 < 0 || x2 >= SCHERM_BREEDTE || y2 < 0 || y2 >= SCHERM_HOOGTE)
+    if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE || x2 < 0 || x2 >= SCHERM_BREEDTE || y2 < 0 || y2 >= SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
     if (dikte <= 0)
@@ -67,15 +88,14 @@ Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
 
 // Teken een rechthoek
 Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20], int gevuld) {
-    if (x_lup < 0 || x_lup >= SCHERM_BREEDTE || y_lup < 0 || y_lup >= SCHERM_HOOGTE ||
-        x_lup + breedte > SCHERM_BREEDTE || y_lup + hoogte > SCHERM_HOOGTE)
+    if (x_lup < 0 || x_lup >= SCHERM_BREEDTE || y_lup < 0 || y_lup >= SCHERM_HOOGTE || x_lup + breedte > SCHERM_BREEDTE || y_lup + hoogte > SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
     if (breedte <= 0 || hoogte <= 0)
         return ERROR_INVALID_PARAM_SIZE;
 
     if (gevuld != 0)
-        return ERROR_INVALID_PARAM;
+        return ERROR_INVALID_PARAM_FILLED;
 
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
@@ -88,11 +108,17 @@ Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fon
     if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
-    if (!tekst || !fontnaam || !fontstijl)
-        return ERROR_INVALID_PARAM;
+    if (strlen(tekst) > 100)
+        return ERROR_TEXT_TOO_LONG;
 
-    if (!validColor(kleur) || validFont(fontnaam) || validFontstijl(fontstijl) || (fontgrootte != 1 && fontgrootte != 2))
-        return ERROR_INVALID_PARAM;
+    if (!validColor(kleur))
+        return ERROR_INVALID_COLOR;
+    if (validFont(fontnaam))
+        return ERROR_INVALID_PARAM_FONTNAME;
+    if (validFontstijl(fontstijl))
+        return ERROR_INVALID_PARAM_FONSTYLE;
+    if (fontgrootte != 1 && fontgrootte != 2)
+        return ERROR_INVALID_PARAM_FONTSIZE;
 
     return OK;
 }
@@ -106,7 +132,6 @@ Resultaat bitmap(int nr, int x_lup, int y_lup) {
     if (nr < 0 || nr > 5)
         return ERROR_INVALID_PARAM;
 
-    printf("Bitmap nummer %d tekenen op (%d,%d)\n", nr, x_lup, y_lup);
     return OK;
 }
 
@@ -114,6 +139,10 @@ Resultaat bitmap(int nr, int x_lup, int y_lup) {
 Resultaat clearscherm(char kleur[20]) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
+
+    // Scherm vullen
+    if (UB_VGA_FillScreen(kleurToCode(kleur)) != 0)
+        return ERROR_VGA_FAIL;
 
     return OK;
 }
@@ -123,7 +152,6 @@ Resultaat wacht(int msecs) {
         return ERROR_INVALID_PARAM; // Wachten kan niet met negatieve tijd
     }
 
-    printf("Wachten voor %d milliseconden...\n", msecs);
     return OK;
 }
 
@@ -132,6 +160,11 @@ Resultaat herhaal(int aantal, int hoevaak) {
         // Een herhaling vereist minstens één commando en minstens één keer
         return ERROR_INVALID_PARAM;
     }
+
+    if (hoevaak > 10) {
+        return ERROR_TOO_MANY_REPEATS;
+    }
+
     return OK;
 }
 
@@ -140,16 +173,13 @@ Resultaat cirkel(int x, int y, int radius, char kleur[20]) {
         return ERROR_INVALID_PARAM; // Straal moet positief zijn
     }
     // Controleer of de hele cirkel binnen de schermgrenzen valt
-    if (x - radius < 0 || x + radius >= SCHERM_BREEDTE ||
-        y - radius < 0 || y + radius >= SCHERM_HOOGTE) {
+    if (x - radius < 0 || x + radius >= SCHERM_BREEDTE || y - radius < 0 || y + radius >= SCHERM_HOOGTE) {
         return ERROR_OUT_OF_BOUNDS;
     }
     if (!validColor(kleur)) {
         return ERROR_INVALID_COLOR;
     }
 
-    printf("Cirkel tekenen op middelpunt (%d,%d) met straal %d en kleur %s\n",
-           x, y, radius, kleur);
     return OK;
 }
 
@@ -171,8 +201,6 @@ Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,
         }
     }
 
-    printf("Figuur tekenen met %d punten: (%d,%d), (%d,%d), (%d,%d), (%d,%d), (%d,%d) en kleur %s\n",
-           aantal_punten, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, kleur);
     return OK;
 }
 
