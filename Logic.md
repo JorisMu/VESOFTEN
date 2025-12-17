@@ -15,100 +15,93 @@
 ---
 
 ## Foutcodes
-| Code | Betekenis |
+| Code | Nummer |
 |------|-----------|
-| `OK` | Parameters zijn geldig, functie uitgevoerd |
-| `ERROR_INVALID_PARAM` | Een parameter is ongeldig (bijv. buiten scherm) |
-| `ERROR_OUT_OF_BOUNDS` | Coördinaten liggen buiten het scherm |
-| `ERROR_INVALID_COLOR` | Kleur is niet gedefinieerd of onjuist |
+| `OK` | 0 |
+| `ERROR_INVALID_COLOR` | 1 |
+| `ERROR_INVALID_PARAM_THICKNESS` | 2 |
+| `ERROR_INVALID_PARAM_SIZE` | 3 |
+| `ERROR_INVALID_PARAM_FILLED` | 4 |
+| `ERROR_INVALID_PARAM_FONTNAME` | 5 |
+| `ERROR_INVALID_PARAM_FONTSIZE` | 6 |
+| `ERROR_INVALID_PARAM_FONSTYLE` | 7 |
+| `ERROR_INVALID_PARAM` | 8 |
+| `ERROR_OUT_OF_BOUNDS` | 9 |
 
 ---
 
-## 1. Lijn tekenen
-**Functie:**  
-`lijn(x, y, x2, y2, kleur, dikte)`
+## 🖌 Teken Commando's
 
-**Parameters:**  
-- `x, y, x2, y2` : coördinaten van begin- en eindpunt  
-- `kleur` : gewenste kleur  
-- `dikte` : lijndikte
+### `lijn`
+* **Functie:** `Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte)`
+* **Variabelen:**
+    * `x`, `y`: Startpunt.
+    * `x2`, `y2`: Eindpunt.
+    * `kleur`: Naam van de kleur.
+    * `dikte`: Dikte in pixels.
+* **Voorbeeld:** `lijn(0, 0, 50, 50, "rood", 1);`
 
-**Return:**  
-- `OK` als de lijn getekend kan worden  
-- `ERROR_OUT_OF_BOUNDS` of `ERROR_INVALID_PARAM` bij fouten
+### `rechthoek`
+* **Functie:** `Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20], int gevuld)`
+* **Variabelen:**
+    * `x_lup`, `y_lup`: Linker-bovenhoek positie.
+    * `breedte`, `hoogte`: Afmetingen van de rechthoek.
+    * `kleur`: Naam van de kleur.
+    * `gevuld`: Moet `0` zijn (andere waarden geven momenteel een error).
+* **Voorbeeld:** `rechthoek(10, 10, 100, 50, "blauw", 0);`
 
-**Beschrijving:**  
-Controleert de parameters en tekent een lijn op het scherm als ze geldig zijn.
+### `tekst`
+* **Functie:** `Resultaat tekst(int x, int y, char kleur[20], const char *tekst, const char *fontnaam, int fontgrootte, const char *fontstijl)`
+* **Variabelen:**
+    * `x`, `y`: Positie op het scherm.
+    * `kleur`: Naam van de kleur.
+    * `tekst`: De string met de tekstinhoud.
+    * `fontnaam`: "arial" of "consolas".
+    * `fontgrootte`: Moet `1` of `2` zijn.
+    * `fontstijl`: "normaal", "vet" of "cursief".
+* **Voorbeeld:** `tekst(20, 20, "wit", "Hallo", "arial", 1, "normaal");`
 
----
+### `cirkel`
+* **Functie:** `Resultaat cirkel(int x, int y, int radius, char kleur[20])`
+* **Variabelen:**
+    * `x`, `y`: Middelpunt van de cirkel.
+    * `radius`: De straal van de cirkel.
+    * `kleur`: Naam van de kleur.
+* **Voorbeeld:** `cirkel(150, 150, 30, "geel");`
 
-## 2. Rechthoek tekenen
-**Functie:**  
-`rechthoek(x_lup, y_lup, breedte, hoogte, kleur, gevuld)`
-
-**Parameters:**  
-- `x_lup, y_lup` : linkerbovenhoek  
-- `breedte, hoogte` : afmetingen  
-- `kleur` : kleur van rand of vulling  
-- `gevuld` : 1 = gevuld, 0 = alleen rand
-
-**Return:**  
-- `OK` bij succes  
-- `ERROR_INVALID_PARAM` of `ERROR_OUT_OF_BOUNDS` bij fouten
-
-**Beschrijving:**  
-Controleert de parameters en tekent een rechthoek als ze geldig zijn.
-
----
-
-## 3. Tekst plaatsen
-**Functie:**  
-`tekst(x, y, kleur, tekst, fontnaam, fontgrootte, fontstijl)`
-
-**Parameters:**  
-- `x, y` : positie  
-- `kleur` : tekstkleur  
-- `tekst` : string die getoond wordt  
-- `fontnaam` : Arial, Consolas  
-- `fontgrootte` : 1 of 2  
-- `fontstijl` : normaal, vet, cursief
-
-**Return:**  
-- `OK` bij succes  
-- `ERROR_INVALID_PARAM` bij fouten (bijv. lettertype niet ondersteund)
-
-**Beschrijving:**  
-Controleert de parameters en toont tekst op het scherm als ze geldig zijn.
+### `figuur`
+* **Functie:** `Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, char kleur[20])`
+* **Variabelen:**
+    * `x1, y1` t/m `x5, y5`: Vijf afzonderlijke coördinatenpunten.
+    * `kleur`: Naam van de kleur.
+* **Voorbeeld:** `figuur(0,0, 10,0, 10,10, 0,10, 5,5, "groen");`
 
 ---
 
-## 4. Bitmap tekenen
-**Functie:**  
-`bitmap(nr, x_lup, y_lup)`
+## 🖼 Overige Commando's
 
-**Parameters:**  
-- `nr` : bitmap-nummer (bijv. pijl of smiley)  
-- `x_lup, y_lup` : linkerbovenhoek van de bitmap
+### `bitmap`
+* **Functie:** `Resultaat bitmap(int nr, int x_lup, int y_lup)`
+* **Variabelen:**
+    * `nr`: Bitmap ID (0-3 voor pijlen, 4-5 voor smileys).
+    * `x_lup`, `y_lup`: Positie op het scherm.
+* **Voorbeeld:** `bitmap(5, 50, 50);`
 
-**Return:**  
-- `OK` bij succes  
-- `ERROR_INVALID_PARAM` als bitmap niet bestaat of coördinaten ongeldig zijn
+### `clearscherm`
+* **Functie:** `Resultaat clearscherm(char kleur[20])`
+* **Variabele:**
+    * `kleur`: De kleur waarmee het hele scherm gevuld wordt.
+* **Voorbeeld:** `clearscherm("zwart");`
 
-**Beschrijving:**  
-Controleert de parameters en tekent de bitmap op het scherm als ze geldig zijn.
+### `wacht`
+* **Functie:** `Resultaat wacht(int msecs)`
+* **Variabele:**
+    * `msecs`: Aantal milliseconden om te wachten (mag niet negatief zijn).
+* **Voorbeeld:** `wacht(500);`
 
----
-
-## 5. Scherm wissen
-**Functie:**  
-`clearscherm(kleur)`
-
-**Parameters:**  
-- `kleur` : kleur waarmee het scherm wordt gevuld
-
-**Return:**  
-- `OK` bij succes  
-- `ERROR_INVALID_COLOR` als de kleur ongeldig is
-
-**Beschrijving:**  
-Maakt het volledige scherm leeg en vult het met de opgegeven kleur als deze geldig is.
+### `herhaal`
+* **Functie:** `Resultaat herhaal(int aantal, int hoevaak)`
+* **Variabelen:**
+    * `aantal`: Aantal voorgaande commando's om te herhalen.
+    * `hoevaak`: Hoe vaak deze reeks herhaald moet worden.
+* **Voorbeeld:** `herhaal(2, 10);`
