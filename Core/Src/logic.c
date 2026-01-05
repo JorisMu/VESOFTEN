@@ -1,5 +1,7 @@
 #include "logic.h"
 #include "stm32_ub_vga_screen.h"
+#include <string.h>
+#include "stm32f4xx_hal.h"  // <--- VOEG DEZE REGEL TOE
 //dingen die nog gedaan moeten worden:
 // - Errors (Dikte, frontletters, frontstyle, enz...)
 // - herhaal functionaliteit
@@ -140,7 +142,8 @@ Resultaat tekst(int x, int y, char kleur[20], const char tekst[100], const char 
     if (fontgrootte != 1 && fontgrootte != 2)
         return ERROR_INVALID_PARAM_FONTSIZE;
 
-    int status = UB_VGA_DrawText(x, y, kleurToCode(kleur), tekst, fontnaam, 1, fontstijl);
+	//int status = UB_VGA_DrawText(10, 20, "zwart","the quick brown fox jumps over the lazy dog", "consolas", 1, "vet");
+    int status = UB_VGA_DrawText(x, y, kleurToCode(kleur), tekst, fontnaam, fontgrootte, fontstijl);
     if (status != 0) {
         return vgaStatusToResultaat(status);
     }
@@ -177,10 +180,26 @@ Resultaat clearscherm(char kleur[20]) {
 
     return OK;
 }
-
+/*
 Resultaat wacht(int msecs) {
     if (msecs < 0) {
-        return ERROR_INVALID_PARAM; // Wachten kan niet met negatieve tijd
+    	return ERROR_INVALID_PARAM; // Wachten kan niet met negatieve tijd
+    }
+
+    HAL_Delay((uint32_t)msecs);
+
+    return OK;
+}*/
+
+Resultaat wacht(int msecs) {
+    if (msecs < 0) return ERROR_INVALID_PARAM;
+
+    // Gebruik de CPU frequentie om te berekenen hoeveel loops we nodig hebben
+    // Voor een F407 op 168MHz is dit ongeveer:
+    uint32_t count = msecs * (SystemCoreClock / 10000);
+
+    for (volatile uint32_t i = 0; i < count; i++) {
+        __NOP(); // Doe niets
     }
 
     return OK;

@@ -54,19 +54,17 @@ int main(void)
 
 	UB_VGA_Screen_Init(); // Init VGA-Screen
 
-	UB_VGA_FillScreen(VGA_COL_BLUE);
-
 	LED_Init();   // LED configureren
 
 	//clearscherm function
-	/*if (clearscherm("wit")==100) {
+	if (clearscherm("wit")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}*/
+	}
 
-	/*//lijn function
-	if (lijn(3,5,30,30,"blauw", 5)==100) {
+	//lijn function
+	/*if (lijn(3,5,30,30,"blauw", 5)==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
@@ -79,17 +77,23 @@ int main(void)
 		LED_On(1);
 	}*/
 
-	/*if (cirkel(120,160,79,"groen")==100) {
+	if (cirkel(120,160,79,"groen")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}*/
+	}
 
-	/*if (tekst(10,20, "wit","the quick brown fox jumps over the lazy dog", "consolas", 1, "vet")==100) {
+	if (wacht(5000)==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}*/
+	}
+
+	if (tekst(10,20, "zwart","the quick brown fox jumps over the lazy dog", "consolas", 2, "vet")==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
+	}
 
 	/*if (bitmap(0,50,50)==100) {
 		LED_On(0);
