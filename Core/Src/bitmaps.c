@@ -1,9 +1,23 @@
+/**
+ * @file    bitmaps.c
+ * @brief   Bitmap pixel data definitions.
+ * @details This file contains the actual raw pixel data for the bitmaps
+ *          that are declared in `bitmaps.h`. The data is organized into
+ *          2D arrays, where each value represents an 8-bit color.
+ *
+ * @date    05.01.2026
+ * @author  J. Mullink
+ */
+
 #include "stm32_ub_vga_screen.h"
 #include "bitmaps.h"
 
 // --------------------------------------------------------------------------
-// 1. BITMAP_ARROW_UP (Witte Pijl)
+// 1. BITMAP_ARROW_UP (White Arrow)
 // --------------------------------------------------------------------------
+/**
+ * @brief Pixel data for a 16x16 upward-pointing arrow.
+ */
 const uint8_t bitmap_data_arrow_up_16x16[16][16] = {
 {0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
 {0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
@@ -25,8 +39,11 @@ const uint8_t bitmap_data_arrow_up_16x16[16][16] = {
 
 
 // --------------------------------------------------------------------------
-// 2. BITMAP_ARROW_RIGHT (Witte Pijl)
+// 2. BITMAP_ARROW_RIGHT (White Arrow)
 // --------------------------------------------------------------------------
+/**
+ * @brief Pixel data for a 16x16 right-pointing arrow.
+ */
 const uint8_t bitmap_data_arrow_right_16x16[16][16] = {
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -48,8 +65,11 @@ const uint8_t bitmap_data_arrow_right_16x16[16][16] = {
 
 
 // --------------------------------------------------------------------------
-// 3. BITMAP_ARROW_DOWN (Witte Pijl)
+// 3. BITMAP_ARROW_DOWN (White Arrow)
 // --------------------------------------------------------------------------
+/**
+ * @brief Pixel data for a 16x16 downward-pointing arrow.
+ */
 const uint8_t bitmap_data_arrow_down_16x16[16][16] = {
 	{0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
 	{0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
@@ -70,9 +90,11 @@ const uint8_t bitmap_data_arrow_down_16x16[16][16] = {
 	};
 
 // --------------------------------------------------------------------------
-// 4. BITMAP_ARROW_LEFT (Witte Pijl)
+// 4. BITMAP_ARROW_LEFT (White Arrow)
 // --------------------------------------------------------------------------
-
+/**
+ * @brief Pixel data for a 16x16 left-pointing arrow.
+ */
 const uint8_t bitmap_data_arrow_left_16x16[16][16] = {
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -93,8 +115,11 @@ const uint8_t bitmap_data_arrow_left_16x16[16][16] = {
 	};
 
 // --------------------------------------------------------------------------
-// 5. BITMAP_SMILEY_ANGRY (Rode smiley met zwarte ogen/mond)
+// 5. BITMAP_SMILEY_ANGRY (Red smiley with black eyes/mouth)
 // --------------------------------------------------------------------------
+/**
+ * @brief Pixel data for a 16x16 angry smiley.
+ */
 const uint8_t bitmap_data_smiley_angry_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, VGA_COL_RED, VGA_COL_RED, VGA_COL_RED, VGA_COL_RED, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -115,8 +140,11 @@ const uint8_t bitmap_data_smiley_angry_16x16[16][16] = {
 };
 
 // --------------------------------------------------------------------------
-// 6. BITMAP_SMILEY_HAPPY (Gele smiley met zwarte ogen en rode mond)
+// 6. BITMAP_SMILEY_HAPPY (Yellow smiley with black eyes and red mouth)
 // --------------------------------------------------------------------------
+/**
+ * @brief Pixel data for a 16x16 happy smiley.
+ */
 const uint8_t bitmap_data_smiley_happy_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, VGA_COL_YELLOW, VGA_COL_YELLOW, VGA_COL_YELLOW, VGA_COL_YELLOW, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -136,7 +164,12 @@ const uint8_t bitmap_data_smiley_happy_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE}
 	};
 
-// Array of all available bitmaps
+/**
+ * @brief Global array of all defined bitmaps.
+ * @details This array collects all bitmap structures, making them accessible
+ *          to the drawing functions via their index (which corresponds to
+ *          the BITMAP_ID enum).
+ */
 const Bitmap_t vga_bitmaps[] = {
     {16, 16, bitmap_data_arrow_up_16x16},       // BITMAP_ARROW_UP
     {16, 16, bitmap_data_arrow_right_16x16},    // BITMAP_ARROW_RIGHT

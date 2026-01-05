@@ -1,9 +1,13 @@
-/*
- * fonts.h
+/**
+ * @file    fonts.h
+ * @brief   Font definitions for the VGA library.
+ * @details This file provides the data and structures for rendering text.
+ *          It includes two fonts:
+ *          1. Consolas: A 5x7 monospaced font for a classic, fixed-width look.
+ *          2. Arial: A proportional font for more natural-looking text.
  *
- * Bevat 2 fonts voor UB_VGA library:
- * 1. Consolas (Monospace 5x7) - Vaste breedte, tech look.
- * 2. Arial    (Proportional)  - Variabele breedte, leesbare tekst.
+ * @date    05.01.2026
+ * @author  J. Mullink
  */
 
 #ifndef INC_FONTS_H_
@@ -12,28 +16,38 @@
 #include <stdint.h>
 #include <stddef.h>
 
-// ------------------- Data Structuren -------------------
+// ------------------- Data Structures -------------------
 
+/**
+ * @brief Structure describing a single character in a proportional font.
+ */
 typedef struct {
-    uint8_t width;       // Breedte van het karakter
-    const uint8_t* data; // Pointer naar de bytes
+    const uint8_t width; /*!< Width of the character in pixels. */
+    const uint8_t *data; /*!< Pointer to the character's bitmap data. */
 } FontChar_t;
 
+/**
+ * @brief Structure defining a complete font.
+ */
 typedef struct {
-    uint8_t height;
-    const FontChar_t* chars; // NULL = Fixed width, Niet-NULL = Proportional
+    const uint8_t height;     /*!< Height of the font in pixels. */
+    const FontChar_t *chars;  /*!< Pointer to an array of character descriptors.
+                                   If NULL, the font is treated as fixed-width, and
+                                   the renderer will look for a different data array. */
 } FontDef_t;
 
 
 // ============================================================================
-//   1. CONSOLAS (Fixed Width 5x7)
+//   1. CONSOLAS (Fixed-width 5x7)
 // ============================================================================
-
+/**
+ * @brief Bitmap data for the Consolas 5x7 fixed-width font.
+ * @details Each character is 5 pixels wide and 7 pixels high. The data is stored
+ *          as 5 bytes per character, with each byte representing a vertical column.
+ */
 static const uint8_t font_consolas_data[128][5] = {
     {0x00, 0x00, 0x00, 0x00, 0x00}, // NUL
-    // ... Standaard ASCII (verkort weergegeven voor overzicht, de tabel hieronder is compleet) ...
-    // Omdat Consolas fixed width is, kunnen we de bytes hier direct in 1 array houden.
-    // Ik gebruik hier de standaard 5x7 set die je eerder had.
+    // ... Standard ASCII characters ...
     {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00},
     {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00},
     {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00}, {0x00, 0x00, 0x00, 0x00, 0x00},
@@ -102,7 +116,7 @@ static const uint8_t font_consolas_data[128][5] = {
     {0x07, 0x08, 0x70, 0x08, 0x07}, // 89 Y
     {0x61, 0x51, 0x49, 0x45, 0x43}, // 90 Z
     {0x00, 0x7f, 0x41, 0x41, 0x00}, // 91 [
-    {0x02, 0x04, 0x08, 0x10, 0x20}, // 92 \ //
+    {0x02, 0x04, 0x08, 0x10, 0x20}, // 92 \//
     {0x00, 0x41, 0x41, 0x7f, 0x00}, // 93 ]
     {0x04, 0x02, 0x01, 0x02, 0x04}, // 94 ^
     {0x40, 0x40, 0x40, 0x40, 0x40}, // 95 _
@@ -140,22 +154,25 @@ static const uint8_t font_consolas_data[128][5] = {
     {0x00, 0x00, 0x00, 0x00, 0x00}  // 127 DEL
 };
 
+/**
+ * @brief Font definition structure for the Consolas font.
+ */
 static const FontDef_t font_consolas = {
     .height = 7,
-    .chars = NULL // Trigger voor DrawText om de fixed array te gebruiken
+    .chars = NULL // A NULL chars pointer signals to the renderer to use the fixed-width array.
 };
 
 
 // ============================================================================
 //   2. ARIAL (Variable Width / Proportional)
 // ============================================================================
-// Hier definieren we de data opnieuw, maar nu met de exacte breedte per letter.
-// Dit zorgt ervoor dat 'i' smal is en 'W' breed.
+// Proportional fonts define data for each character with a specific width,
+// making text look more natural (e.g., 'i' is narrower than 'W').
 
-// Hulpdefinities voor veelgebruikte tekens om geheugen en typwerk te besparen
-// Bitvolgorde: LSB is top, gelijk aan Consolas
-static const uint8_t P_SPC[] = {0x00, 0x00}; // Spatie (2px breed)
-static const uint8_t P_EXC[] = {0x5F};       // ! (1px breed)
+// Helper definitions for character data to save memory and improve readability.
+// Bit order: LSB is top, same as Consolas.
+static const uint8_t P_SPC[] = {0x00, 0x00}; // Space (2px wide)
+static const uint8_t P_EXC[] = {0x5F};       // ! (1px wide)
 static const uint8_t P_QUO[] = {0x07, 0x00, 0x07}; // "
 static const uint8_t P_HSH[] = {0x14, 0x7F, 0x14, 0x7F, 0x14}; // #
 static const uint8_t P_DOL[] = {0x24, 0x2A, 0x7F, 0x2A, 0x12}; // $
@@ -168,10 +185,10 @@ static const uint8_t P_AST[] = {0x14, 0x08, 0x3E, 0x08, 0x14}; // *
 static const uint8_t P_PLS[] = {0x08, 0x08, 0x3E, 0x08, 0x08}; // +
 static const uint8_t P_COM[] = {0x50, 0x30}; // ,
 static const uint8_t P_MIN[] = {0x08, 0x08, 0x08}; // -
-static const uint8_t P_DOT[] = {0x60}; // . (1px breed)
+static const uint8_t P_DOT[] = {0x60}; // . (1px wide)
 static const uint8_t P_SLA[] = {0x20, 0x10, 0x08, 0x04, 0x02}; // /
 
-// Cijfers (meestal monospaced ook in Arial handig, maar we maken ze 4px breed voor de look)
+// Numbers (generally look better monospaced, but set to 4px for this font)
 static const uint8_t P_0[] = {0x3E, 0x51, 0x49, 0x3E};
 static const uint8_t P_1[] = {0x42, 0x7F, 0x40};
 static const uint8_t P_2[] = {0x42, 0x61, 0x51, 0x46};
@@ -191,8 +208,8 @@ static const uint8_t P_GRE[] = {0x22, 0x14, 0x08}; // >
 static const uint8_t P_QUE[] = {0x02, 0x01, 0x51, 0x09, 0x06}; // ?
 static const uint8_t P_ATS[] = {0x32, 0x49, 0x79, 0x41, 0x3E}; // @
 
-// Hoofdletters (Breedtes varieren nu)
-static const uint8_t P_A[] = {0x7E, 0x11, 0x11, 0x7E}; // 4px breed
+// Uppercase letters (variable widths)
+static const uint8_t P_A[] = {0x7E, 0x11, 0x11, 0x7E};
 static const uint8_t P_B[] = {0x7F, 0x49, 0x49, 0x36};
 static const uint8_t P_C[] = {0x3E, 0x41, 0x41, 0x22};
 static const uint8_t P_D[] = {0x7F, 0x41, 0x41, 0x3E};
@@ -200,88 +217,90 @@ static const uint8_t P_E[] = {0x7F, 0x49, 0x49, 0x41};
 static const uint8_t P_F[] = {0x7F, 0x09, 0x09, 0x01};
 static const uint8_t P_G[] = {0x3E, 0x41, 0x49, 0x7A};
 static const uint8_t P_H[] = {0x7F, 0x08, 0x08, 0x7F};
-static const uint8_t P_I[] = {0x7F}; // Smal!
+static const uint8_t P_I[] = {0x7F}; // Narrow
 static const uint8_t P_J[] = {0x20, 0x40, 0x41, 0x3F};
 static const uint8_t P_K[] = {0x7F, 0x08, 0x14, 0x41};
 static const uint8_t P_L[] = {0x7F, 0x40, 0x40};
-static const uint8_t P_M[] = {0x7F, 0x02, 0x0C, 0x02, 0x7F}; // Breed (5px)
+static const uint8_t P_M[] = {0x7F, 0x02, 0x0C, 0x02, 0x7F}; // Wide
 static const uint8_t P_N[] = {0x7F, 0x04, 0x08, 0x7F};
 static const uint8_t P_O[] = {0x3E, 0x41, 0x41, 0x3E};
 static const uint8_t P_P[] = {0x7F, 0x09, 0x09, 0x06};
 static const uint8_t P_Q[] = {0x3E, 0x41, 0x51, 0x5E};
 static const uint8_t P_R[] = {0x7F, 0x09, 0x19, 0x46};
 static const uint8_t P_S[] = {0x46, 0x49, 0x49, 0x31};
-static const uint8_t P_T[] = {0x01, 0x7F, 0x01}; // 3px
+static const uint8_t P_T[] = {0x01, 0x7F, 0x01};
 static const uint8_t P_U[] = {0x3F, 0x40, 0x40, 0x3F};
 static const uint8_t P_V[] = {0x1F, 0x20, 0x40, 0x20, 0x1F};
-static const uint8_t P_W[] = {0x3F, 0x40, 0x38, 0x40, 0x3F}; // Breed
+static const uint8_t P_W[] = {0x3F, 0x40, 0x38, 0x40, 0x3F}; // Wide
 static const uint8_t P_X[] = {0x63, 0x14, 0x08, 0x14, 0x63};
 static const uint8_t P_Y[] = {0x07, 0x08, 0x70, 0x08, 0x07};
 static const uint8_t P_Z[] = {0x61, 0x51, 0x49, 0x43};
 
-// Kleine letters
+// Lowercase letters
 static const uint8_t P_a[] = {0x20, 0x54, 0x54, 0x78};
 static const uint8_t P_b[] = {0x7F, 0x48, 0x44, 0x38};
 static const uint8_t P_c[] = {0x38, 0x44, 0x44, 0x20};
 static const uint8_t P_d[] = {0x38, 0x44, 0x48, 0x7F};
 static const uint8_t P_e[] = {0x38, 0x54, 0x54, 0x18};
-static const uint8_t P_f[] = {0x08, 0x7E, 0x09}; // Smal
-static const uint8_t P_g[] = {0x0C, 0x52, 0x52, 0x3E};
-static const uint8_t P_h[] = {0x7F, 0x08, 0x04, 0x78};
-static const uint8_t P_i[] = {0x44, 0x7D, 0x40}; // Smal met serif
-static const uint8_t P_j[] = {0x20, 0x40, 0x44, 0x3D};
-static const uint8_t P_k[] = {0x7F, 0x10, 0x28, 0x44};
-static const uint8_t P_l[] = {0x41, 0x7F, 0x40}; // Smal
-static const uint8_t P_m[] = {0x7C, 0x04, 0x18, 0x04, 0x78}; // 5px
-static const uint8_t P_n[] = {0x7C, 0x08, 0x04, 0x78};
+static const uint8_t P_f[] = {0x08, 0x7E, 0x09};
+static const uint8_t P_g[] = {0x0c, 0x52, 0x52, 0x3e};
+static const uint8_t P_h[] = {0x7f, 0x08, 0x04, 0x78};
+static const uint8_t P_i[] = {0x44, 0x7d, 0x40};
+static const uint8_t P_j[] = {0x20, 0x40, 0x44, 0x3d};
+static const uint8_t P_k[] = {0x7f, 0x10, 0x28, 0x44};
+static const uint8_t P_l[] = {0x41, 0x7f, 0x40};
+static const uint8_t P_m[] = {0x7c, 0x04, 0x18, 0x04, 0x78};
+static const uint8_t P_n[] = {0x7c, 0x08, 0x04, 0x78};
 static const uint8_t P_o[] = {0x38, 0x44, 0x44, 0x38};
-static const uint8_t P_p[] = {0x7C, 0x14, 0x14, 0x08};
-static const uint8_t P_q[] = {0x08, 0x14, 0x14, 0x7C};
-static const uint8_t P_r[] = {0x7C, 0x08, 0x04}; // Smal
+static const uint8_t P_p[] = {0x7c, 0x14, 0x14, 0x08};
+static const uint8_t P_q[] = {0x08, 0x14, 0x14, 0x7c};
+static const uint8_t P_r[] = {0x7c, 0x08, 0x04};
 static const uint8_t P_s[] = {0x48, 0x54, 0x54, 0x20};
-static const uint8_t P_t[] = {0x04, 0x3F, 0x44};
-static const uint8_t P_u[] = {0x3C, 0x40, 0x20, 0x7C};
-static const uint8_t P_v[] = {0x1C, 0x20, 0x40, 0x20, 0x1C};
-static const uint8_t P_w[] = {0x3C, 0x40, 0x30, 0x40, 0x3C};
+static const uint8_t P_t[] = {0x04, 0x3f, 0x44};
+static const uint8_t P_u[] = {0x3c, 0x40, 0x20, 0x7c};
+static const uint8_t P_v[] = {0x1c, 0x20, 0x40, 0x20, 0x1c};
+static const uint8_t P_w[] = {0x3c, 0x40, 0x30, 0x40, 0x3c};
 static const uint8_t P_x[] = {0x44, 0x28, 0x10, 0x28, 0x44};
-static const uint8_t P_y[] = {0x0C, 0x50, 0x50, 0x3C};
-static const uint8_t P_z[] = {0x44, 0x64, 0x54, 0x4C};
+static const uint8_t P_y[] = {0x0c, 0x50, 0x50, 0x50, 0x3c};
+static const uint8_t P_z[] = {0x44, 0x64, 0x54, 0x4c};
 
-// Mapping tabel voor Arial
+/**
+ * @brief Mapping table for the Arial proportional font.
+ * @details This array maps ASCII values to their corresponding character
+ *          data and width.
+ */
 static const FontChar_t font_arial_chars[128] = {
     [0 ... 31] = {0, NULL},
-    [' '] = {2, P_SPC}, ['!'] = {1, P_EXC}, ['"'] = {3, P_QUO}, ['#'] = {5, P_HSH},
-    ['$'] = {5, P_DOL}, ['%'] = {5, P_PCT}, ['&'] = {5, P_AMP}, ['\'']={2, P_APO},
-    ['('] = {3, P_LPA}, [')'] = {3, P_RPA}, ['*'] = {5, P_AST}, ['+'] = {5, P_PLS},
-    [','] = {2, P_COM}, ['-'] = {3, P_MIN}, ['.'] = {1, P_DOT}, ['/'] = {5, P_SLA},
-
-    ['0'] = {4, P_0}, ['1'] = {3, P_1}, ['2'] = {4, P_2}, ['3'] = {4, P_3},
-    ['4'] = {4, P_4}, ['5'] = {4, P_5}, ['6'] = {4, P_6}, ['7'] = {4, P_7},
-    ['8'] = {4, P_8}, ['9'] = {4, P_9}, [':'] = {1, P_COL}, [';'] = {2, P_SCL},
-    ['<'] = {3, P_LES}, ['='] = {3, P_EQU}, ['>'] = {3, P_GRE}, ['?'] = {5, P_QUE},
-    ['@'] = {5, P_ATS},
-
-    ['A'] = {4, P_A}, ['B'] = {4, P_B}, ['C'] = {4, P_C}, ['D'] = {4, P_D},
-    ['E'] = {4, P_E}, ['F'] = {4, P_F}, ['G'] = {4, P_G}, ['H'] = {4, P_H},
-    ['I'] = {1, P_I}, ['J'] = {4, P_J}, ['K'] = {4, P_K}, ['L'] = {3, P_L},
-    ['M'] = {5, P_M}, ['N'] = {4, P_N}, ['O'] = {4, P_O}, ['P'] = {4, P_P},
-    ['Q'] = {4, P_Q}, ['R'] = {4, P_R}, ['S'] = {4, P_S}, ['T'] = {3, P_T},
-    ['U'] = {4, P_U}, ['V'] = {5, P_V}, ['W'] = {5, P_W}, ['X'] = {5, P_X},
-    ['Y'] = {5, P_Y}, ['Z'] = {4, P_Z},
-
-    ['['] = {2, P_LPA}, ['\\']={5, P_SLA}, [']'] = {2, P_RPA}, // Simpel mapping voor haken
-
-    ['a'] = {4, P_a}, ['b'] = {4, P_b}, ['c'] = {4, P_c}, ['d'] = {4, P_d},
-    ['e'] = {4, P_e}, ['f'] = {3, P_f}, ['g'] = {4, P_g}, ['h'] = {4, P_h},
-    ['i'] = {3, P_i}, ['j'] = {4, P_j}, ['k'] = {4, P_k}, ['l'] = {3, P_l},
-    ['m'] = {5, P_m}, ['n'] = {4, P_n}, ['o'] = {4, P_o}, ['p'] = {4, P_p},
-    ['q'] = {4, P_q}, ['r'] = {3, P_r}, ['s'] = {4, P_s}, ['t'] = {3, P_t},
-    ['u'] = {4, P_u}, ['v'] = {5, P_v}, ['w'] = {5, P_w}, ['x'] = {5, P_x},
-    ['y'] = {4, P_y}, ['z'] = {4, P_z},
-
+    [32] = {2, P_SPC}, [33] = {1, P_EXC}, [34] = {3, P_QUO}, [35] = {5, P_HSH},
+    [36] = {5, P_DOL}, [37] = {5, P_PCT}, [38] = {5, P_AMP}, [39] = {2, P_APO},
+    [40] = {3, P_LPA}, [41] = {3, P_RPA}, [42] = {5, P_AST}, [43] = {5, P_PLS},
+    [44] = {2, P_COM}, [45] = {3, P_MIN}, [46] = {1, P_DOT}, [47] = {5, P_SLA},
+    [48] = {4, P_0},   [49] = {3, P_1}, [50] = {4, P_2}, [51] = {4, P_3},
+    [52] = {4, P_4},   [53] = {4, P_5}, [54] = {4, P_6}, [55] = {4, P_7},
+    [56] = {4, P_8},   [57] = {4, P_9}, [58] = {1, P_COL}, [59] = {2, P_SCL},
+    [60] = {3, P_LES}, [61] = {3, P_EQU}, [62] = {3, P_GRE}, [63] = {5, P_QUE},
+    [64] = {5, P_ATS},
+    [65] = {4, P_A}, [66] = {4, P_B}, [67] = {4, P_C}, [68] = {4, P_D},
+    [69] = {4, P_E}, [70] = {4, P_F}, [71] = {4, P_G}, [72] = {4, P_H},
+    [73] = {1, P_I}, [74] = {4, P_J}, [75] = {4, P_K}, [76] = {3, P_L},
+    [77] = {5, P_M}, [78] = {4, P_N}, [79] = {4, P_O}, [80] = {4, P_P},
+    [81] = {4, P_Q}, [82] = {4, P_R}, [83] = {4, P_S}, [84] = {3, P_T},
+    [85] = {4, P_U}, [86] = {5, P_V}, [87] = {5, P_W}, [88] = {5, P_X},
+    [89] = {5, P_Y}, [90] = {4, P_Z},
+    [91] = {2, P_LPA}, [92] = {5, P_SLA}, [93] = {2, P_RPA}, // Simple mapping for brackets
+    [97] = {4, P_a}, [98] = {4, P_b}, [99] = {4, P_c}, [100] = {4, P_d},
+    [101] = {4, P_e}, [102] = {3, P_f}, [103] = {4, P_g}, [104] = {4, P_h},
+    [105] = {3, P_i}, [106] = {4, P_j}, [107] = {4, P_k}, [108] = {3, P_l},
+    [109] = {5, P_m}, [110] = {4, P_n}, [111] = {4, P_o}, [112] = {4, P_p},
+    [113] = {4, P_q}, [114] = {3, P_r}, [115] = {4, P_s}, [116] = {3, P_t},
+    [117] = {4, P_u}, [118] = {5, P_v}, [119] = {5, P_w}, [120] = {5, P_x},
+    [121] = {4, P_y}, [122] = {4, P_z},
     [123 ... 127] = {0, NULL}
 };
 
+/**
+ * @brief Font definition structure for the Arial font.
+ */
 static const FontDef_t font_arial = {
     .height = 7,
     .chars = font_arial_chars
@@ -289,21 +308,32 @@ static const FontDef_t font_arial = {
 
 
 // ============================================================================
-//   FONT KEUZE TABEL
+//   FONT SELECTION TABLE
 // ============================================================================
 
+/**
+ * @brief Structure to link a font name (string) to its definition.
+ */
 typedef struct {
-    const char* name;
-    const FontDef_t* font_def;
+    const char* name;           /*!< The string name of the font (e.g., "arial"). */
+    const FontDef_t* font_def;  /*!< Pointer to the corresponding font definition. */
 } FontInfo_t;
 
+/**
+ * @brief An array that allows selecting a font by its name.
+ * @details The text rendering function uses this table to find the font data
+ *          corresponding to a given font name string.
+ */
 static const FontInfo_t available_fonts[] = {
     {"monospace", &font_consolas},
     {"consolas",  &font_consolas},
-    {"arial",     &font_arial},    // Nu echt anders!
+    {"arial",     &font_arial},
     {"default",   &font_consolas}
 };
 
+/**
+ * @brief The total number of fonts available in the `available_fonts` table.
+ */
 static const uint8_t NUM_AVAILABLE_FONTS = sizeof(available_fonts) / sizeof(FontInfo_t);
 
 #endif /* INC_FONTS_H_ */
