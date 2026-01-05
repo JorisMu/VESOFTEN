@@ -18,13 +18,11 @@
 int main(void)
 {
 	SystemInit(); // System speed to 168MHz
-
 	UB_VGA_Screen_Init(); // Init VGA-Screen
+  USART2_Init();
 
-	UB_VGA_FillScreen(VGA_COL_BLUE);
-
-  while(1)
-  {
-
-  }
+    while (1)
+    {
+        USART2_BUFFER(); 
+    }
 }

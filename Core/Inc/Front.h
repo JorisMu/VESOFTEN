@@ -72,4 +72,7 @@ void front_handle_input(const char* input_line);
  */
 const char* status_to_string(int code);
 
+void USART2_SendChar(char c);
+void USART2_SendString(const char *str);
+
 #endif // FRONT_H
