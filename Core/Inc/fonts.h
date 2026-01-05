@@ -1,15 +1,9 @@
-/**
- ******************************************************************************
- * @file    fonts.h
- * @author  J. Mullink
- * @version V2.1
- * @date    05-Jan-2026
- * @brief   Font definitions for the VGA screen driver.
+/*
+ * fonts.h
  *
- * @details This file contains the data and structures for two fonts:
- *          1. Consolas (5x7, monospace)
- *          2. Arial (variable width, proportional)
- ******************************************************************************
+ * Bevat 2 fonts voor UB_VGA library:
+ * 1. Consolas (Monospace 5x7) - Vaste breedte, tech look.
+ * 2. Arial    (Proportional)  - Variabele breedte, leesbare tekst.
  */
 
 #ifndef INC_FONTS_H_
@@ -18,28 +12,16 @@
 #include <stdint.h>
 #include <stddef.h>
 
-/** @defgroup VGA_Fonts Font Definitions
-  * @brief Data and structures for text rendering.
-  * @ingroup VGA_Driver
-  * @{
-  */
+// ------------------- Data Structuren -------------------
 
-/**
- * @brief Structure describing a single character's glyph.
- */
 typedef struct {
-    const uint8_t width; /**< @brief Width of the character in pixels. */
-    const uint8_t* data; /**< @brief Pointer to the character's bitmap data. */
+    uint8_t width;       // Breedte van het karakter
+    const uint8_t* data; // Pointer naar de bytes
 } FontChar_t;
 
-/**
- * @brief Structure defining a complete font.
- */
 typedef struct {
-    const uint8_t height;       /**< @brief Height of the font in pixels. */
-    const FontChar_t* chars;    /**< @brief Pointer to an array of character descriptors.
-                                     If NULL, the font is considered fixed-width and data
-                                     is retrieved from a different table. */
+    uint8_t height;
+    const FontChar_t* chars; // NULL = Fixed width, Niet-NULL = Proportional
 } FontDef_t;
 
 
@@ -307,35 +289,21 @@ static const FontDef_t font_arial = {
 
 
 // ============================================================================
-//   FONT SELECTION TABLE
+//   FONT KEUZE TABEL
 // ============================================================================
 
-/**
- * @brief Structure to map a font name to its definition.
- */
 typedef struct {
-    const char* name;           /**< @brief The name of the font (e.g., "arial"). */
-    const FontDef_t* font_def;  /**< @brief Pointer to the font definition struct. */
+    const char* name;
+    const FontDef_t* font_def;
 } FontInfo_t;
 
-/**
- * @brief An array that maps font names to their corresponding font definitions.
- * @details This table is used by UB_VGA_DrawText to select a font by name.
- */
 static const FontInfo_t available_fonts[] = {
     {"monospace", &font_consolas},
     {"consolas",  &font_consolas},
-    {"arial",     &font_arial},
-    {"default",   &font_arial} // Default font is now Arial
+    {"arial",     &font_arial},    // Nu echt anders!
+    {"default",   &font_consolas}
 };
 
-/**
- * @brief The total number of available fonts in the `available_fonts` table.
- */
 static const uint8_t NUM_AVAILABLE_FONTS = sizeof(available_fonts) / sizeof(FontInfo_t);
-
-/**
-  * @}
-  */
 
 #endif /* INC_FONTS_H_ */
