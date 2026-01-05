@@ -16,7 +16,7 @@
 #include "stm32f4xx_tim.h"
 #include "misc.h"
 #include "stm32f4xx_dma.h"
-
+#include <stdbool.h>
 
 
 //--------------------------------------------------------------
@@ -48,6 +48,20 @@
 #define VGA_DISPLAY_X   320
 #define VGA_DISPLAY_Y   240
 
+//--------------------------------------------------------------
+// Typedefs
+//--------------------------------------------------------------
+typedef struct {
+    int32_t x, y, width, height;
+} VGA_Rect;
+
+
+//--------------------------------------------------------------
+// Text style flags
+//--------------------------------------------------------------
+#define TEXT_STYLE_NORMAL   0x00
+#define TEXT_STYLE_BOLD     0x01
+#define TEXT_STYLE_ITALIC   0x02
 
 
 //--------------------------------------------------------------
@@ -57,7 +71,9 @@ typedef struct {
   uint16_t hsync_cnt;   // counter
   uint32_t start_adr;   // start_adres
   uint32_t dma2_cr_reg; // Register constant CR-Register
+  VGA_Rect clip_rect;   // Clipping rectangle
 }VGA_t;
+
 extern VGA_t VGA;
 
 
@@ -146,13 +162,30 @@ typedef enum {
 // Global Function call
 //--------------------------------------------------------------
 void UB_VGA_Screen_Init(void);
+
+// Clipping functions
+void UB_VGA_SetClipRect(const VGA_Rect *rect);
+void UB_VGA_GetClipRect(VGA_Rect *rect);
+void UB_VGA_ResetClipRect(void);
+
+
+// Graphics primitives
 VGA_Status UB_VGA_FillScreen(uint8_t color);
 VGA_Status UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color);
+VGA_Status UB_VGA_FastHLine(int32_t x0, int32_t y, int32_t x1, uint8_t color);
+VGA_Status UB_VGA_FastVLine(int32_t x, int32_t y0, int32_t y1, uint8_t color);
+
+// Shape drawing functions
 VGA_Status UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness);
-VGA_Status UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled);
+VGA_Status UB_VGA_DrawRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color);
+VGA_Status UB_VGA_FillRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color);
 VGA_Status UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color);
-VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, const char* style);
+VGA_Status UB_VGA_FillCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color);
+
+// Text and bitmap functions
+VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, uint8_t style, VGA_Rect* bounding_box);
 VGA_Status UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup);
+
 
 //--------------------------------------------------------------
 #endif // __STM32F4_UB_VGA_SCREEN_H

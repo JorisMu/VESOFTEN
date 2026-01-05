@@ -26,6 +26,9 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define max(a,b) ((a) > (b) ? (a) : (b))
+#define min(a,b) ((a) < (b) ? (a) : (b))
+
 VGA_t VGA;
 uint8_t VGA_RAM1[(VGA_DISPLAY_X+1)*VGA_DISPLAY_Y];
 //--------------------------------------------------------------
@@ -35,6 +38,7 @@ void P_VGA_InitIO(void);
 void P_VGA_InitTIM(void);
 void P_VGA_InitINT(void);
 void P_VGA_InitDMA(void);
+static VGA_Status P_VGA_DrawSinglePixelLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t color);
 
 
 //--------------------------------------------------------------
@@ -47,6 +51,8 @@ void UB_VGA_Screen_Init(void)
   VGA.hsync_cnt=0;
   VGA.start_adr=0;
   VGA.dma2_cr_reg=0;
+
+  UB_VGA_ResetClipRect();
 
   // RAM init total black
   for(yp=0;yp<VGA_DISPLAY_Y;yp++) {
@@ -71,18 +77,47 @@ void UB_VGA_Screen_Init(void)
   VGA.dma2_cr_reg=DMA2_Stream5->CR;
 }
 
+//--------------------------------------------------------------
+// Clipping functions
+//--------------------------------------------------------------
+void UB_VGA_SetClipRect(const VGA_Rect *rect)
+{
+    if (rect == NULL) {
+        UB_VGA_ResetClipRect();
+        return;
+    }
+    VGA.clip_rect.x = max(0, rect->x);
+    VGA.clip_rect.y = max(0, rect->y);
+    VGA.clip_rect.width = min(VGA_DISPLAY_X - VGA.clip_rect.x, rect->width);
+    VGA.clip_rect.height = min(VGA_DISPLAY_Y - VGA.clip_rect.y, rect->height);
+}
+
+void UB_VGA_GetClipRect(VGA_Rect *rect)
+{
+    if (rect == NULL) return;
+    *rect = VGA.clip_rect;
+}
+
+void UB_VGA_ResetClipRect(void)
+{
+    VGA.clip_rect.x = 0;
+    VGA.clip_rect.y = 0;
+    VGA.clip_rect.width = VGA_DISPLAY_X;
+    VGA.clip_rect.height = VGA_DISPLAY_Y;
+}
+
 
 //--------------------------------------------------------------
 // fill the DMA RAM buffer with one color
 //--------------------------------------------------------------
 VGA_Status UB_VGA_FillScreen(uint8_t color)
 {
-  uint16_t xp,yp;
-
-  for(yp=0;yp<VGA_DISPLAY_Y;yp++) {
-    for(xp=0;xp<VGA_DISPLAY_X;xp++) {
-      UB_VGA_SetPixel(xp,yp,color);
-    }
+  // This function is fast, so we can bypass per-pixel clipping
+  // and just fill the whole buffer.
+  memset(VGA_RAM1, color, (VGA_DISPLAY_X+1)*VGA_DISPLAY_Y);
+  // Ensure the last pixel of each line is black
+  for(uint16_t yp=0; yp<VGA_DISPLAY_Y; yp++) {
+      VGA_RAM1[(yp*(VGA_DISPLAY_X+1))+VGA_DISPLAY_X] = 0;
   }
   return VGA_SUCCESS;
 }
@@ -94,8 +129,15 @@ VGA_Status UB_VGA_FillScreen(uint8_t color)
 //--------------------------------------------------------------
 VGA_Status UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
 {
-  if(xp>=VGA_DISPLAY_X) return VGA_ERROR_INVALID_COORDINATE;
-  if(yp>=VGA_DISPLAY_Y) return VGA_ERROR_INVALID_COORDINATE;
+  // Check against screen boundaries
+  if(xp >= VGA_DISPLAY_X || yp >= VGA_DISPLAY_Y) return VGA_ERROR_INVALID_COORDINATE;
+
+  // Check against clipping rectangle
+  if (xp < VGA.clip_rect.x || yp < VGA.clip_rect.y ||
+      xp >= VGA.clip_rect.x + VGA.clip_rect.width ||
+      yp >= VGA.clip_rect.y + VGA.clip_rect.height) {
+      return VGA_SUCCESS; // Clipped, do not draw but not an error
+  }
 
   // Write pixel to ram
   VGA_RAM1[(yp*(VGA_DISPLAY_X+1))+xp]=color;
@@ -103,6 +145,36 @@ VGA_Status UB_VGA_SetPixel(uint16_t xp, uint16_t yp, uint8_t color)
   return VGA_SUCCESS;
 }
 
+VGA_Status UB_VGA_FastHLine(int32_t x0, int32_t y, int32_t x1, uint8_t color)
+{
+    if (y < VGA.clip_rect.y || y >= (VGA.clip_rect.y + VGA.clip_rect.height)) return VGA_SUCCESS;
+
+    int32_t start_x = max(min(x0, x1), VGA.clip_rect.x);
+    int32_t end_x = min(max(x0, x1), VGA.clip_rect.x + VGA.clip_rect.width - 1);
+
+    if (start_x > end_x) return VGA_SUCCESS;
+
+    uint32_t base_addr = y * (VGA_DISPLAY_X + 1);
+    memset(&VGA_RAM1[base_addr + start_x], color, end_x - start_x + 1);
+
+    return VGA_SUCCESS;
+}
+
+VGA_Status UB_VGA_FastVLine(int32_t x, int32_t y0, int32_t y1, uint8_t color)
+{
+    if (x < VGA.clip_rect.x || x >= (VGA.clip_rect.x + VGA.clip_rect.width)) return VGA_SUCCESS;
+
+    int32_t start_y = max(min(y0, y1), VGA.clip_rect.y);
+    int32_t end_y = min(max(y0, y1), VGA.clip_rect.y + VGA.clip_rect.height - 1);
+    
+    if (start_y > end_y) return VGA_SUCCESS;
+
+    uint32_t line_addr_start = start_y * (VGA_DISPLAY_X + 1) + x;
+    for (int32_t i = 0; i <= (end_y - start_y); i++) {
+        VGA_RAM1[line_addr_start + i * (VGA_DISPLAY_X + 1)] = color;
+    }
+    return VGA_SUCCESS;
+}
 
 //--------------------------------------------------------------
 // interne Funktionen
@@ -340,11 +412,6 @@ void TIM2_IRQHandler(void)
 
   // Interrupt of Timer2 CH3 occurred (for Trigger start)
   TIM_ClearITPendingBit(TIM2, TIM_IT_CC3);
-//  TIM2->SR |= ~TIM_SR_CC3IF; //Clear pending bit interrupt
-//  NVIC->ISPR[0] = 0x10000000;
-//  NVIC->ICPR[0] = 0x10000000;
-//  TIM2->SR = (uint16_t)~((uint16_t)0x0008);
-
 
   VGA.hsync_cnt++;
   if(VGA.hsync_cnt>=VGA_VSYNC_PERIODE) {
@@ -397,22 +464,8 @@ void DMA2_Stream5_IRQHandler(void)
   {
     // TransferInterruptComplete Interrupt from DMA2
     DMA_ClearITPendingBit(DMA2_Stream5, DMA_IT_TCIF5);
-//    if(((((DMA_IT_TCIF5) & 0x30000000) != 0x30000000) && \
-//                             (((DMA_IT_TCIF5) & 0x30000000) != 0) && ((DMA_IT_TCIF5) != 0x00) && \
-//                             (((DMA_IT_TCIF5) & 0x40820082) != 0x00))){
-//    	DMA2->HISR = (uint32_t)(((uint32_t)0x20008800) & (uint32_t)0x0F7D0F7D );
-//    }
-//    DMA2->HIFCR = (uint32_t)(((uint32_t)0x20008800) & (uint32_t)0x0F7D0F7D );
 
-//	  DMA_Hisr |= ~DMA_HISR_TCIF5;
-//	  DMA_HISR |= ~DMA_HISR_TCIF5;
-//	  DMA2->HISR |= ~DMA_HISR_TCIF5;
-//    DMA2->HISR |= (uint32_t)(DMA_IT_TCIF5 & ((uint32_t)0x0F7D0F7D ));
-//    DMA2->LISR |= (uint32_t)(DMA_IT_TCIF5 & ((uint32_t)0x0F7D0F7D ));
-//    DMA2->HISR = 0x440;
-//    DMA2->HISR = (uint32_t)(((uint32_t)0x20008800) & (uint32_t)0x0F7D0F7D );
     // stop after all pixels => DMA Transfer stop
-
     // Timer1 stop
     TIM1->CR1&=~TIM_CR1_CEN;
     // DMA2 disable
@@ -430,15 +483,12 @@ VGA_Status UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
 
     const Bitmap_t *bitmap = &vga_bitmaps[id];
 
-    if ((x_lup + bitmap->width > VGA_DISPLAY_X) || (y_lup + bitmap->height > VGA_DISPLAY_Y)) {
-        return VGA_ERROR_INVALID_COORDINATE;
-    }
-
+    // Clipping is handled by SetPixel
     for (uint16_t y = 0; y < bitmap->height; y++) {
         for (uint16_t x = 0; x < bitmap->width; x++) {
             uint8_t color = bitmap->data[y][x];
-            if (color != BITMAP_TRANSPARENT_COLOR) { // Check for transparent color
-                if (UB_VGA_SetPixel(x_lup + x, y_lup + y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
+            if (color != BITMAP_TRANSPARENT_COLOR) {
+                UB_VGA_SetPixel(x_lup + x, y_lup + y, color);
             }
         }
     }
@@ -446,30 +496,27 @@ VGA_Status UB_VGA_DrawBitmap(uint8_t id, uint16_t x_lup, uint16_t y_lup) {
 }
 
 // Internal helper function to draw a 1-pixel thick line
-VGA_Status P_VGA_DrawSinglePixelLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color)
+static VGA_Status P_VGA_DrawSinglePixelLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t color)
 {
-    int16_t dx = abs(x2 - x1);
-    int16_t sx = x1 < x2 ? 1 : -1;
-    int16_t dy = -abs(y2 - y1);
-    int16_t sy = y1 < y2 ? 1 : -1;
-    int16_t err = dx + dy;
-    int16_t e2;
+    int32_t dx = abs(x2 - x1);
+    int32_t sx = x1 < x2 ? 1 : -1;
+    int32_t dy = -abs(y2 - y1);
+    int32_t sy = y1 < y2 ? 1 : -1;
+    int32_t err = dx + dy;
+    int32_t e2;
 
     for (;;) {
-    	if(UB_VGA_SetPixel(x1, y1, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-    	{
-    		if (x1 == x2 && y1 == y2) break;
-			e2 = 2 * err;
-			if (e2 >= dy) {
-				err += dy;
-				x1 += sx;
-			}
-			if (e2 <= dx) {
-				err += dx;
-				y1 += sy;
-			}
-    	}
-
+    	UB_VGA_SetPixel(x1, y1, color);
+		if (x1 == x2 && y1 == y2) break;
+		e2 = 2 * err;
+		if (e2 >= dy) {
+			err += dy;
+			x1 += sx;
+		}
+		if (e2 <= dx) {
+			err += dx;
+			y1 += sy;
+		}
     }
     return VGA_SUCCESS;
 }
@@ -477,49 +524,66 @@ VGA_Status P_VGA_DrawSinglePixelLine(uint16_t x1, uint16_t y1, uint16_t x2, uint
 VGA_Status UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t color, uint8_t thickness)
 {
     if (thickness == 0) return VGA_ERROR_INVALID_PARAMETER;
+    if (thickness == 1) {
+        return P_VGA_DrawSinglePixelLine(x1, y1, x2, y2, color);
+    }
 
-    // Calculate absolute difference for determining line steepness
-    int16_t dx_abs = abs(x2 - x1);
-    int16_t dy_abs = abs(y2 - y1);
+    // Correct thick line implementation using filled circles at each point
+    int32_t dx = abs(x2 - x1);
+    int32_t sx = x1 < x2 ? 1 : -1;
+    int32_t dy = -abs(y2 - y1);
+    int32_t sy = y1 < y2 ? 1 : -1;
+    int32_t err = dx + dy;
+    int32_t e2;
+    uint16_t r = thickness / 2;
 
-    // Initial offset for centering the thick line
-    int16_t offset_start = -(thickness / 2);
+    int32_t current_x = x1;
+    int32_t current_y = y1;
 
-    // Draw multiple parallel lines
-    for (int i = 0; i < thickness; i++) {
-        if (dx_abs > dy_abs) { // Mostly horizontal line, offset vertically
-            if (P_VGA_DrawSinglePixelLine(x1, y1 + offset_start + i, x2, y2 + offset_start + i, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        } else
-        { // Mostly vertical line, offset horizontally
-            if (P_VGA_DrawSinglePixelLine(x1 + offset_start + i, y1, x2 + offset_start + i, y2, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
+    for (;;) {
+        UB_VGA_FillCircle(current_x, current_y, r, color);
+        if (current_x == x2 && current_y == y2) break;
+        e2 = 2 * err;
+        if (e2 >= dy) {
+            err += dy;
+            current_x += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            current_y += sy;
         }
     }
     return VGA_SUCCESS;
 }
 
-VGA_Status UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled)
+
+VGA_Status UB_VGA_FillRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color)
+{
+    if (width == 0 || height == 0) return VGA_ERROR_INVALID_PARAMETER;
+    
+    int32_t x_end = x + width;
+    int32_t y_end = y + height;
+    
+    for (int32_t current_y = y; current_y < y_end; current_y++) {
+        UB_VGA_FastHLine(x, current_y, x_end -1, color);
+    }
+    
+    return VGA_SUCCESS;
+}
+
+
+VGA_Status UB_VGA_DrawRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color)
 {
     if (width == 0 || height == 0) return VGA_ERROR_INVALID_PARAMETER;
 
-    uint16_t x2 = x_lup + width - 1;
-    uint16_t y2 = y_lup + height - 1;
+    uint16_t x2 = x + width - 1;
+    uint16_t y2 = y + height - 1;
 
-    if (x2 >= VGA_DISPLAY_X || y2 >= VGA_DISPLAY_Y) return VGA_ERROR_INVALID_COORDINATE;
-
-    if (filled) {
-        uint16_t x, y;
-        for (y = y_lup; y <= y2; y++) {
-            for (x = x_lup; x <= x2; x++) {
-                if (UB_VGA_SetPixel(x, y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-            }
-        }
-    } else {
-        // Draw 4 lines. The 'thickness' parameter is passed as 1.
-    	if (UB_VGA_DrawLine(x_lup, y_lup, x2, y_lup, color, 1)== VGA_ERROR_INVALID_COORDINATE)return VGA_ERROR_INVALID_COORDINATE; // Top
-    	if (UB_VGA_DrawLine(x_lup, y2, x2, y2, color, 1)== VGA_ERROR_INVALID_COORDINATE)return VGA_ERROR_INVALID_COORDINATE;       // Bottom
-    	if (UB_VGA_DrawLine(x_lup, y_lup, x_lup, y2, color, 1)== VGA_ERROR_INVALID_COORDINATE)return VGA_ERROR_INVALID_COORDINATE; // Left
-    	if (UB_VGA_DrawLine(x2, y_lup, x2, y2, color, 1)== VGA_ERROR_INVALID_COORDINATE)return VGA_ERROR_INVALID_COORDINATE;       // Right
-    }
+	UB_VGA_FastHLine(x, y, x2, color);      // Top
+	UB_VGA_FastHLine(x, y2, x2, color);     // Bottom
+	UB_VGA_FastVLine(x, y, y2, color);      // Left
+	UB_VGA_FastVLine(x2, y, y2, color);     // Right
+    
     return VGA_SUCCESS;
 }
 
@@ -527,20 +591,20 @@ VGA_Status UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radi
 {
     if (radius == 0) return VGA_ERROR_INVALID_PARAMETER;
 
-    int16_t x = radius;
-    int16_t y = 0;
-    int16_t err = 0;
+    int32_t x = radius;
+    int32_t y = 0;
+    int32_t err = 0;
 
     while (x >= y)
     {
-        if (UB_VGA_SetPixel(center_x + x, center_y + y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x + y, center_y + x, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x - y, center_y + x, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x - x, center_y + y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x - x, center_y - y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x - y, center_y - x, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x + y, center_y - x, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
-        if (UB_VGA_SetPixel(center_x + x, center_y - y, color) == VGA_ERROR_INVALID_COORDINATE) return VGA_ERROR_INVALID_COORDINATE;
+        UB_VGA_SetPixel(center_x + x, center_y + y, color);
+        UB_VGA_SetPixel(center_x + y, center_y + x, color);
+        UB_VGA_SetPixel(center_x - y, center_y + x, color);
+        UB_VGA_SetPixel(center_x - x, center_y + y, color);
+        UB_VGA_SetPixel(center_x - x, center_y - y, color);
+        UB_VGA_SetPixel(center_x - y, center_y - x, color);
+        UB_VGA_SetPixel(center_x + y, center_y - x, color);
+        UB_VGA_SetPixel(center_x + x, center_y - y, color);
 
         if (err <= 0)
         {
@@ -556,37 +620,69 @@ VGA_Status UB_VGA_DrawCircle(uint16_t center_x, uint16_t center_y, uint16_t radi
     return VGA_SUCCESS;
 }
 
-VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, const char* style)
+VGA_Status UB_VGA_FillCircle(uint16_t center_x, uint16_t center_y, uint16_t radius, uint8_t color)
 {
-    // --- 1. Font Selection (Simplified logic) ---
-    const FontDef_t* font_def = NULL; // Default
-	bool font_found = false;
+    if (radius == 0) return VGA_ERROR_INVALID_PARAMETER;
+
+    int32_t x = radius;
+    int32_t y = 0;
+    int32_t err = 0;
+
+    while (x >= y)
+    {
+        UB_VGA_FastHLine(center_x - x, center_y + y, center_x + x, color);
+        UB_VGA_FastHLine(center_x - x, center_y - y, center_x + x, color);
+        UB_VGA_FastHLine(center_x - y, center_y + x, center_x + y, color);
+        UB_VGA_FastHLine(center_x - y, center_y - x, center_x + y, color);
+
+        if (err <= 0)
+        {
+            y += 1;
+            err += 2*y + 1;
+        }
+        if (err > 0)
+        {
+            x -= 1;
+            err -= 2*x + 1;
+        }
+    }
+    return VGA_SUCCESS;
+}
+
+
+VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font_name, uint8_t size, uint8_t style, VGA_Rect* bounding_box)
+{
+    // --- 1. Font Selection ---
+    const FontDef_t* font_def = NULL;
+    bool font_found = false;
     if (font_name != NULL && *font_name != '\0') {
         for (uint8_t i = 0; i < NUM_AVAILABLE_FONTS; i++) {
             if (strcmp(font_name, available_fonts[i].name) == 0) {
                 font_def = available_fonts[i].font_def;
-				font_found = true;
+                font_found = true;
                 break;
             }
         }
+    } else {
+        font_def = available_fonts[0].font_def; // Default font
+        font_found = true;
     }
-	else
-	{
-		font_def = available_fonts[0].font_def;
-		font_found = true;
-	}
 
-	if(!font_found) return VGA_ERROR_INVALID_PARAMETER;
+    if (!font_found || font_def == NULL) return VGA_ERROR_INVALID_PARAMETER;
 
-    // --- 2. Style Parameters ---
-    bool is_vet = (style != NULL && strcmp(style, "vet") == 0);
-    bool is_italic = (style != NULL && strcmp(style, "cursief") == 0);
+    // --- 2. Style & Size Parameters ---
+    bool is_bold = (style & TEXT_STYLE_BOLD);
+    bool is_italic = (style & TEXT_STYLE_ITALIC);
     if (size == 0) size = 1;
+
+    // --- 3. Bounding Box Initialization ---
+    VGA_Rect bbox = { .x = x, .y = y, .width = 0, .height = 0 };
+    bool first_char = true;
 
     uint16_t current_x = x;
     uint16_t current_y = y;
 
-    // --- 3. Draw Loop ---
+    // --- 4. Draw Loop ---
     while (*text) {
         char character = *text++;
 
@@ -596,86 +692,86 @@ VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* te
             current_x = x;
             continue;
         }
-        if (character == '\r') continue; // Often usually ignored or resets X
+        if (character == '\r') continue;
 
-        // Safe casting/mapping
-        if ((unsigned char)character >= 128) character = '?';
+        // Map character to a displayable one if it's outside the font range
+        if ((uint8_t)character >= 128) character = '?';
 
-        // --- 4. Retrieve Font Data ---
+        // --- 5. Retrieve Font Data ---
         uint8_t char_width = 0;
         const uint8_t* font_char_data = NULL;
 
-        if (font_def->chars == NULL) {
-            // Fixed width assumption (Check if your array needs index * 5 here!)
-            char_width = 5;
+        if (font_def->chars == NULL) { // Fixed-width font
+            char_width = 5; // Default width for Consolas-like font
             font_char_data = font_consolas_data[(uint8_t)character];
-        } else {
-            // Proportional
+        } else { // Proportional font
             const FontChar_t* font_char = &font_def->chars[(uint8_t)character];
-            char_width = font_char->width;
-            font_char_data = font_char->data;
+            // Validate glyph data
+            if (font_char != NULL && font_char->data != NULL && font_char->width > 0) {
+                char_width = font_char->width;
+                font_char_data = font_char->data;
+            }
         }
 
-        // Fallback for missing char
-        if (font_char_data == NULL) {
-             current_x += (char_width > 0 ? char_width : 5) * size;
+        // Skip if character is not defined in the font
+        if (font_char_data == NULL || char_width == 0) {
+             current_x += (5 * size); // Advance by a default width
              continue;
         }
+        
+        uint16_t scaled_char_width = char_width * size;
+        uint16_t scaled_font_height = font_def->height * size;
 
-        // --- 5. Rendering ---
-        // Pre-calculate spacing parameters outside the inner loops
-        uint8_t block_width = is_vet ? (size + 1) : size;
-
+        // --- 6. Rendering ---
         for (uint8_t col = 0; col < char_width; col++) {
             uint8_t col_data = font_char_data[col];
 
             for (uint8_t row = 0; row < font_def->height; row++) {
-                // Check if pixel is set (assuming LSB = top row)
-                if ((col_data >> row) & 0x01) {
+                if ((col_data >> row) & 0x01) { // If pixel is set
+                    int32_t x_offset = is_italic ? ((font_def->height - row) / 2) : 0;
+                    
+                    int32_t draw_x = current_x + (col * size) + x_offset;
+                    int32_t draw_y = current_y + (row * size);
 
-                    // Italic Math
-                    int16_t x_offset = 0;
-                    if (is_italic) {
-                        x_offset = (font_def->height - row) / 2 - 1;
-                    }
-
-                    // Calculate absolute positions
-                    int16_t draw_x = current_x + (col * size) + x_offset;
-                    int16_t draw_y = current_y + (row * size);
-
-                    // OPTIMALISATIE TIP:
-                    // Als je een functie UB_VGA_FillRect hebt, gebruik die hier!
-                    // UB_VGA_FillRect(draw_x, draw_y, block_width, size, color);
-
-                    // Anders, gebruik loops (met bounds check voor draw_x < 0):
-                    for(uint8_t bw = 0; bw < block_width; bw++) {
-                        for(uint8_t bs = 0; bs < size; bs++) {
-                            if(draw_x + bw >= 0) { // Simple safety check
-                                if(UB_VGA_SetPixel(draw_x + bw, draw_y + bs, color) != VGA_SUCCESS) return VGA_ERROR_INVALID_COORDINATE;
-                            }
-                        }
-                    }
+                    // Use FillRectangle for performance
+                    uint8_t block_width = is_bold ? (size + 1) : size;
+                    UB_VGA_FillRectangle(draw_x, draw_y, block_width, size, color);
                 }
             }
         }
 
-        // --- 6. Advance Cursor ---
-        uint8_t visual_width = char_width;
-        // Bij italic wordt de letter visueel breder, maar de cursor moet niet
-        // per se even ver opschuiven, anders krijg je gaten.
-        // Ik heb de '+2' hier weggehaald tenzij je echt brede spacing wilt.
-        // Wel +1 pixel spacing standaard.
+        // --- 7. Update Bounding Box ---
+        int32_t italic_offset = is_italic ? (font_def->height / 2) : 0;
+        int32_t char_render_width = scaled_char_width + (is_bold ? size : 0) + italic_offset;
 
-        current_x += (visual_width * size) + size; // breedte + 1px spacing (geschaald)
-        
-        if (is_vet) current_x += size; // Extra ruimte voor vet
+        if (first_char) {
+            bbox.x = current_x;
+            bbox.y = current_y;
+            bbox.width = char_render_width;
+            bbox.height = scaled_font_height;
+            first_char = false;
+        } else {
+            int32_t new_width = (current_x + char_render_width) - bbox.x;
+            bbox.width = max(bbox.width, new_width);
+            bbox.height = max(bbox.height, (current_y + scaled_font_height) - bbox.y);
+        }
+
+        // --- 8. Advance Cursor ---
+        current_x += scaled_char_width + size; // Character width + 1px scaled spacing
+        if (is_bold) current_x += size;
 
         // Wrap check
-        if (current_x > VGA_DISPLAY_X - (char_width * size)) {
-            current_y += (font_def->height * size) + 2;
+        if (current_x > VGA_DISPLAY_X - scaled_char_width) {
+            current_y += scaled_font_height + 2;
             current_x = x;
         }
     }
+
+    // --- 9. Finalize ---
+    if (bounding_box != NULL) {
+        *bounding_box = bbox;
+    }
+
 	return VGA_SUCCESS;
 }
 
