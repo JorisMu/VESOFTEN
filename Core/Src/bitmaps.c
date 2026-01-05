@@ -1,9 +1,27 @@
+/**
+ ******************************************************************************
+ * @file    bitmaps.c
+ * @author  J.F. van der Bent
+ * @version V1.0
+ * @date    05-Jan-2026
+ * @brief   Bitmap data for the VGA screen driver.
+ ******************************************************************************
+ */
+
 #include "stm32_ub_vga_screen.h"
 #include "bitmaps.h"
 
 // --------------------------------------------------------------------------
-// 1. BITMAP_ARROW_UP (Witte Pijl)
+// Bitmap Data Definitions
 // --------------------------------------------------------------------------
+// Each array defines the pixels for a 16x16 bitmap.
+// The special value BITMAP_TRANSPARENT_COLOR (0xFE) is used for transparency.
+// --------------------------------------------------------------------------
+
+
+/**
+ * @brief 16x16 pixel data for BITMAP_ARROW_UP.
+ */
 const uint8_t bitmap_data_arrow_up_16x16[16][16] = {
 {0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
 {0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
@@ -24,9 +42,9 @@ const uint8_t bitmap_data_arrow_up_16x16[16][16] = {
 };
 
 
-// --------------------------------------------------------------------------
-// 2. BITMAP_ARROW_RIGHT (Witte Pijl)
-// --------------------------------------------------------------------------
+/**
+ * @brief 16x16 pixel data for BITMAP_ARROW_RIGHT.
+ */
 const uint8_t bitmap_data_arrow_right_16x16[16][16] = {
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -47,9 +65,9 @@ const uint8_t bitmap_data_arrow_right_16x16[16][16] = {
 	};
 
 
-// --------------------------------------------------------------------------
-// 3. BITMAP_ARROW_DOWN (Witte Pijl)
-// --------------------------------------------------------------------------
+/**
+ * @brief 16x16 pixel data for BITMAP_ARROW_DOWN.
+ */
 const uint8_t bitmap_data_arrow_down_16x16[16][16] = {
 	{0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
 	{0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
@@ -69,10 +87,9 @@ const uint8_t bitmap_data_arrow_down_16x16[16][16] = {
 	{0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,VGA_COL_WHITE,VGA_COL_WHITE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE,0xFE},
 	};
 
-// --------------------------------------------------------------------------
-// 4. BITMAP_ARROW_LEFT (Witte Pijl)
-// --------------------------------------------------------------------------
-
+/**
+ * @brief 16x16 pixel data for BITMAP_ARROW_LEFT.
+ */
 const uint8_t bitmap_data_arrow_left_16x16[16][16] = {
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -92,9 +109,9 @@ const uint8_t bitmap_data_arrow_left_16x16[16][16] = {
 	{0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE}
 	};
 
-// --------------------------------------------------------------------------
-// 5. BITMAP_SMILEY_ANGRY (Rode smiley met zwarte ogen/mond)
-// --------------------------------------------------------------------------
+/**
+ * @brief 16x16 pixel data for BITMAP_SMILEY_ANGRY.
+ */
 const uint8_t bitmap_data_smiley_angry_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, VGA_COL_RED, VGA_COL_RED, VGA_COL_RED, VGA_COL_RED, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -114,9 +131,9 @@ const uint8_t bitmap_data_smiley_angry_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE}
 };
 
-// --------------------------------------------------------------------------
-// 6. BITMAP_SMILEY_HAPPY (Gele smiley met zwarte ogen en rode mond)
-// --------------------------------------------------------------------------
+/**
+ * @brief 16x16 pixel data for BITMAP_SMILEY_HAPPY.
+ */
 const uint8_t bitmap_data_smiley_happy_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, VGA_COL_YELLOW, VGA_COL_YELLOW, VGA_COL_YELLOW, VGA_COL_YELLOW, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE},
@@ -136,7 +153,11 @@ const uint8_t bitmap_data_smiley_happy_16x16[16][16] = {
     {0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE}
 	};
 
-// Array of all available bitmaps
+/**
+ * @brief Global array of bitmap structures.
+ * @details This array serves as a lookup table for all bitmaps available in the project.
+ *          The order of entries must match the BITMAP_ID enum in bitmaps.h.
+ */
 const Bitmap_t vga_bitmaps[] = {
     {16, 16, bitmap_data_arrow_up_16x16},       // BITMAP_ARROW_UP
     {16, 16, bitmap_data_arrow_right_16x16},    // BITMAP_ARROW_RIGHT
