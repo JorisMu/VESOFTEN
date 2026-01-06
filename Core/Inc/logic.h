@@ -52,7 +52,7 @@ typedef struct {
 // Functies met const char* om string-overruns te voorkomen
 Resultaat lijn(int x, int y, int x2, int y2, const char *kleur, int dikte);
 Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, const char *kleur, int gevuld);
-Resultaat tekst(int x, int y, const char *kleur, const char *tekst, const char *fontnaam, int fontgrootte, const char *fontstijl);
+Resultaat tekst(int x, int y, const char *kleur, const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]);
 Resultaat bitmap(int nr, int x_lup, int y_lup);
 Resultaat clearscherm(const char *kleur);
 Resultaat wacht(int msecs);

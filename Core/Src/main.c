@@ -55,7 +55,7 @@ int main(void)
 	LED_Init();   // LED configureren
 
 	//clearscherm function
-	if (clearscherm("wit")==100) {
+	if (clearscherm("grijs")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
@@ -111,17 +111,23 @@ int main(void)
 			LED_On(1);
 		}*/
 
-	if (herhaal(4, 3) == OK) {
+	if (bitmap(3,50,50)==100) {
+			LED_On(0);
+		} else {
+			LED_On(1);
+		}
+
+	if (wacht(1000)==100) {
+			LED_On(0);
+		} else {
+			LED_On(1);
+		}
+
+	if (herhaal(6, 3) == OK) {
 	        LED_On(0); // Groen licht als het herhalen is gelukt
 	    } else {
 	        LED_On(1); // Rood licht bij een fout
 	    }
-
-	/*if (bitmap(0,50,50)==100) {
-		LED_On(0);
-	} else {
-		LED_On(1);
-	}*/
 
 	if (clearscherm("groen")==100) {
 			LED_On(0);

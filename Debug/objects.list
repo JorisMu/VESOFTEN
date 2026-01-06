@@ -1,3 +1,4 @@
+"./Core/Src/bitmaps.o"
 "./Core/Src/logic.o"
 "./Core/Src/main.o"
 "./Core/Src/misc.o"

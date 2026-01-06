@@ -42,7 +42,7 @@ int validFontstijl(const char *stijl) {
 	return contains(stijlen, aantal_stijl, stijl);
 }
 
-uint8_t kleurToCode(const char *kleur[]) {
+uint8_t kleurToCode(const char *kleur) {
 	uint8_t code;
 
 	if (strcmp(kleur, "zwart") == 0) code = VGA_COL_BLACK;
@@ -200,17 +200,16 @@ Resultaat clearscherm(const char *kleur) {
     return OK;
 }
 
+int wachten(int msecs) {
+	uint32_t count = msecs * (SystemCoreClock / 10000);
+	for (volatile uint32_t i = 0; i < count; i++);
+	return 0;
+}
+
 Resultaat wacht(int msecs) {
     if (msecs < 0) return ERROR_INVALID_PARAM;
 
-    // Gebruik de CPU frequentie om te berekenen hoeveel loops we nodig hebben
-    // Voor een F407 op 168MHz is dit ongeveer:
-    //uint32_t count = msecs * (SystemCoreClock / 10000);
-
     wachten(msecs);
-    //for (/*volatile*/ uint32_t i = 0; i < count; i++) {
-   //     //__NOP(); // Doe niets
-   // }
 
     Commando c;
         memset(&c, 0, sizeof(Commando));
@@ -218,11 +217,6 @@ Resultaat wacht(int msecs) {
         log_commando(c);
 
     return OK;
-}
-
-int wachten(msecs){
-	uint32_t count = msecs * (SystemCoreClock / 10000);
-	for (volatile uint32_t i = 0; i < count; i++);
 }
 
 Resultaat cirkel(int x, int y, int radius, const char *kleur) {
@@ -257,7 +251,6 @@ Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,
     int x[] = {x1, x2, x3, x4, x5};
     int y[] = {y1, y2, y3, y4, y5};
     int aantal_punten = 5;
-    Resultaat res;
 
     //Validatie: Kleur controleren
     if (!validColor(kleur)) {
@@ -307,7 +300,7 @@ Resultaat herhaal(int aantal, int hoevaak) {
                 case CMD_RECHTHOEK: UB_VGA_DrawRectangle(c->p1, c->p2, c->p3, c->p4, kleurToCode(c->kleur), c->p5); break;
                 case CMD_CIRKEL:    UB_VGA_DrawCircle(c->p1, c->p2, c->p3, kleurToCode(c->kleur)); break;
                 case CMD_TEKST:     UB_VGA_DrawText(c->p1, c->p2, kleurToCode(c->kleur), c->tekst_inhoud, c->fontnaam, c->p3, c->fontstijl); break;
-                //case CMD_BITMAP:    UB_VGA_DrawBitmap(c->p1, c->p2, c->p3); break;
+                case CMD_BITMAP:    UB_VGA_DrawBitmap(c->p1, c->p2, c->p3); break;
                 case CMD_CLEAR:     UB_VGA_FillScreen(kleurToCode(c->kleur)); break;
                 case CMD_WAIT:      wachten(c->p1); break;
                 case CMD_FIGUUR:
