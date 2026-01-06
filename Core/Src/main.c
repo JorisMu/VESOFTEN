@@ -19,9 +19,6 @@
 
 #include <stdint.h>
 
-#define GPIOD_BASE 0x40020C00
-#define RCC_BASE   0x40023800
-
 #define RCC_AHB1ENR (*(volatile uint32_t*)(RCC_BASE + 0x30))
 #define GPIOD_MODER (*(volatile uint32_t*)(GPIOD_BASE + 0x00))
 #define GPIOD_ODR   (*(volatile uint32_t*)(GPIOD_BASE + 0x14))

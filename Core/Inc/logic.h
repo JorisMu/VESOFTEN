@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "stm32_ub_vga_screen.h"
+#include "stm32f4xx_hal.h"
+
 // Schermdimensies
 #define SCHERM_BREEDTE 320
 #define SCHERM_HOOGTE 240
