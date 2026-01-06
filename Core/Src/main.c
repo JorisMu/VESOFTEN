@@ -77,13 +77,19 @@ int main(void)
 		LED_On(1);
 	}*/
 
-	if (cirkel(120,160,79,"groen")==100) {
+	if (figuur(160, 20, 250, 100, 210, 200, 110, 200, 70, 100, "rood") == OK) {
+	    LED_On(0);
+	} else {
+	    LED_On(1);
+	}
+
+	/*if (cirkel(120,160,79,"groen")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}
+	}*/
 
-	if (wacht(5000)==100) {
+	if (wacht(2000)==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);

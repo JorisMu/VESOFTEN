@@ -1,15 +1,6 @@
 #include "logic.h"
 #include "stm32_ub_vga_screen.h"
-#include <string.h>
-#include "stm32f4xx_hal.h"  // <--- VOEG DEZE REGEL TOE
-//dingen die nog gedaan moeten worden:
-// - Errors (Dikte, frontletters, frontstyle, enz...)
-// - herhaal functionaliteit
-// - functies van de high layer direct uitvoeren wanneer functie niet in error schiet
-
-//functies af:
-//clearscherm
-
+#include "stm32f4xx_hal.h"
 
 // Lijst van toegestane kleuren
 const char *kleuren[] = {
@@ -180,16 +171,6 @@ Resultaat clearscherm(char kleur[20]) {
 
     return OK;
 }
-/*
-Resultaat wacht(int msecs) {
-    if (msecs < 0) {
-    	return ERROR_INVALID_PARAM; // Wachten kan niet met negatieve tijd
-    }
-
-    HAL_Delay((uint32_t)msecs);
-
-    return OK;
-}*/
 
 Resultaat wacht(int msecs) {
     if (msecs < 0) return ERROR_INVALID_PARAM;
@@ -198,8 +179,8 @@ Resultaat wacht(int msecs) {
     // Voor een F407 op 168MHz is dit ongeveer:
     uint32_t count = msecs * (SystemCoreClock / 10000);
 
-    for (volatile uint32_t i = 0; i < count; i++) {
-        __NOP(); // Doe niets
+    for (/*volatile*/ uint32_t i = 0; i < count; i++) {
+        //__NOP(); // Doe niets
     }
 
     return OK;
@@ -240,20 +221,35 @@ Resultaat cirkel(int x, int y, int radius, char kleur[20]) {
 }
 
 Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, char kleur[20]) {
-    // Array van punten voor gemakkelijke iteratie
+    // Punten in arrays zetten voor makkelijke verwerking
     int x[] = {x1, x2, x3, x4, x5};
     int y[] = {y1, y2, y3, y4, y5};
-    int aantal_punten = 5; // Vaste 5 punten in deze implementatie
+    int aantal_punten = 5;
+    Resultaat res;
 
+    // 1. Validatie: Kleur controleren
     if (!validColor(kleur)) {
         return ERROR_INVALID_COLOR;
     }
 
-    // Controleer elk punt op grensoverschrijding
+    // 2. Validatie: Alle punten controleren op schermgrenzen
     for (int i = 0; i < aantal_punten; i++) {
-        if (x[i] < 0 || x[i] >= SCHERM_BREEDTE ||
-            y[i] < 0 || y[i] >= SCHERM_HOOGTE) {
+        if (x[i] < 0 || x[i] >= SCHERM_BREEDTE || y[i] < 0 || y[i] >= SCHERM_HOOGTE) {
             return ERROR_OUT_OF_BOUNDS;
+        }
+    }
+
+    // 3. Tekenen: Trek lijnen tussen de opeenvolgende punten
+    for (int i = 0; i < aantal_punten; i++) {
+        // Gebruik de modulo (%) operator om bij het laatste punt weer terug naar index 0 te gaan
+        int volgende = (i + 1) % aantal_punten;
+
+        // Roep de bestaande lijn functie aan (met dikte 1 als standaard)
+        res = lijn(x[i], y[i], x[volgende], y[volgende], kleur, 1);
+
+        // Als er onderweg iets fout gaat, stop en geef de fout door
+        if (res != OK) {
+            return res;
         }
     }
 
