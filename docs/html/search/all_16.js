@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['p_5fvga_5finitdma_0',['P_VGA_InitDMA',['../stm32__ub__vga__screen_8c.html#a2f3c1c5b8a9b5ef0d8ab5a48e2c4cca5',1,'stm32_ub_vga_screen.c']]],
+  ['p_5fvga_5finitint_1',['P_VGA_InitINT',['../stm32__ub__vga__screen_8c.html#afe8daf9f33c8ab8da35662edf6d10820',1,'stm32_ub_vga_screen.c']]],
+  ['p_5fvga_5finitio_2',['P_VGA_InitIO',['../stm32__ub__vga__screen_8c.html#ab52b01d4e210ce9518b1a7dfb3a9261a',1,'stm32_ub_vga_screen.c']]],
+  ['p_5fvga_5finittim_3',['P_VGA_InitTIM',['../stm32__ub__vga__screen_8c.html#a55f532846e217203b3c23d9e59216cac',1,'stm32_ub_vga_screen.c']]],
+  ['performance_20mode_20enabled_4',['High Performance mode | Enabled',['../system__stm32f4xx_8c.html#autotoc_md17',1,'']]],
+  ['peripheral_20clocks_20configuration_20functions_5',['Peripheral clocks configuration functions',['../group___r_c_c___group3.html',1,'']]],
+  ['pll_20css_20and_20mco_20configuration_20functions_6',['Internal and external clocks, PLL, CSS and MCO configuration functions',['../group___r_c_c___group1.html',1,'']]],
+  ['pll_20hse_7',['System Clock source | PLL (HSE)',['../system__stm32f4xx_8c.html#autotoc_md2',1,'']]],
+  ['pll_5fm_8',['PLL_M',['../group___s_t_m32_f4xx___system___private___defines.html#ga0fa5a868f5cd056a04b1c42e454b9617',1,'system_stm32f4xx.c']]],
+  ['pll_5fm_208_9',['PLL_M | 8',['../system__stm32f4xx_8c.html#autotoc_md9',1,'']]],
+  ['pll_5fn_10',['PLL_N',['../group___s_t_m32_f4xx___system___private___defines.html#ga04586ea638d21afe558db4f2798c38a6',1,'system_stm32f4xx.c']]],
+  ['pll_5fn_20336_11',['PLL_N | 336',['../system__stm32f4xx_8c.html#autotoc_md10',1,'']]],
+  ['pll_5fp_12',['PLL_P',['../group___s_t_m32_f4xx___system___private___defines.html#ga290dcd27167e925d817e8334111c1c01',1,'system_stm32f4xx.c']]],
+  ['pll_5fp_202_13',['PLL_P | 2',['../system__stm32f4xx_8c.html#autotoc_md11',1,'']]],
+  ['pll_5fq_14',['PLL_Q',['../group___s_t_m32_f4xx___system___private___defines.html#gac958257ddb2537c539cffdb3a4543067',1,'system_stm32f4xx.c']]],
+  ['pll_5fq_207_15',['PLL_Q | 7',['../system__stm32f4xx_8c.html#autotoc_md12',1,'']]],
+  ['plli2s_5fn_20na_16',['PLLI2S_N | NA',['../system__stm32f4xx_8c.html#autotoc_md13',1,'']]],
+  ['plli2s_5fr_20na_17',['PLLI2S_R | NA',['../system__stm32f4xx_8c.html#autotoc_md14',1,'']]],
+  ['plli2son_5fbitnumber_18',['PLLI2SON_BitNumber',['../group___r_c_c.html#gabae59c3e4200523e3aa5b6e10aee8c46',1,'stm32f4xx_rcc.c']]],
+  ['pllon_5fbitnumber_19',['PLLON_BitNumber',['../group___r_c_c.html#gab24d7f5f8e4b3b717fd91b54f393f6a3',1,'stm32f4xx_rcc.c']]],
+  ['prefetch_20buffer_20off_20',['Prefetch Buffer | OFF',['../system__stm32f4xx_8c.html#autotoc_md19',1,'']]],
+  ['prescaler_201_21',['AHB Prescaler | 1',['../system__stm32f4xx_8c.html#autotoc_md5',1,'']]],
+  ['prescaler_202_22',['APB2 Prescaler | 2',['../system__stm32f4xx_8c.html#autotoc_md7',1,'']]],
+  ['prescaler_204_23',['APB1 Prescaler | 4',['../system__stm32f4xx_8c.html#autotoc_md6',1,'']]]
+];

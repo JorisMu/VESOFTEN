@@ -1,0 +1,152 @@
+\doxysection{Core/\+\+Src/\+stm32\+\_\+ub\+\_\+vga\+\_\+screen.c File Reference}
+\hypertarget{stm32__ub__vga__screen_8c}{}\label{stm32__ub__vga__screen_8c}\index{Core/Src/stm32\_ub\_vga\_screen.c@{Core/Src/stm32\_ub\_vga\_screen.c}}
+{\ttfamily \+\#include "{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h"{}}\newline
+{\ttfamily \+\#include "{}bitmaps.\+h"{}}\newline
+{\ttfamily \+\#include "{}fonts.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdbool.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_ab52b01d4e210ce9518b1a7dfb3a9261a}{P\+\_\+\+VGA\+\_\+\+Init\+IO}} (void)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a55f532846e217203b3c23d9e59216cac}{P\+\_\+\+VGA\+\_\+\+Init\+TIM}} (void)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_afe8daf9f33c8ab8da35662edf6d10820}{P\+\_\+\+VGA\+\_\+\+Init\+INT}} (void)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a2f3c1c5b8a9b5ef0d8ab5a48e2c4cca5}{P\+\_\+\+VGA\+\_\+\+Init\+DMA}} (void)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1}{UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init}} (void)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_afc67b29f07d35cc7cc03bf11423446b8}{UB\+\_\+\+VGA\+\_\+\+Fill\+Screen}} (uint8\+\_\+t color)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a4234ee7a51277444bb9d81b3d3a6f8e0}{UB\+\_\+\+VGA\+\_\+\+Set\+Pixel}} (uint16\+\_\+t xp, uint16\+\_\+t yp, uint8\+\_\+t color)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a38ad4725462bdc5e86c4ead4f04b9fc2}{TIM2\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_aef190d87febc0414eb7a39bd4c2d2169}{DMA2\+\_\+\+Stream5\+\_\+\+IRQHandler}} (void)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a1efdac3cba8cb047f9d86d54ac54710d}{UB\+\_\+\+VGA\+\_\+\+Draw\+Bitmap}} (uint8\+\_\+t id, uint16\+\_\+t x\+\_\+lup, uint16\+\_\+t y\+\_\+lup)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a25ff84c19996ae8ba340352e7fdcd51a}{UB\+\_\+\+VGA\+\_\+\+Draw\+Line}} (uint16\+\_\+t x1, uint16\+\_\+t y1, uint16\+\_\+t x2, uint16\+\_\+t y2, uint8\+\_\+t color, uint8\+\_\+t thickness)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_acdaa84f0830a36d88f41941fd1d604ef}{UB\+\_\+\+VGA\+\_\+\+Draw\+Rectangle}} (uint16\+\_\+t x\+\_\+lup, uint16\+\_\+t y\+\_\+lup, uint16\+\_\+t width, uint16\+\_\+t height, uint8\+\_\+t color, uint8\+\_\+t filled)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_accc5cb3abf27eda40dd89afd95714815}{UB\+\_\+\+VGA\+\_\+\+Draw\+Circle}} (uint16\+\_\+t center\+\_\+x, uint16\+\_\+t center\+\_\+y, uint16\+\_\+t radius, uint8\+\_\+t color)
+\item 
+VGA\+\_\+\+Status \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a830a3d802aa521cabbb8fd0898953f71}{UB\+\_\+\+VGA\+\_\+\+Draw\+Text}} (uint16\+\_\+t x, uint16\+\_\+t y, uint8\+\_\+t color, const char \texorpdfstring{$\ast$}{*}text, const char \texorpdfstring{$\ast$}{*}font\+\_\+name, uint8\+\_\+t size, const char \texorpdfstring{$\ast$}{*}style)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+VGA\+\_\+t \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a}{VGA}}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8}{VGA\+\_\+\+RAM1}} \+[(VGA\+\_\+\+DISPLAY\+\_\+X+1) \texorpdfstring{$\ast$}{*}VGA\+\_\+\+DISPLAY\+\_\+Y]\+
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{stm32__ub__vga__screen_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{stm32__ub__vga__screen_8c_aef190d87febc0414eb7a39bd4c2d2169}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!DMA2\_Stream5\_IRQHandler@{DMA2\_Stream5\_IRQHandler}}
+\index{DMA2\_Stream5\_IRQHandler@{DMA2\_Stream5\_IRQHandler}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{DMA2\_Stream5\_IRQHandler()}{DMA2\_Stream5\_IRQHandler()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_aef190d87febc0414eb7a39bd4c2d2169} 
+void DMA2\+\_\+\+Stream5\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a2f3c1c5b8a9b5ef0d8ab5a48e2c4cca5}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!P\_VGA\_InitDMA@{P\_VGA\_InitDMA}}
+\index{P\_VGA\_InitDMA@{P\_VGA\_InitDMA}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{P\_VGA\_InitDMA()}{P\_VGA\_InitDMA()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a2f3c1c5b8a9b5ef0d8ab5a48e2c4cca5} 
+void P\+\_\+\+VGA\+\_\+\+Init\+DMA (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_afe8daf9f33c8ab8da35662edf6d10820}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!P\_VGA\_InitINT@{P\_VGA\_InitINT}}
+\index{P\_VGA\_InitINT@{P\_VGA\_InitINT}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{P\_VGA\_InitINT()}{P\_VGA\_InitINT()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_afe8daf9f33c8ab8da35662edf6d10820} 
+void P\+\_\+\+VGA\+\_\+\+Init\+INT (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_ab52b01d4e210ce9518b1a7dfb3a9261a}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!P\_VGA\_InitIO@{P\_VGA\_InitIO}}
+\index{P\_VGA\_InitIO@{P\_VGA\_InitIO}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{P\_VGA\_InitIO()}{P\_VGA\_InitIO()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_ab52b01d4e210ce9518b1a7dfb3a9261a} 
+void P\+\_\+\+VGA\+\_\+\+Init\+IO (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a55f532846e217203b3c23d9e59216cac}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!P\_VGA\_InitTIM@{P\_VGA\_InitTIM}}
+\index{P\_VGA\_InitTIM@{P\_VGA\_InitTIM}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{P\_VGA\_InitTIM()}{P\_VGA\_InitTIM()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a55f532846e217203b3c23d9e59216cac} 
+void P\+\_\+\+VGA\+\_\+\+Init\+TIM (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a38ad4725462bdc5e86c4ead4f04b9fc2}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!TIM2\_IRQHandler@{TIM2\_IRQHandler}}
+\index{TIM2\_IRQHandler@{TIM2\_IRQHandler}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{TIM2\_IRQHandler()}{TIM2\_IRQHandler()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a38ad4725462bdc5e86c4ead4f04b9fc2} 
+void TIM2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a1efdac3cba8cb047f9d86d54ac54710d}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_DrawBitmap@{UB\_VGA\_DrawBitmap}}
+\index{UB\_VGA\_DrawBitmap@{UB\_VGA\_DrawBitmap}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawBitmap()}{UB\_VGA\_DrawBitmap()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a1efdac3cba8cb047f9d86d54ac54710d} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Draw\+Bitmap (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id}{, }\item[{uint16\+\_\+t}]{x\+\_\+lup}{, }\item[{uint16\+\_\+t}]{y\+\_\+lup}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_accc5cb3abf27eda40dd89afd95714815}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_DrawCircle@{UB\_VGA\_DrawCircle}}
+\index{UB\_VGA\_DrawCircle@{UB\_VGA\_DrawCircle}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawCircle()}{UB\_VGA\_DrawCircle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_accc5cb3abf27eda40dd89afd95714815} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Draw\+Circle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{center\+\_\+x}{, }\item[{uint16\+\_\+t}]{center\+\_\+y}{, }\item[{uint16\+\_\+t}]{radius}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a25ff84c19996ae8ba340352e7fdcd51a}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_DrawLine@{UB\_VGA\_DrawLine}}
+\index{UB\_VGA\_DrawLine@{UB\_VGA\_DrawLine}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawLine()}{UB\_VGA\_DrawLine()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a25ff84c19996ae8ba340352e7fdcd51a} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Draw\+Line (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x1}{, }\item[{uint16\+\_\+t}]{y1}{, }\item[{uint16\+\_\+t}]{x2}{, }\item[{uint16\+\_\+t}]{y2}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{uint8\+\_\+t}]{thickness}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_acdaa84f0830a36d88f41941fd1d604ef}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_DrawRectangle@{UB\_VGA\_DrawRectangle}}
+\index{UB\_VGA\_DrawRectangle@{UB\_VGA\_DrawRectangle}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawRectangle()}{UB\_VGA\_DrawRectangle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_acdaa84f0830a36d88f41941fd1d604ef} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Draw\+Rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x\+\_\+lup}{, }\item[{uint16\+\_\+t}]{y\+\_\+lup}{, }\item[{uint16\+\_\+t}]{width}{, }\item[{uint16\+\_\+t}]{height}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{uint8\+\_\+t}]{filled}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a830a3d802aa521cabbb8fd0898953f71}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_DrawText@{UB\_VGA\_DrawText}}
+\index{UB\_VGA\_DrawText@{UB\_VGA\_DrawText}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawText()}{UB\_VGA\_DrawText()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a830a3d802aa521cabbb8fd0898953f71} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Draw\+Text (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x}{, }\item[{uint16\+\_\+t}]{y}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{text}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{font\+\_\+name}{, }\item[{uint8\+\_\+t}]{size}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{style}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_afc67b29f07d35cc7cc03bf11423446b8}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}}
+\index{UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FillScreen()}{UB\_VGA\_FillScreen()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_afc67b29f07d35cc7cc03bf11423446b8} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Fill\+Screen (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}}
+\index{UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_Screen\_Init()}{UB\_VGA\_Screen\_Init()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_aa63128722f952ece5176141e8a99b6c1} 
+void UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{stm32__ub__vga__screen_8c_a4234ee7a51277444bb9d81b3d3a6f8e0}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}}
+\index{UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_SetPixel()}{UB\_VGA\_SetPixel()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a4234ee7a51277444bb9d81b3d3a6f8e0} 
+VGA\+\_\+\+Status UB\+\_\+\+VGA\+\_\+\+Set\+Pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{xp}{, }\item[{uint16\+\_\+t}]{yp}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{stm32__ub__vga__screen_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!VGA@{VGA}}
+\index{VGA@{VGA}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{VGA}{VGA}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_a0642526bfd4eb59d888572150ee3032a} 
+VGA\+\_\+t VGA}
+
+\Hypertarget{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8}\index{stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}!VGA\_RAM1@{VGA\_RAM1}}
+\index{VGA\_RAM1@{VGA\_RAM1}!stm32\_ub\_vga\_screen.c@{stm32\_ub\_vga\_screen.c}}
+\doxysubsubsection{\texorpdfstring{VGA\_RAM1}{VGA\_RAM1}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8c_adad76feab97da661d4015659c7a7f9a8} 
+uint8\+\_\+t VGA\+\_\+\+RAM1\+[(VGA\+\_\+\+DISPLAY\+\_\+X+1) \texorpdfstring{$\ast$}{*}VGA\+\_\+\+DISPLAY\+\_\+Y]\+}
+

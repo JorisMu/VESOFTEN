@@ -1,0 +1,72 @@
+\doxysection{Core/\+\+Src/\+main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{Core/Src/main.c@{Core/Src/main.c}}
+{\ttfamily \+\#include "{}main.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h"{}}\newline
+{\ttfamily \+\#include $<$math.\+h$>$}\newline
+{\ttfamily \+\#include "{}logic.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a305184464592fe039a4e47e9d88bdcc4}{RCC\+\_\+\+AHB1\+ENR}}~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(RCC\+\_\+\+BASE + 0x30))
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a0299d708e570b48d178fdf61e6f8e580}{GPIOD\+\_\+\+MODER}}~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(GPIOD\+\_\+\+BASE + 0x00))
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a392890f38814540d2765aafddf347f02}{GPIOD\+\_\+\+ODR}}~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(GPIOD\+\_\+\+BASE + 0x14))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{main_8c_ab3570a8c9e1266519ad1c7e00093812b}{LED\+\_\+\+Init}} (void)
+\item 
+void \doxymbox{\hyperlink{main_8c_a9e2afb1f8c9b6ee23f819e3235b4f86c}{LED\+\_\+\+On}} (int led)
+\item 
+int \doxymbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{main_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8c_a0299d708e570b48d178fdf61e6f8e580}\index{main.c@{main.c}!GPIOD\_MODER@{GPIOD\_MODER}}
+\index{GPIOD\_MODER@{GPIOD\_MODER}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{GPIOD\_MODER}{GPIOD\_MODER}}
+{\footnotesize\ttfamily \label{main_8c_a0299d708e570b48d178fdf61e6f8e580} 
+\+\#define GPIOD\+\_\+\+MODER~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(GPIOD\+\_\+\+BASE + 0x00))}
+
+\Hypertarget{main_8c_a392890f38814540d2765aafddf347f02}\index{main.c@{main.c}!GPIOD\_ODR@{GPIOD\_ODR}}
+\index{GPIOD\_ODR@{GPIOD\_ODR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{GPIOD\_ODR}{GPIOD\_ODR}}
+{\footnotesize\ttfamily \label{main_8c_a392890f38814540d2765aafddf347f02} 
+\+\#define GPIOD\+\_\+\+ODR~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(GPIOD\+\_\+\+BASE + 0x14))}
+
+\Hypertarget{main_8c_a305184464592fe039a4e47e9d88bdcc4}\index{main.c@{main.c}!RCC\_AHB1ENR@{RCC\_AHB1ENR}}
+\index{RCC\_AHB1ENR@{RCC\_AHB1ENR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_AHB1ENR}{RCC\_AHB1ENR}}
+{\footnotesize\ttfamily \label{main_8c_a305184464592fe039a4e47e9d88bdcc4} 
+\+\#define RCC\+\_\+\+AHB1\+ENR~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*})(RCC\+\_\+\+BASE + 0x30))}
+
+
+
+\label{doc-func-members}
+\Hypertarget{main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_ab3570a8c9e1266519ad1c7e00093812b}\index{main.c@{main.c}!LED\_Init@{LED\_Init}}
+\index{LED\_Init@{LED\_Init}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LED\_Init()}{LED\_Init()}}
+{\footnotesize\ttfamily \label{main_8c_ab3570a8c9e1266519ad1c7e00093812b} 
+void LED\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_a9e2afb1f8c9b6ee23f819e3235b4f86c}\index{main.c@{main.c}!LED\_On@{LED\_On}}
+\index{LED\_On@{LED\_On}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LED\_On()}{LED\_On()}}
+{\footnotesize\ttfamily \label{main_8c_a9e2afb1f8c9b6ee23f819e3235b4f86c} 
+void LED\+\_\+\+On (\begin{DoxyParamCaption}\item[{int}]{led}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+

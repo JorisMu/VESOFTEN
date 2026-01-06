@@ -1,0 +1,106 @@
+\doxysection{Core/\+\+Src/\+syscalls.c File Reference}
+\hypertarget{syscalls_8c}{}\label{syscalls_8c}\index{Core/Src/syscalls.c@{Core/Src/syscalls.c}}
+{\ttfamily \+\#include $<$sys/\+stat.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$errno.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$signal.\+h$>$}\newline
+{\ttfamily \+\#include $<$time.\+h$>$}\newline
+{\ttfamily \+\#include $<$sys/\+time.\+h$>$}\newline
+{\ttfamily \+\#include $<$sys/\+times.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}{\+\_\+close}} (int file)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4}{\+\_\+lseek}} (int file, int ptr, int dir)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb}{\+\_\+read}} (int file, char \texorpdfstring{$\ast$}{*}ptr, int len)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}{\+\_\+write}} (int file, char \texorpdfstring{$\ast$}{*}ptr, int len)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}{\+\_\+fstat}} (int file, struct stat \texorpdfstring{$\ast$}{*}st)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b}{\+\_\+isatty}} (int file)
+\item 
+void \doxymbox{\hyperlink{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}{\+\_\+exit}} (int status)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee}{\+\_\+getpid}} (void)
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_a062a5101199c3128edd5170f2575bb10}{\+\_\+kill}} (int pid, int sig)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{syscalls_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{syscalls_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}\index{syscalls.c@{syscalls.c}!\_close@{\_close}}
+\index{\_close@{\_close}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_close()}{\_close()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb} 
+int \+\_\+close (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}\index{syscalls.c@{syscalls.c}!\_exit@{\_exit}}
+\index{\_exit@{\_exit}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_exit()}{\_exit()}}
+{\footnotesize\ttfamily \label{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b} 
+void \+\_\+exit (\begin{DoxyParamCaption}\item[{int}]{status}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}\index{syscalls.c@{syscalls.c}!\_fstat@{\_fstat}}
+\index{\_fstat@{\_fstat}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_fstat()}{\_fstat()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a41eef54307912a82d20e71c3d47315aa} 
+int \+\_\+fstat (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{st}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee}\index{syscalls.c@{syscalls.c}!\_getpid@{\_getpid}}
+\index{\_getpid@{\_getpid}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_getpid()}{\_getpid()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee} 
+int \+\_\+getpid (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b}\index{syscalls.c@{syscalls.c}!\_isatty@{\_isatty}}
+\index{\_isatty@{\_isatty}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_isatty()}{\_isatty()}}
+{\footnotesize\ttfamily \label{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b} 
+int \+\_\+isatty (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_a062a5101199c3128edd5170f2575bb10}\index{syscalls.c@{syscalls.c}!\_kill@{\_kill}}
+\index{\_kill@{\_kill}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_kill()}{\_kill()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a062a5101199c3128edd5170f2575bb10} 
+int \+\_\+kill (\begin{DoxyParamCaption}\item[{int}]{pid}{, }\item[{int}]{sig}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4}\index{syscalls.c@{syscalls.c}!\_lseek@{\_lseek}}
+\index{\_lseek@{\_lseek}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_lseek()}{\_lseek()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4} 
+int \+\_\+lseek (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{int}]{ptr}{, }\item[{int}]{dir}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb}\index{syscalls.c@{syscalls.c}!\_read@{\_read}}
+\index{\_read@{\_read}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_read()}{\_read()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb} 
+int \+\_\+read (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{int}]{len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}\index{syscalls.c@{syscalls.c}!\_write@{\_write}}
+\index{\_write@{\_write}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_write()}{\_write()}}
+{\footnotesize\ttfamily \label{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9} 
+int \+\_\+write (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{int}]{len}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{syscalls_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{syscalls_8c_ad65a8842cc674e3ddf69355898c0ecbf}\index{syscalls.c@{syscalls.c}!errno@{errno}}
+\index{errno@{errno}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{errno}{errno}}
+{\footnotesize\ttfamily \label{syscalls_8c_ad65a8842cc674e3ddf69355898c0ecbf} 
+int errno\hspace{0.3cm}{\ttfamily [extern]}}
+
