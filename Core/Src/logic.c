@@ -3,23 +3,23 @@
 #include "stm32f4xx_hal.h"
 
 // Lijst van toegestane kleuren
-const char *kleuren[] = {
-	"zwart", "blauw", "lichtblauw", "groen", "lichtgroen",
-    "cyaan", "lichtcyaan", "rood", "lichtrood", "magenta",
-    "lichtmagenta", "bruin", "geel", "grijs", "wit"
-};
+const char *kleuren[] = { "zwart", "blauw", "lichtblauw", "groen", "lichtgroen", "cyaan", "lichtcyaan", "rood", "lichtrood", "magenta", "lichtmagenta", "bruin", "geel", "grijs", "wit"};
+const char *fontnamen[] = {"arial", "consolas"};
+const char *stijlen[] = {"normaal", "vet", "cursief"};
 
-const char *fontnamen[] = {
-	"arial", "consolas"
-};
-
-const char *stijlen[] = {
-	"normaal", "vet", "cursief"
-};
+static Commando geschiedenis[20];
+static int geschiedenis_index = 0;
+static int totaal_opgeslagen = 0;
 
 static int aantal_kleur = sizeof(kleuren) / sizeof(kleuren[0]);
 static int aantal_fontnaam = sizeof(fontnamen) / sizeof(fontnamen[0]);
 static int aantal_stijl = sizeof(stijlen) / sizeof(stijlen[0]);
+
+static void log_commando(Commando c) {
+    geschiedenis[geschiedenis_index] = c;
+    geschiedenis_index = (geschiedenis_index + 1) % 20;
+    if (totaal_opgeslagen < 20) totaal_opgeslagen++;
+}
 
 static int contains(const char *items[], const int aantal, const char *item) {
 	for (int i = 0; i < aantal; i++) {
@@ -42,7 +42,7 @@ int validFontstijl(const char *stijl) {
 	return contains(stijlen, aantal_stijl, stijl);
 }
 
-uint8_t kleurToCode(char kleur[]) {
+uint8_t kleurToCode(const char *kleur[]) {
 	uint8_t code;
 
 	if (strcmp(kleur, "zwart") == 0) code = VGA_COL_BLACK;
@@ -63,13 +63,9 @@ uint8_t kleurToCode(char kleur[]) {
 	return code;
 }
 
-/* ===================== MAIN COMMANDO’S ===================== */
-
-
 /* ===================== COMMANDO’S ===================== */
-
 // Teken een lijn (zoals eerder)
-Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
+Resultaat lijn(int x, int y, int x2, int y2, const char *kleur, int dikte) {
     if (x < 0 || x >= SCHERM_BREEDTE ||
     	y < 0 || y >= SCHERM_HOOGTE ||
 		x2 < 0 || x2 >= SCHERM_BREEDTE ||
@@ -90,11 +86,18 @@ Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte) {
     	return vgaStatusToResultaat(status);
     }
 
+    // Opslaan
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_LIJN; c.p1 = x; c.p2 = y; c.p3 = x2; c.p4 = y2; c.p5 = dikte;
+        strncpy(c.kleur, kleur, 19);
+        log_commando(c);
+
     return OK;
 }
 
 // Teken een rechthoek
-Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20], int gevuld) {
+Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, const char *kleur, int gevuld) {
     if (x_lup < 0 || x_lup >= SCHERM_BREEDTE || y_lup < 0 || y_lup >= SCHERM_HOOGTE || x_lup + breedte > SCHERM_BREEDTE || y_lup + hoogte > SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
@@ -113,11 +116,17 @@ Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20
         return vgaStatusToResultaat(status);
     }
 
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_RECHTHOEK; c.p1 = x_lup; c.p2 = y_lup; c.p3 = breedte; c.p4 = hoogte; c.p5 = gevuld;
+        strncpy(c.kleur, kleur, 19);
+        log_commando(c);
+
     return OK;
 }
 
 // Teken tekst
-Resultaat tekst(int x, int y, char kleur[20], const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]) {
+Resultaat tekst(int x, int y, const char *kleur, const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]) {
     if (x < 0 || x >= SCHERM_BREEDTE || y < 0 || y >= SCHERM_HOOGTE)
         return ERROR_OUT_OF_BOUNDS;
 
@@ -139,6 +148,14 @@ Resultaat tekst(int x, int y, char kleur[20], const char tekst[100], const char 
         return vgaStatusToResultaat(status);
     }
 
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_TEKST; c.p1 = x; c.p2 = y; c.p3 = fontgrootte;
+        strncpy(c.kleur, kleur, 19);
+        strncpy(c.tekst_inhoud, tekst, 99);
+        strncpy(c.fontnaam, fontnaam, 19);
+        strncpy(c.fontstijl, fontstijl, 19);
+        log_commando(c);
     return OK;
 }
 
@@ -155,11 +172,17 @@ Resultaat bitmap(int nr, int x_lup, int y_lup) {
     if (status != 0) {
         return vgaStatusToResultaat(status);
     }
+
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_BITMAP; c.p1 = nr; c.p2 = x_lup; c.p3 = y_lup;
+        log_commando(c);
+
     return OK;
 }
 
 // Wis het scherm
-Resultaat clearscherm(char kleur[20]) {
+Resultaat clearscherm(const char *kleur) {
     if (!validColor(kleur))
         return ERROR_INVALID_COLOR;
 
@@ -169,6 +192,11 @@ Resultaat clearscherm(char kleur[20]) {
         return vgaStatusToResultaat(status);
     }
 
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_CLEAR;
+        strncpy(c.kleur, kleur, 19);
+        log_commando(c);
     return OK;
 }
 
@@ -183,23 +211,15 @@ Resultaat wacht(int msecs) {
         //__NOP(); // Doe niets
     }
 
-    return OK;
-}
-
-Resultaat herhaal(int aantal, int hoevaak) {
-    if (aantal <= 0 || hoevaak <= 0) {
-        // Een herhaling vereist minstens één commando en minstens één keer
-        return ERROR_INVALID_PARAM;
-    }
-
-    if (hoevaak > 10) {
-        return ERROR_TOO_MANY_REPEATS;
-    }
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_WAIT; c.p1 = msecs;
+        log_commando(c);
 
     return OK;
 }
 
-Resultaat cirkel(int x, int y, int radius, char kleur[20]) {
+Resultaat cirkel(int x, int y, int radius, const char *kleur) {
     if (radius <= 0) {
         return ERROR_INVALID_PARAM; // Straal moet positief zijn
     }
@@ -217,10 +237,16 @@ Resultaat cirkel(int x, int y, int radius, char kleur[20]) {
         return vgaStatusToResultaat(status);
     }
 
+    Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_CIRKEL; c.p1 = x; c.p2 = y; c.p3 = radius;
+        strncpy(c.kleur, kleur, 19);
+        log_commando(c);
+
     return OK;
 }
 
-Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, char kleur[20]) {
+Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, const char *kleur) {
     // Punten in arrays zetten voor makkelijke verwerking
     int x[] = {x1, x2, x3, x4, x5};
     int y[] = {y1, y2, y3, y4, y5};
@@ -253,6 +279,28 @@ Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,
         }
     }
 
+    return OK;
+}
+
+Resultaat herhaal(int aantal, int hoevaak) {
+    if (aantal <= 0 || aantal > totaal_opgeslagen || hoevaak <= 0) return ERROR_INVALID_PARAM;
+
+    for (int h = 0; h < hoevaak; h++) {
+        int idx = (geschiedenis_index - aantal + 20) % 20;
+        for (int i = 0; i < aantal; i++) {
+            Commando *c = &geschiedenis[idx];
+            switch (c->type) {
+                case CMD_LIJN:      UB_VGA_DrawLine(c->p1, c->p2, c->p3, c->p4, kleurToCode(c->kleur), c->p5); break;
+                case CMD_RECHTHOEK: UB_VGA_DrawRectangle(c->p1, c->p2, c->p3, c->p4, kleurToCode(c->kleur), c->p5); break;
+                case CMD_CIRKEL:    UB_VGA_DrawCircle(c->p1, c->p2, c->p3, kleurToCode(c->kleur)); break;
+                case CMD_TEKST:     UB_VGA_DrawText(c->p1, c->p2, kleurToCode(c->kleur), c->tekst_inhoud, c->fontnaam, c->p3, c->fontstijl); break;
+                //case CMD_BITMAP:    UB_VGA_DrawBitmap(c->p1, c->p2, c->p3); break;
+                case CMD_CLEAR:     UB_VGA_FillScreen(kleurToCode(c->kleur)); break;
+                case CMD_WAIT:      wacht(c->p1); break;
+            }
+            idx = (idx + 1) % 20;
+        }
+    }
     return OK;
 }
 

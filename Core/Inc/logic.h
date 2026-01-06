@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 
+// Schermdimensies
+#define SCHERM_BREEDTE 320
+#define SCHERM_HOOGTE 240
+
 typedef enum {
     OK = 100,
     ERROR_INVALID_COLOR,
@@ -24,23 +28,36 @@ typedef enum {
 	ERROR_VGA_INVALID_PARAMETER
 } Resultaat;
 
+typedef enum {
+    CMD_LIJN,
+    CMD_RECHTHOEK,
+    CMD_TEKST,
+    CMD_BITMAP,
+    CMD_CIRKEL,
+    CMD_CLEAR,
+	CMD_WAIT
+} CommandType;
 
-// Schermdimensies
-#define SCHERM_BREEDTE 320
-#define SCHERM_HOOGTE 240
+typedef struct {
+    CommandType type;
+    int p1, p2, p3, p4, p5; // Generieke parameters (x, y, breedte, dikte, etc.)
+    char kleur[20];
+    char tekst_inhoud[100];
+    char fontnaam[20];
+    char fontstijl[20];
+} Commando;
 
 // Functies
-Resultaat lijn(int x, int y, int x2, int y2, char kleur[20], int dikte);
-Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, char kleur[20], int gevuld);
-Resultaat tekst(int x, int y, char kleur[20], const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]);
+// Functies met const char* om string-overruns te voorkomen
+Resultaat lijn(int x, int y, int x2, int y2, const char *kleur, int dikte);
+Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, const char *kleur, int gevuld);
+Resultaat tekst(int x, int y, const char *kleur, const char *tekst, const char *fontnaam, int fontgrootte, const char *fontstijl);
 Resultaat bitmap(int nr, int x_lup, int y_lup);
-Resultaat clearscherm(char kleur[20]);
-
-//extra functies
+Resultaat clearscherm(const char *kleur);
 Resultaat wacht(int msecs);
 Resultaat herhaal(int aantal, int hoevaak);
-Resultaat cirkel(int x, int y, int radius, char kleur[20]);
-Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, char kleur[20]);
+Resultaat cirkel(int x, int y, int radius, const char *kleur);
+Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, const char *kleur);
 
 Resultaat vgaStatusToResultaat(int status);
 

@@ -51,9 +51,7 @@ void LED_On(int led) {
 int main(void)
 {
 	SystemInit(); // System speed to 168MHz
-
 	UB_VGA_Screen_Init(); // Init VGA-Screen
-
 	LED_Init();   // LED configureren
 
 	//clearscherm function
@@ -62,6 +60,12 @@ int main(void)
 	} else {
 		LED_On(1);
 	}
+
+	if (wacht(2000)==100) {
+			LED_On(0);
+		} else {
+			LED_On(1);
+		}
 
 	//lijn function
 	/*if (lijn(3,5,30,30,"blauw", 5)==100) {
@@ -77,17 +81,17 @@ int main(void)
 		LED_On(1);
 	}*/
 
-	if (figuur(160, 20, 250, 100, 210, 200, 110, 200, 70, 100, "rood") == OK) {
+	/*if (figuur(160, 20, 250, 100, 210, 200, 110, 200, 70, 100, "rood") == OK) {
 	    LED_On(0);
 	} else {
 	    LED_On(1);
-	}
+	}*/
 
-	/*if (cirkel(120,160,79,"groen")==100) {
+	if (cirkel(120,160,79,"groen")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
-	}*/
+	}
 
 	if (wacht(2000)==100) {
 		LED_On(0);
@@ -100,6 +104,18 @@ int main(void)
 	} else {
 		LED_On(1);
 	}
+
+	if (wacht(2000)==100) {
+			LED_On(0);
+		} else {
+			LED_On(1);
+		}
+
+	if (herhaal(7, 2) == OK) {
+	        LED_On(0); // Groen licht als het herhalen is gelukt
+	    } else {
+	        LED_On(1); // Rood licht bij een fout
+	    }
 
 	/*if (bitmap(0,50,50)==100) {
 		LED_On(0);
