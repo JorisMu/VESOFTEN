@@ -61,7 +61,7 @@ int main(void)
 		LED_On(1);
 	}
 
-	if (wacht(2000)==100) {
+	if (wacht(1000)==100) {
 			LED_On(0);
 		} else {
 			LED_On(1);
@@ -81,25 +81,25 @@ int main(void)
 		LED_On(1);
 	}*/
 
-	/*if (figuur(160, 20, 250, 100, 210, 200, 110, 200, 70, 100, "rood") == OK) {
+	if (figuur(160, 20, 250, 100, 210, 200, 110, 200, 70, 100, "rood") == OK) {
 	    LED_On(0);
 	} else {
 	    LED_On(1);
+	}
+
+	/*if (cirkel(120,160,79,"groen")==100) {
+		LED_On(0);
+	} else {
+		LED_On(1);
 	}*/
 
-	if (cirkel(120,160,79,"groen")==100) {
+	if (wacht(1000)==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
 	}
 
-	if (wacht(2000)==100) {
-		LED_On(0);
-	} else {
-		LED_On(1);
-	}
-
-	if (tekst(10,20, "zwart","the quick brown fox jumps over the lazy dog", "consolas", 2, "vet")==100) {
+	/*if (tekst(10,20, "zwart","the quick brown fox jumps over the lazy dog", "consolas", 2, "vet")==100) {
 		LED_On(0);
 	} else {
 		LED_On(1);
@@ -109,9 +109,9 @@ int main(void)
 			LED_On(0);
 		} else {
 			LED_On(1);
-		}
+		}*/
 
-	if (herhaal(7, 2) == OK) {
+	if (herhaal(4, 3) == OK) {
 	        LED_On(0); // Groen licht als het herhalen is gelukt
 	    } else {
 	        LED_On(1); // Rood licht bij een fout
@@ -122,6 +122,12 @@ int main(void)
 	} else {
 		LED_On(1);
 	}*/
+
+	if (clearscherm("groen")==100) {
+			LED_On(0);
+		} else {
+			LED_On(1);
+		}
 
   while(1)
   {

@@ -205,11 +205,12 @@ Resultaat wacht(int msecs) {
 
     // Gebruik de CPU frequentie om te berekenen hoeveel loops we nodig hebben
     // Voor een F407 op 168MHz is dit ongeveer:
-    uint32_t count = msecs * (SystemCoreClock / 10000);
+    //uint32_t count = msecs * (SystemCoreClock / 10000);
 
-    for (/*volatile*/ uint32_t i = 0; i < count; i++) {
-        //__NOP(); // Doe niets
-    }
+    wachten(msecs);
+    //for (/*volatile*/ uint32_t i = 0; i < count; i++) {
+   //     //__NOP(); // Doe niets
+   // }
 
     Commando c;
         memset(&c, 0, sizeof(Commando));
@@ -217,6 +218,11 @@ Resultaat wacht(int msecs) {
         log_commando(c);
 
     return OK;
+}
+
+int wachten(msecs){
+	uint32_t count = msecs * (SystemCoreClock / 10000);
+	for (volatile uint32_t i = 0; i < count; i++);
 }
 
 Resultaat cirkel(int x, int y, int radius, const char *kleur) {
@@ -253,37 +259,44 @@ Resultaat figuur(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,
     int aantal_punten = 5;
     Resultaat res;
 
-    // 1. Validatie: Kleur controleren
+    //Validatie: Kleur controleren
     if (!validColor(kleur)) {
         return ERROR_INVALID_COLOR;
     }
 
-    // 2. Validatie: Alle punten controleren op schermgrenzen
+    //Validatie: Alle punten controleren op schermgrenzen
     for (int i = 0; i < aantal_punten; i++) {
         if (x[i] < 0 || x[i] >= SCHERM_BREEDTE || y[i] < 0 || y[i] >= SCHERM_HOOGTE) {
             return ERROR_OUT_OF_BOUNDS;
         }
     }
 
-    // 3. Tekenen: Trek lijnen tussen de opeenvolgende punten
-    for (int i = 0; i < aantal_punten; i++) {
-        // Gebruik de modulo (%) operator om bij het laatste punt weer terug naar index 0 te gaan
-        int volgende = (i + 1) % aantal_punten;
+    if (!validColor(kleur)) return ERROR_INVALID_COLOR;
 
-        // Roep de bestaande lijn functie aan (met dikte 1 als standaard)
-        res = lijn(x[i], y[i], x[volgende], y[volgende], kleur, 1);
+        //Teken de lijnen direct via de VGA driver (niet via lijn())
+        uint8_t c_code = kleurToCode(kleur);
+        UB_VGA_DrawLine(x1, y1, x2, y2, c_code, 1);
+        UB_VGA_DrawLine(x2, y2, x3, y3, c_code, 1);
+        UB_VGA_DrawLine(x3, y3, x4, y4, c_code, 1);
+        UB_VGA_DrawLine(x4, y4, x5, y5, c_code, 1);
+        UB_VGA_DrawLine(x5, y5, x1, y1, c_code, 1);
 
-        // Als er onderweg iets fout gaat, stop en geef de fout door
-        if (res != OK) {
-            return res;
-        }
-    }
+        //Sla alles op als één commando
+        Commando c;
+        memset(&c, 0, sizeof(Commando));
+        c.type = CMD_FIGUUR;
+        c.p1 = x1; c.p2 = y1; c.p3 = x2; c.p4 = y2; c.p5 = x3;
+        c.p6 = y3; c.p7 = x4; c.p8 = y4; c.p9 = x5; c.p10 = y5;
+        strncpy(c.kleur, kleur, 19);
+        log_commando(c);
 
     return OK;
 }
-
+// onderste code met chat gescheven
 Resultaat herhaal(int aantal, int hoevaak) {
-    if (aantal <= 0 || aantal > totaal_opgeslagen || hoevaak <= 0) return ERROR_INVALID_PARAM;
+	if (aantal <= 0 || aantal > totaal_opgeslagen || hoevaak <= 0) {
+	        return ERROR_INVALID_PARAM; //
+	}
 
     for (int h = 0; h < hoevaak; h++) {
         int idx = (geschiedenis_index - aantal + 20) % 20;
@@ -296,7 +309,17 @@ Resultaat herhaal(int aantal, int hoevaak) {
                 case CMD_TEKST:     UB_VGA_DrawText(c->p1, c->p2, kleurToCode(c->kleur), c->tekst_inhoud, c->fontnaam, c->p3, c->fontstijl); break;
                 //case CMD_BITMAP:    UB_VGA_DrawBitmap(c->p1, c->p2, c->p3); break;
                 case CMD_CLEAR:     UB_VGA_FillScreen(kleurToCode(c->kleur)); break;
-                case CMD_WAIT:      wacht(c->p1); break;
+                case CMD_WAIT:      wachten(c->p1); break;
+                case CMD_FIGUUR:
+                    // Teken alle 5 de lijnen opnieuw vanuit de opgeslagen parameters p1 t/m p10
+                    UB_VGA_DrawLine(c->p1, c->p2, c->p3, c->p4, kleurToCode(c->kleur), 1);
+                    UB_VGA_DrawLine(c->p3, c->p4, c->p5, c->p6, kleurToCode(c->kleur), 1);
+                    UB_VGA_DrawLine(c->p5, c->p6, c->p7, c->p8, kleurToCode(c->kleur), 1);
+                    UB_VGA_DrawLine(c->p7, c->p8, c->p9, c->p10, kleurToCode(c->kleur), 1);
+                    UB_VGA_DrawLine(c->p9, c->p10, c->p1, c->p2, kleurToCode(c->kleur), 1);
+                    break;
+                default:
+                    break;
             }
             idx = (idx + 1) % 20;
         }

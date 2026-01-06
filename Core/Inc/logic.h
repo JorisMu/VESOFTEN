@@ -35,12 +35,13 @@ typedef enum {
     CMD_BITMAP,
     CMD_CIRKEL,
     CMD_CLEAR,
-	CMD_WAIT
+	CMD_WAIT,
+	CMD_FIGUUR
 } CommandType;
 
 typedef struct {
     CommandType type;
-    int p1, p2, p3, p4, p5; // Generieke parameters (x, y, breedte, dikte, etc.)
+    int p1, p2, p3, p4, p5, p6, p7, p8, p9, p10; // Generieke parameters (x, y, breedte, dikte, etc.)
     char kleur[20];
     char tekst_inhoud[100];
     char fontnaam[20];
