@@ -106,32 +106,30 @@ FrontStatus parse_command(const char* input, Command* cmd)
     if (strcmp(Commando, "lijn") == 0)
     {
         cmd->type = CMD_LIJN;
-        int n = sscanf(input, "lijn,%d,%d,%d,%d,%19[^,],%d",
+        int n = sscanf(input, "lijn,%d,%d,%d,%d, %19[^,],%d",
                        &cmd->x, &cmd->y, &cmd->x2, &cmd->y2, cmd->kleur, &cmd->dikte);
         if(n != 6)
-        	return FRONT_ERROR_PARSE;
+            return FRONT_ERROR_PARSE;
     }
 
     // RECHTHOEK command
     else if(strcmp(Commando, "rechthoek") == 0)
     {
         cmd->type = CMD_RECHTHOEK;
-        int n = sscanf(input, "rechthoek,%d,%d,%d,%d,%19[^,],%d",
+        int n = sscanf(input, "rechthoek,%d,%d,%d,%d, %19[^,],%d",
                        &cmd->x, &cmd->y, &cmd->breedte, &cmd->hoogte, cmd->kleur, &cmd->gevuld);
         if(n != 6)
-        	return FRONT_ERROR_PARSE;
+            return FRONT_ERROR_PARSE;
     }
 
     // TEKST command
     else if (strcmp(Commando, "tekst") == 0)
     {
         cmd->type = CMD_TEKST;
-
-        // Gebruik sscanf om alle 7 velden direct te parsen
-        int n = sscanf(input, "tekst,%d,%d,%19[^,],%199[^,],%19[^,],%d,%19s",
+        // Voeg spaties toe vóór stringvelden
+        int n = sscanf(input, "tekst,%d,%d, %19[^,], %199[^,], %19[^,],%d, %19s",
                        &cmd->x, &cmd->y, cmd->kleur, cmd->tekst,
                        cmd->fontnaam, &cmd->fontgrootte, cmd->fontstijl);
-
         if (n != 7)
             return FRONT_ERROR_PARSE;
     }
@@ -148,7 +146,7 @@ FrontStatus parse_command(const char* input, Command* cmd)
     else if(strcmp(Commando, "clearscherm") == 0)
     {
         cmd->type = CMD_CLEARSCHERM;
-        int n = sscanf(input, "clearscherm,%19s", cmd->kleur);
+        int n = sscanf(input, "clearscherm, %19[^,\n]", cmd->kleur); // spatie voor kleur
         if(n != 1) return FRONT_ERROR_PARSE;
     }
 
@@ -168,11 +166,11 @@ FrontStatus parse_command(const char* input, Command* cmd)
         if(n != 2) return FRONT_ERROR_PARSE;
     }
 
-    // CRIKEL command
+    // CIRKEL command
     else if(strcmp(Commando, "cirkel") == 0)
     {
         cmd->type = CMD_CIRKEL;
-        int n = sscanf(input, "cirkel,%d,%d,%d,%19s", &cmd->x, &cmd->y, &cmd->radius, cmd->kleur);
+        int n = sscanf(input, "cirkel,%d,%d,%d, %19[^,\n]", &cmd->x, &cmd->y, &cmd->radius, cmd->kleur);
         if(n != 4) return FRONT_ERROR_PARSE;
     }
 
@@ -180,7 +178,7 @@ FrontStatus parse_command(const char* input, Command* cmd)
     else if(strcmp(Commando, "figuur") == 0)
     {
         cmd->type = CMD_FIGUUR;
-        int n = sscanf(input, "figuur,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%19s",
+        int n = sscanf(input, "figuur,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d, %19[^,\n]",
                        &cmd->x, &cmd->y, &cmd->x2, &cmd->y2, &cmd->x3, &cmd->y3,
                        &cmd->x4, &cmd->y4, &cmd->x5, &cmd->y5, cmd->kleur);
         if(n != 11) return FRONT_ERROR_PARSE;
@@ -230,7 +228,9 @@ void front_handle_input(const char* input_line)
     }
 
     if(result != OK)
-        front_send_error(status_to_string(result));
+    	front_send_error(status_to_string(result));
+    else
+    	USART2_SendString("OK uitgevoerd!\r\n");
 }
 
 /* ======================= UART INIT & INTERRUPT ======================= */
