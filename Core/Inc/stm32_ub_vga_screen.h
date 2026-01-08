@@ -251,7 +251,8 @@ VGA_Status UB_VGA_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, u
  * @param color 8-bit color value (R3G3B2).
  * @return VGA_Status indicating success or error.
  */
-VGA_Status UB_VGA_DrawRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color);
+VGA_Status UB_VGA_DrawRectangle(uint16_t x_lup, uint16_t y_lup, uint16_t width, uint16_t height, uint8_t color, uint8_t filled);
+
 
 /**
  * @brief Draws a filled rectangle.
@@ -294,10 +295,9 @@ VGA_Status UB_VGA_FillCircle(uint16_t center_x, uint16_t center_y, uint16_t radi
  * @param font Pointer to the font name (e.g., "Consolas", "Arial").
  * @param size Font size.
  * @param style Text style (e.g., TEXT_STYLE_BOLD).
- * @param bounding_box Optional pointer to a VGA_Rect to store the dimensions of the rendered text.
  * @return VGA_Status indicating success or error.
  */
-VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, uint8_t style, VGA_Rect* bounding_box);
+VGA_Status UB_VGA_DrawText(uint16_t x, uint16_t y, uint8_t color, const char* text, const char* font, uint8_t size, const char* style);
 
 /**
  * @brief Draws a pre-defined bitmap.
