@@ -22,25 +22,14 @@ void RunFeatureDemo(void);
   */
 int main(void)
 {
-<<<<<<< HEAD
-	SystemInit(); // Configure the system clock to 168MHz
-
-	UB_VGA_Screen_Init(); // Initialize the VGA screen driver
-
-  while(1)
-  {
-    // The main loop is empty as the demo is static and drawn only once.
-  }
-=======
 	SystemInit(); // System speed to 168MHz
 	UB_VGA_Screen_Init(); // Init VGA-Screen
-  USART2_Init();
+	USART2_Init();
 
     while (1)
     {
         USART2_BUFFER(); 
     }
->>>>>>> Front-layer-(UI/presentation)
 }
 
 

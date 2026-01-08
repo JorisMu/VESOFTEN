@@ -36,10 +36,14 @@ typedef enum {
     CMD_RECHTHOEK,
     CMD_TEKST,
     CMD_BITMAP,
-    CMD_CIRKEL,
-    CMD_CLEAR,
+    CMD_CLEARSCHERM,
+    CMD_WACHT,
 	CMD_WAIT,
-	CMD_FIGUUR
+    CMD_HERHAAL,
+    CMD_CLEAR,
+    CMD_CIRKEL,
+    CMD_FIGUUR,
+    CMD_UNKNOWN
 } CommandType;
 
 typedef struct {

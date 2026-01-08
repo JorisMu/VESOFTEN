@@ -15,22 +15,6 @@ typedef enum {
     FRONT_ERROR_UNKNOWN_COMMAND
 } FrontStatus;
 
-// ====================
-// Command Type & Struct
-// ====================
-typedef enum {
-    CMD_LIJN,
-    CMD_RECHTHOEK,
-    CMD_TEKST,
-    CMD_BITMAP,
-    CMD_CLEARSCHERM,
-    CMD_WACHT,
-    CMD_HERHAAL,
-    CMD_CIRKEL,
-    CMD_FIGUUR,
-    CMD_UNKNOWN
-} CommandType;
-
 typedef struct {
     CommandType type;
     int x, y, x2, y2, x3,y3, x4, y4, x5, y5, breedte, hoogte, dikte, radius, start, aantal;
