@@ -12,7 +12,7 @@ De applicatie is verdeeld in drie lagen, visueel weergegeven als sectoren van ee
 
 Deze gelaagde aanpak zorgt voor een duidelijke scheiding van verantwoordelijkheden (Separation of Concerns), wat de software beter onderhoudbaar, testbaar en uitbreidbaar maakt.
 
-![3-Lagen Diagram](3lagenmodel.drawio.png)
+![3-Lagen Diagram](3layer.png)
 
 ## Layer Details
 
@@ -79,24 +79,4 @@ Het is niet alleen belangrijk om commando-fouten af te handelen, maar ook om fou
 2.  De `VGA_drawLine` functie (in de `Logic Layer`) controleert de coördinaten en ziet dat ze buiten het scherm vallen.
 3.  `VGA_drawLine` stopt de uitvoering en geeft `ERROR_OUT_OF_BOUNDS` terug aan de `Front Layer`.
 4.  De `Front Layer` vangt deze foutcode op en stuurt de melding "ERROR: Coordinates out of bounds" naar de gebruiker.
-
-```mermaid
-graph TD
-    Script[Script / Terminal commando's]
-    VGA[VGA Scherm / Display]
-
-    subgraph "Embedded 3-Lagenmodel"
-        Front[Front Layer: ui_draw_* / ui_show_error]
-        Logic[Logic Layer: app_process_command / app_scene_load / app_set_test_mode]
-        IO[I/O Layer: api_vga_draw_* / api_rs232_send]
-        
-        %% interne datastroom
-        Front --> Logic
-        Logic --> IO
-    end
-
-    %% input/output pijlen
-    Script --> Front
-    IO --> VGA
-    IO --> Script
 
