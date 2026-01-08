@@ -22,13 +22,15 @@ void RunFeatureDemo(void);
   */
 int main(void)
 {
-	SystemInit(); // System speed to 168MHz
-	UB_VGA_Screen_Init(); // Init VGA-Screen
-	USART2_Init();
+    SystemInit();
+    SystemCoreClockUpdate();
+    UB_VGA_Screen_Init();
+    USART2_Init();
+    USART2_SendString("\r\nWELKOM\r\n");
 
-    while (1)
+    while(1)
     {
-        USART2_BUFFER(); 
+        USART2_BUFFER(); // verwerk inkomende UART karakters
     }
 }
 

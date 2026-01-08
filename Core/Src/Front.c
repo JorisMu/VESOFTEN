@@ -1,33 +1,61 @@
+//--------------------------------------------------------------
+// File     : Front.c
+// Datum    : 08/01/2026
+// Version  : 1.0
+// Autor    : JB
+// mods by  : J. de Bruijne
+// CPU      : STM32F4
+// IDE      : CooCox CoIDE 1.7.x
+// Module   : CMSIS_BOOT, M4_CMSIS_CORE
+// Function : VGA_core DMA LIB 320x240, 8bit color
+//--------------------------------------------------------------
+
 #include "stm32f4xx.h"
-#include <front.h>
-#include <logic.h>
+#include "front.h"
+#include "logic.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
 
-
 #define UART_BUF_SIZE 128
+#define UART_RX_BUFFER_SIZE 128
+
+// UART buffers
+static char uart_rx_buffer[UART_RX_BUFFER_SIZE];
+static uint16_t uart_rx_index = 0;
+static volatile uint8_t uart_line_ready = 0;
+
 volatile char uart_buf[UART_BUF_SIZE]; // Ringbuffer
 volatile uint16_t uart_head = 0;
 volatile uint16_t uart_tail = 0;
-char *buffer = NULL;
-uint16_t idx = 0;
 
-// ------------------------
-// Front Error handling
-// ------------------------
+char *line_buffer = NULL; ///< Dynamische buffer voor één complete lijn
+uint16_t line_idx = 0;    ///< Index in dynamische buffer
+
+
+// Functies
+
+/**
+ * @brief Stuurt een foutmelding via UART.
+ * @param msg De foutmelding als string.
+ * @return Geen.
+ */
 void front_send_error(const char *msg)
 {
     USART2_SendString(msg);
     USART2_SendString("\r\n");
 }
 
-// ------------------------
-// Convert code to string
-// ------------------------
-const char* status_to_string(int code) {
-    switch(code) {
+/**
+ * @brief Converteert een foutcode naar een leesbare string.
+ * @param code Foutcode van Front, Logic of VGA layer.
+ * @return const char* Leesbare foutmelding.
+ */
+const char* status_to_string(int code)
+{
+    switch(code)
+    {
         case FRONT_OK: return "FRONT OK";
         case FRONT_ERROR_EMPTY_INPUT: return "FRONT ERROR: lege input";
         case FRONT_ERROR_PARSE: return "FRONT ERROR: parser fout";
@@ -55,12 +83,15 @@ const char* status_to_string(int code) {
     }
 }
 
-// ------------------------
-// Parsing functie
-// ------------------------
+/**
+ * @brief Parseert een commando string en vult een Command struct.
+ * @param input De input string (bijv. "LIJN,0,0,100,100,rood,2").
+ * @param cmd Pointer naar Command struct die gevuld wordt.
+ * @return FrontStatus code (FRONT_OK of foutcode).
+ */
 FrontStatus parse_command(const char* input, Command* cmd)
 {
-    if(input == NULL || cmd == NULL || strlen(input) == 0)
+    if (input == NULL || cmd == NULL || strlen(input) == 0)
         return FRONT_ERROR_EMPTY_INPUT;
 
     char buffer[200];
@@ -68,112 +99,94 @@ FrontStatus parse_command(const char* input, Command* cmd)
     buffer[sizeof(buffer)-1] = '\0';
 
     char* Commando = strtok(buffer, ",");
-    if(Commando == NULL)
+    if (Commando == NULL)
         return FRONT_ERROR_PARSE;
 
-    // -------------------
-    // Lijn
-    // -------------------
-    if(strcmp(Commando, "LIJN") == 0) 
+    // LIJN command
+    if (strcmp(Commando, "lijn") == 0)
     {
         cmd->type = CMD_LIJN;
-        int n = sscanf(input, "LIJN,%d,%d,%d,%d,%19[^,],%d",
+        int n = sscanf(input, "lijn,%d,%d,%d,%d,%19[^,],%d",
                        &cmd->x, &cmd->y, &cmd->x2, &cmd->y2, cmd->kleur, &cmd->dikte);
-        if(n != 6) return FRONT_ERROR_PARSE;
+        if(n != 6)
+        	return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Rechthoek
-    // -------------------
-    else if(strcmp(Commando, "RECHTHOEK") == 0) 
+
+    // RECHTHOEK command
+    else if(strcmp(Commando, "rechthoek") == 0)
     {
         cmd->type = CMD_RECHTHOEK;
-        int n = sscanf(input, "RECHTHOEK,%d,%d,%d,%d,%19[^,],%d",
+        int n = sscanf(input, "rechthoek,%d,%d,%d,%d,%19[^,],%d",
                        &cmd->x, &cmd->y, &cmd->breedte, &cmd->hoogte, cmd->kleur, &cmd->gevuld);
-        if(n != 6) return FRONT_ERROR_PARSE;
+        if(n != 6)
+        	return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Tekst
-    // -------------------
-    else if(strcmp(Commando, "TEKST") == 0) 
+
+    // TEKST command
+    else if (strcmp(Commando, "tekst") == 0)
     {
         cmd->type = CMD_TEKST;
-        // Let op: tekst mag komma bevatten -> custom parser nodig
-        char* temp = strdup(input); // copy input
-        char* tok = strtok(temp, ","); // skip commando
-        int i = 0;
-        while(tok != NULL) {
-            tok = strtok(NULL, ",");
-            if(tok == NULL) break;
-            if(i==0) cmd->x = atoi(tok);
-            else if(i==1) cmd->y = atoi(tok);
-            else if(i==2) strncpy(cmd->kleur, tok, sizeof(cmd->kleur)-1);
-            else if(i==3) strncpy(cmd->tekst, tok, sizeof(cmd->tekst)-1);
-            else if(i==4) strncpy(cmd->fontnaam, tok, sizeof(cmd->fontnaam)-1);
-            else if(i==5) cmd->fontgrootte = atoi(tok);
-            else if(i==6) strncpy(cmd->fontstijl, tok, sizeof(cmd->fontstijl)-1);
-            i++;
-        }
-        free(temp);
-        if(i != 7) return FRONT_ERROR_PARSE;
+
+        // Gebruik sscanf om alle 7 velden direct te parsen
+        int n = sscanf(input, "tekst,%d,%d,%19[^,],%199[^,],%19[^,],%d,%19s",
+                       &cmd->x, &cmd->y, cmd->kleur, cmd->tekst,
+                       cmd->fontnaam, &cmd->fontgrootte, cmd->fontstijl);
+
+        if (n != 7)
+            return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Bitmap
-    // -------------------
-    else if(strcmp(Commando, "BITMAP") == 0) 
+
+    // BITMAP command
+    else if(strcmp(Commando, "bitmap") == 0)
     {
         cmd->type = CMD_BITMAP;
-        int n = sscanf(input, "BITMAP,%d,%d,%d", 
-                       &cmd->bitmap_nr, &cmd->x, &cmd->y);
+        int n = sscanf(input, "bitmap,%d,%d,%d", &cmd->bitmap_nr, &cmd->x, &cmd->y);
         if(n != 3) return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Clearscherm
-    // -------------------
-    else if(strcmp(Commando, "CLEARSCHERM") == 0) 
+
+    // CLEARSCHERM command
+    else if(strcmp(Commando, "clearscherm") == 0)
     {
         cmd->type = CMD_CLEARSCHERM;
-        int n = sscanf(input, "CLEARSCHERM,%19s", cmd->kleur);
+        int n = sscanf(input, "clearscherm,%19s", cmd->kleur);
         if(n != 1) return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Wacht
-    // -------------------
-    else if(strcmp(Commando, "WACHT") == 0) 
+
+    // WACHT command
+    else if(strcmp(Commando, "wacht") == 0)
     {
         cmd->type = CMD_WACHT;
-        int n = sscanf(input, "WACHT,%d", &cmd->aantal);
+        int n = sscanf(input, "wacht,%d", &cmd->aantal);
         if(n != 1) return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Herhaal
-    // -------------------
-    else if(strcmp(Commando, "HERHAAL") == 0) 
+
+    // HERHAAL command
+    else if(strcmp(Commando, "herhaal") == 0)
     {
         cmd->type = CMD_HERHAAL;
-        int n = sscanf(input, "HERHAAL,%d,%d", &cmd->start, &cmd->aantal);
+        int n = sscanf(input, "herhaal,%d,%d", &cmd->start, &cmd->aantal);
         if(n != 2) return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Cirkel
-    // -------------------
-    else if(strcmp(Commando, "CIRKEL") == 0) 
+
+    // CRIKEL command
+    else if(strcmp(Commando, "cirkel") == 0)
     {
         cmd->type = CMD_CIRKEL;
-        int n = sscanf(input, "CIRKEL,%d,%d,%d,%19s", 
-                       &cmd->x, &cmd->y, &cmd->radius, cmd->kleur);
+        int n = sscanf(input, "cirkel,%d,%d,%d,%19s", &cmd->x, &cmd->y, &cmd->radius, cmd->kleur);
         if(n != 4) return FRONT_ERROR_PARSE;
     }
-    // -------------------
-    // Figuur
-    // -------------------
-    else if(strcmp(Commando, "FIGUUR") == 0) 
+
+    // FIGUUR command
+    else if(strcmp(Commando, "figuur") == 0)
     {
         cmd->type = CMD_FIGUUR;
-        int n = sscanf(input, "FIGUUR,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%19s",
+        int n = sscanf(input, "figuur,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%19s",
                        &cmd->x, &cmd->y, &cmd->x2, &cmd->y2, &cmd->x3, &cmd->y3,
                        &cmd->x4, &cmd->y4, &cmd->x5, &cmd->y5, cmd->kleur);
         if(n != 11) return FRONT_ERROR_PARSE;
     }
+
+    // ERROR unknown command
     else
     {
         cmd->type = CMD_UNKNOWN;
@@ -183,15 +196,19 @@ FrontStatus parse_command(const char* input, Command* cmd)
     return FRONT_OK;
 }
 
-// ------------------------
-// Verwerk input + stuur errors via UART
-// ------------------------
-void front_handle_input(const char* input_line) {
+/**
+ * @brief Verwerkt één inputregel, valideert en voert het commando uit.
+ * @param input_line Input string van UART.
+ * @return Geen, fouten worden via UART gerapporteerd.
+ */
+void front_handle_input(const char* input_line)
+{
 
     Command cmd;
     FrontStatus parse_status = parse_command(input_line, &cmd);
 
-    if(parse_status != FRONT_OK) {
+    if(parse_status != FRONT_OK)
+    {
         front_send_error(status_to_string(parse_status));
         return;
     }
@@ -216,36 +233,44 @@ void front_handle_input(const char* input_line) {
         front_send_error(status_to_string(result));
 }
 
-// ------------------------
-// UART functies
-// ------------------------
+/* ======================= UART INIT & INTERRUPT ======================= */
+
 void USART2_Init(void)
 {
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
     RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
 
+    // PA2 = TX, PA3 = RX
     GPIOA->MODER |= (2 << (2*2)) | (2 << (3*2));
     GPIOA->AFR[0] |= (7 << (2*4)) | (7 << (3*4));
 
     uint32_t pclk1 = SystemCoreClock / 4;
     USART2->BRR = pclk1 / 115200;
+
+    // TE, RE, UE, RXNE interrupt
     USART2->CR1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_UE | USART_CR1_RXNEIE;
     NVIC_EnableIRQ(USART2_IRQn);
 }
 
+/**
+ * @brief USART2 interrupt handler.
+ * Plaatst ontvangen karakters in de ringbuffer.
+ */
 void USART2_IRQHandler(void)
 {
     if (USART2->SR & USART_SR_RXNE)
     {
         char c = USART2->DR;
         uint16_t next = (uart_head + 1) % UART_BUF_SIZE;
-        if(next != uart_tail)
+        if(next != uart_tail)  // buffer niet vol
         {
             uart_buf[uart_head] = c;
             uart_head = next;
         }
     }
 }
+
+/* ======================= UART TRANSMIT ======================= */
 
 void USART2_SendChar(char c)
 {
@@ -255,12 +280,15 @@ void USART2_SendChar(char c)
 
 void USART2_SendString(const char *str)
 {
-    while (*str) USART2_SendChar(*str++);
+    while(*str) USART2_SendChar(*str++);
 }
 
-// ------------------------
-// Ringbuffer uitlezen en parser aanroepen
-// ------------------------
+/* ======================= UART BUFFER PROCESSING ======================= */
+
+/**
+ * @brief Verwerkt de ringbuffer.
+ * Bouwt dynamische buffer voor volledige lijnen en roept parser aan.
+ */
 void USART2_BUFFER(void)
 {
     while(uart_tail != uart_head)
@@ -268,29 +296,28 @@ void USART2_BUFFER(void)
         char c = uart_buf[uart_tail];
         uart_tail = (uart_tail + 1) % UART_BUF_SIZE;
 
-        if(buffer == NULL)
+        // Dynamische buffer aanmaken/grotere maken
+        if(line_buffer == NULL)
         {
-            buffer = malloc(1);
-            idx = 0;
+            line_buffer = malloc(1);
+            line_idx = 0;
         }
         else
         {
-            char* tmp = realloc(buffer, idx + 1);
-            if(tmp == NULL) continue;
-            buffer = tmp;
+            char* tmp = realloc(line_buffer, line_idx + 1);
+            if(tmp != NULL) line_buffer = tmp;
         }
 
-        buffer[idx++] = c;
+        line_buffer[line_idx++] = c;
 
-        if(c == '\n')
+        // Einde lijn detecteren (\r of \n)
+        if(c == '\r' || c == '\n')
         {
-            buffer[idx] = '\0';
-            front_handle_input(buffer);
-
-            free(buffer);
-            buffer = NULL;
-            idx = 0;
-
+            line_buffer[line_idx] = '\0'; // sluit string
+            front_handle_input(line_buffer); // parse + call logic layer
+            free(line_buffer);
+            line_buffer = NULL;
+            line_idx = 0;
             USART2_SendString("UART Ready!!!\r\n");
         }
     }
