@@ -1,9 +1,9 @@
 //--------------------------------------------------------------
 // File     : main.c
-// Datum    : 30.03.2016
+// Datum    : 08/01/2026
 // Version  : 1.0
-// Autor    : UB
-// mods by	: J.F. van der Bent
+// Autor    : JB
+// mods by	: J. de Bruijne
 // CPU      : STM32F4
 // IDE      : CooCox CoIDE 1.7.x
 // Module   : CMSIS_BOOT, M4_CMSIS_CORE
@@ -12,6 +12,7 @@
 
 #include "main.h"
 #include "stm32_ub_vga_screen.h"
+#include "Front.h"
 #include <math.h>
 
 
@@ -19,7 +20,7 @@ int main(void)
 {
 	SystemInit(); // System speed to 168MHz
 	UB_VGA_Screen_Init(); // Init VGA-Screen
-  USART2_Init();
+	USART2_Init();
 
     while (1)
     {

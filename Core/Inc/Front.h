@@ -1,3 +1,15 @@
+//--------------------------------------------------------------
+// File     : Front.h
+// Datum    : 08/01/2026
+// Version  : 1.0
+// Autor    : JB
+// mods by	: J. de Bruijne
+// CPU      : STM32F4
+// IDE      : CooCox CoIDE 1.7.x
+// Module   : CMSIS_BOOT, M4_CMSIS_CORE
+// Function : VGA_core DMA LIB 320x240, 8bit color
+//--------------------------------------------------------------
+
 #ifndef FRONT_H
 #define FRONT_H
 
@@ -70,9 +82,10 @@ void front_handle_input(const char* input_line);
  * @param code Foutcode (FrontStatus of Resultaat)
  * @return const char* leesbare foutmelding
  */
-const char* status_to_string(int code);
 
-void USART2_SendChar(char c);
+void USART2_Init(void);
+void USART2_BUFFER(void);
+const char* status_to_string(int code);
 void USART2_SendString(const char *str);
 
 #endif // FRONT_H

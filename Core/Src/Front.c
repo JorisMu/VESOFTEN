@@ -1,6 +1,18 @@
+//--------------------------------------------------------------
+// File     : Front.c
+// Datum    : 08/01/2026
+// Version  : 1.0
+// Autor    : JB
+// mods by	: J. de Bruijne
+// CPU      : STM32F4
+// IDE      : CooCox CoIDE 1.7.x
+// Module   : CMSIS_BOOT, M4_CMSIS_CORE
+// Function : VGA_core DMA LIB 320x240, 8bit color
+//--------------------------------------------------------------
+
 #include "stm32f4xx.h"
-#include <front.h>
-#include <logic.h>
+#include "front.h"
+#include "logic.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -8,11 +20,17 @@
 
 
 #define UART_BUF_SIZE 128
+#define UART_RX_BUFFER_SIZE 128
+
+static char uart_rx_buffer[UART_RX_BUFFER_SIZE];
+static uint16_t uart_rx_index = 0;
+static volatile uint8_t uart_line_ready = 0;
+
+
 volatile char uart_buf[UART_BUF_SIZE]; // Ringbuffer
 volatile uint16_t uart_head = 0;
 volatile uint16_t uart_tail = 0;
-char *buffer = NULL;
-uint16_t idx = 0;
+
 
 // ------------------------
 // Front Error handling
@@ -94,27 +112,30 @@ FrontStatus parse_command(const char* input, Command* cmd)
     // -------------------
     // Tekst
     // -------------------
-    else if(strcmp(Commando, "TEKST") == 0) 
+    else if (strcmp(Commando, "TEKST") == 0)
     {
         cmd->type = CMD_TEKST;
-        // Let op: tekst mag komma bevatten -> custom parser nodig
-        char* temp = strdup(input); // copy input
+
+        char temp[200];
+        strncpy(temp, buffer, sizeof(temp) - 1);
+        temp[sizeof(temp) - 1] = '\0';
+
         char* tok = strtok(temp, ","); // skip commando
         int i = 0;
-        while(tok != NULL) {
-            tok = strtok(NULL, ",");
-            if(tok == NULL) break;
-            if(i==0) cmd->x = atoi(tok);
-            else if(i==1) cmd->y = atoi(tok);
-            else if(i==2) strncpy(cmd->kleur, tok, sizeof(cmd->kleur)-1);
-            else if(i==3) strncpy(cmd->tekst, tok, sizeof(cmd->tekst)-1);
-            else if(i==4) strncpy(cmd->fontnaam, tok, sizeof(cmd->fontnaam)-1);
-            else if(i==5) cmd->fontgrootte = atoi(tok);
-            else if(i==6) strncpy(cmd->fontstijl, tok, sizeof(cmd->fontstijl)-1);
+
+        while ((tok = strtok(NULL, ",")) != NULL)
+        {
+            if      (i == 0) cmd->x = atoi(tok);
+            else if (i == 1) cmd->y = atoi(tok);
+            else if (i == 2) strncpy(cmd->kleur, tok, sizeof(cmd->kleur) - 1);
+            else if (i == 3) strncpy(cmd->tekst, tok, sizeof(cmd->tekst) - 1);
+            else if (i == 4) strncpy(cmd->fontnaam, tok, sizeof(cmd->fontnaam) - 1);
+            else if (i == 5) cmd->fontgrootte = atoi(tok);
+            else if (i == 6) strncpy(cmd->fontstijl, tok, sizeof(cmd->fontstijl) - 1);
             i++;
         }
-        free(temp);
-        if(i != 7) return FRONT_ERROR_PARSE;
+
+        if (i != 7) return FRONT_ERROR_PARSE;
     }
     // -------------------
     // Bitmap
@@ -122,7 +143,7 @@ FrontStatus parse_command(const char* input, Command* cmd)
     else if(strcmp(Commando, "BITMAP") == 0) 
     {
         cmd->type = CMD_BITMAP;
-        int n = sscanf(input, "BITMAP,%d,%d,%d", 
+        int n = sscanf(input, "BITMAP,%d,%d,%d",
                        &cmd->bitmap_nr, &cmd->x, &cmd->y);
         if(n != 3) return FRONT_ERROR_PARSE;
     }
@@ -159,7 +180,7 @@ FrontStatus parse_command(const char* input, Command* cmd)
     else if(strcmp(Commando, "CIRKEL") == 0) 
     {
         cmd->type = CMD_CIRKEL;
-        int n = sscanf(input, "CIRKEL,%d,%d,%d,%19s", 
+        int n = sscanf(input, "CIRKEL,%d,%d,%d,%19s",
                        &cmd->x, &cmd->y, &cmd->radius, cmd->kleur);
         if(n != 4) return FRONT_ERROR_PARSE;
     }
@@ -247,6 +268,21 @@ void USART2_IRQHandler(void)
     }
 }
 
+void USART2_ProcessChar(char c)
+{
+    if (c == '\r' || c == '\n') {
+        uart_rx_buffer[uart_rx_index] = '\0';
+        uart_line_ready = 1;
+        uart_rx_index = 0;
+    }
+    else {
+        if (uart_rx_index < UART_RX_BUFFER_SIZE - 1) {
+            uart_rx_buffer[uart_rx_index++] = c;
+        }
+        // else: overflow → karakter negeren
+    }
+}
+
 void USART2_SendChar(char c)
 {
     while (!(USART2->SR & USART_SR_TXE));
@@ -263,35 +299,19 @@ void USART2_SendString(const char *str)
 // ------------------------
 void USART2_BUFFER(void)
 {
-    while(uart_tail != uart_head)
+    while (uart_tail != uart_head)
     {
         char c = uart_buf[uart_tail];
         uart_tail = (uart_tail + 1) % UART_BUF_SIZE;
 
-        if(buffer == NULL)
+        USART2_ProcessChar(c);
+
+        if (uart_line_ready)
         {
-            buffer = malloc(1);
-            idx = 0;
-        }
-        else
-        {
-            char* tmp = realloc(buffer, idx + 1);
-            if(tmp == NULL) continue;
-            buffer = tmp;
-        }
-
-        buffer[idx++] = c;
-
-        if(c == '\n')
-        {
-            buffer[idx] = '\0';
-            front_handle_input(buffer);
-
-            free(buffer);
-            buffer = NULL;
-            idx = 0;
-
+            uart_line_ready = 0;
+            front_handle_input(uart_rx_buffer);
             USART2_SendString("UART Ready!!!\r\n");
         }
     }
 }
+
