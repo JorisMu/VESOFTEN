@@ -1,0 +1,75 @@
+\doxysection{Front.\+h}
+\hypertarget{_front_8h_source}{}\label{_front_8h_source}\index{Core/Inc/Front.h@{Core/Inc/Front.h}}
+\doxymbox{\hyperlink{_front_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ FRONT\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ FRONT\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{logic_8h}{logic.h}}"{}}\ \ \ \textcolor{comment}{//\ Voor\ Resultaat\ enum\ en\ eventuele\ logic\ functies}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Front\ Layer\ Status}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095fa9a4a3929b154dd8ff8897c45eee9d526}{FRONT\_OK}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095fac005df73bfabf1d1e0e42fa3d3053ef8}{FRONT\_ERROR\_EMPTY\_INPUT}},\ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095fa2c140038d220260f2735c038dd25af03}{FRONT\_ERROR\_PARSE}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095fa1abd754f52211611055a9b11cbbed60f}{FRONT\_ERROR\_UNKNOWN\_COMMAND}}\ \ \ \ }
+\DoxyCodeLine{00033\ \}\ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095f}{FrontStatus}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ Command\ Type\ \&\ Struct}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \doxymbox{\hyperlink{logic_8h_a21e038f5b8958e203d28bc4f18472352}{CommandType}}\ \doxymbox{\hyperlink{struct_command_afd23b7e189739dbae6c0f2e93ba02c81}{type}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ x,\ \doxymbox{\hyperlink{struct_command_a3478922876e3b385ef243815f6beaaca}{y}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ x2,\ \doxymbox{\hyperlink{struct_command_aaf9acd9e575eaf0b5a7ffb489d5bfb30}{y2}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ x3,\ \doxymbox{\hyperlink{struct_command_ad00691cb068926717fdc6aa9454d6a0c}{y3}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ x4,\ \doxymbox{\hyperlink{struct_command_a16878c6f3bfb6c90bff7e4c9cfeff98e}{y4}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ x5,\ \doxymbox{\hyperlink{struct_command_a2658139909deed7c5d95f1a01e2367cf}{y5}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ breedte,\ \doxymbox{\hyperlink{struct_command_af23af032aa9b95ceca070dde50630126}{hoogte}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_a1087c218417096301f0242c1a3867e85}{dikte}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_a90ce29749df94447f0a8395c0aaadf01}{radius}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_a7b8ffc2dde7aa0fc621dd188f52a743f}{start}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_a4994e8977f40ed49dde9947c7a4db7ab}{aantal}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_a3a6fd36e24e56cfed00f8b7578bdbb42}{gevuld}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_ad6d25562bfb6be9ab6a72220e716e913}{bitmap\_nr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_command_acb9a5f9e6af6d49e17209965479f2cf1}{kleur}}[20];\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_command_ac615c91f59bc596be0d98e8276216dae}{tekst}}[110];\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_command_ac1b324eb8d791d95c9d4e2ccdef87c35}{fontnaam}}[30];\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_command_aef49fa27b2fbce1983c4513f6c810dca}{fontgrootte}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_command_a2278e3e181e3faee825fec9775447097}{fontstijl}}[20];\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \}\ \doxymbox{\hyperlink{struct_command}{Command}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ Front\ Layer\ Functions}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ ====================}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00081\ \doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095f}{FrontStatus}}\ \doxymbox{\hyperlink{_front_8h_a0d05762fb2a6f759cf6e38111efc5dfa}{parse\_command}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ input,\ \doxymbox{\hyperlink{struct_command}{Command}}*\ cmd);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_front_8h_a24927fff2633d94c0185c8876716475a}{front\_handle\_input}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ input\_line);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \doxymbox{\hyperlink{_front_8h_aff2f151dd6ba8123dc3de64b753e1165}{status\_to\_string}}(\textcolor{keywordtype}{int}\ code);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_front_8h_a328e85a340d7900411a901f12d6eb0aa}{USART2\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_front_8h_ae5162b7f2966256d0b483621c71d7ccb}{USART2\_BUFFER}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_front_8h_a7d6bc1bbf765b615431d0ed02c97812b}{USART2\_SendString}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FRONT\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,569 @@
+\doxysection{Core/\+\+Inc/\+stm32\+\_\+ub\+\_\+vga\+\_\+screen.h File Reference}
+\hypertarget{stm32__ub__vga__screen_8h}{}\label{stm32__ub__vga__screen_8h}\index{Core/Inc/stm32\_ub\_vga\_screen.h@{Core/Inc/stm32\_ub\_vga\_screen.h}}
+
+
+VGA-\/\+Screen-\/\+Library for STM32\+F4xx.  
+
+
+{\ttfamily \+\#include "{}stm32f4xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32f4xx\+\_\+gpio.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32f4xx\+\_\+rcc.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32f4xx\+\_\+tim.\+h"{}}\newline
+{\ttfamily \+\#include "{}misc.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32f4xx\+\_\+dma.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdbool.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}}
+\begin{DoxyCompactList}\small\item\em A structure to define a rectangular area. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_v_g_a__t}{VGA\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Main structure for VGA controller settings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a9fee0c95dea1cdd3eeb3605ece528a8a}\label{stm32__ub__vga__screen_8h_a9fee0c95dea1cdd3eeb3605ece528a8a} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+BLACK}~0x00
+\begin{DoxyCompactList}\small\item\em Color definitions for the 8-\/bit R3\+G3\+B2 color space. \end{DoxyCompactList}\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a9314f832988df57045bf9790f18de6fa}\label{stm32__ub__vga__screen_8h_a9314f832988df57045bf9790f18de6fa} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+BLUE}~0x03
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a28ba4fa390cd2588f7eda1cb00d251ce}\label{stm32__ub__vga__screen_8h_a28ba4fa390cd2588f7eda1cb00d251ce} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+LIGHT\+\_\+\+BLUE}~0x5F
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_acd643373461ea57a495e8403ba41eab7}\label{stm32__ub__vga__screen_8h_acd643373461ea57a495e8403ba41eab7} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+GREEN}~0x1C
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_adb3602cba63f07477507c54a540d52a9}\label{stm32__ub__vga__screen_8h_adb3602cba63f07477507c54a540d52a9} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+LIGHT\+\_\+\+GREEN}~0x9E
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a39a87dbbf6639be1a1312dbe9229c4a8}\label{stm32__ub__vga__screen_8h_a39a87dbbf6639be1a1312dbe9229c4a8} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+CYAN}~0x1F
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_af1696722e55ba25438cec5c53d2eddb3}\label{stm32__ub__vga__screen_8h_af1696722e55ba25438cec5c53d2eddb3} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+LIGHT\+\_\+\+CYAN}~0x\+DF
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a790cc430619a64faf356c303f8bdd3d4}\label{stm32__ub__vga__screen_8h_a790cc430619a64faf356c303f8bdd3d4} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+RED}~0x\+E0
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ae6a3ce91f16bab22b2c56fd41dccf1ea}\label{stm32__ub__vga__screen_8h_ae6a3ce91f16bab22b2c56fd41dccf1ea} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+LIGHT\+\_\+\+RED}~0x\+F2
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a9498759c02ab7d643c9af53a70d15ad5}\label{stm32__ub__vga__screen_8h_a9498759c02ab7d643c9af53a70d15ad5} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+MAGENTA}~0x\+E3
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ae34663271c91b95a34d721a24e0f1c1e}\label{stm32__ub__vga__screen_8h_ae34663271c91b95a34d721a24e0f1c1e} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+LIGHT\+\_\+\+MAGENTA}~0x\+F7
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a5c55e697abe70bd280e9ce5059ff6370}\label{stm32__ub__vga__screen_8h_a5c55e697abe70bd280e9ce5059ff6370} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+BROWN}~0x88
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a76575b7810719497e2b15a6709c1b6f0}\label{stm32__ub__vga__screen_8h_a76575b7810719497e2b15a6709c1b6f0} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+YELLOW}~0x\+FC
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a72937c60344a81980136265c045a6fd3}\label{stm32__ub__vga__screen_8h_a72937c60344a81980136265c045a6fd3} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+GREY}~0x92
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a2ad592a88539ed90dd1fe6c33648a13b}\label{stm32__ub__vga__screen_8h_a2ad592a88539ed90dd1fe6c33648a13b} 
+\+\#define {\bfseries VGA\+\_\+\+COL\+\_\+\+WHITE}~0x\+FF
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}\label{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3} 
+\+\#define {\bfseries VGA\+\_\+\+DISPLAY\+\_\+X}~320
+\begin{DoxyCompactList}\small\item\em Screen dimensions. \end{DoxyCompactList}\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a9c3e46882b624fe1887d0ec6171d771b}\label{stm32__ub__vga__screen_8h_a9c3e46882b624fe1887d0ec6171d771b} 
+\+\#define {\bfseries VGA\+\_\+\+DISPLAY\+\_\+Y}~240
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_aae06ac46ed28519dddebf367909858c5}\label{stm32__ub__vga__screen_8h_aae06ac46ed28519dddebf367909858c5} 
+\+\#define {\bfseries TEXT\+\_\+\+STYLE\+\_\+\+NORMAL}~0x00
+\begin{DoxyCompactList}\small\item\em Flags for text styling. \end{DoxyCompactList}\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ad63c15399b17ecbbf95059d3bfb922d7}\label{stm32__ub__vga__screen_8h_ad63c15399b17ecbbf95059d3bfb922d7} 
+\+\#define {\bfseries TEXT\+\_\+\+STYLE\+\_\+\+BOLD}~0x01
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ab75acbb5a0133b62729ff0cd6d9aadb1}\label{stm32__ub__vga__screen_8h_ab75acbb5a0133b62729ff0cd6d9aadb1} 
+\+\#define {\bfseries TEXT\+\_\+\+STYLE\+\_\+\+ITALIC}~0x02
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a9934465d996215f7e3a39f574116cd16}\label{stm32__ub__vga__screen_8h_a9934465d996215f7e3a39f574116cd16} 
+\+\#define {\bfseries VGA\+\_\+\+TIM1\+\_\+\+PERIODE}~10-\/1
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ab20ff576649ab2c78f0f87b758c2705b}\label{stm32__ub__vga__screen_8h_ab20ff576649ab2c78f0f87b758c2705b} 
+\+\#define {\bfseries VGA\+\_\+\+TIM1\+\_\+\+PRESCALE}~0
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a6781ff356015bb423813eb349582faa3}\label{stm32__ub__vga__screen_8h_a6781ff356015bb423813eb349582faa3} 
+\+\#define {\bfseries VGA\+\_\+\+TIM2\+\_\+\+HSYNC\+\_\+\+PERIODE}~2002-\/1
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ae0124ad9d53b4c2af5902820421aea02}\label{stm32__ub__vga__screen_8h_ae0124ad9d53b4c2af5902820421aea02} 
+\+\#define {\bfseries VGA\+\_\+\+TIM2\+\_\+\+HSYNC\+\_\+\+PRESCALE}~0
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ad3ef518a75a4d574f2a36ce343157676}\label{stm32__ub__vga__screen_8h_ad3ef518a75a4d574f2a36ce343157676} 
+\+\#define {\bfseries VGA\+\_\+\+TIM2\+\_\+\+HSYNC\+\_\+\+IMP}~240
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a5dabd74236cb9b42d94ccc7435176d40}\label{stm32__ub__vga__screen_8h_a5dabd74236cb9b42d94ccc7435176d40} 
+\+\#define {\bfseries VGA\+\_\+\+TIM2\+\_\+\+HTRIGGER\+\_\+\+START}~480
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ae0447f6b6430a8c09536288b2b01abb4}\label{stm32__ub__vga__screen_8h_ae0447f6b6430a8c09536288b2b01abb4} 
+\+\#define {\bfseries VGA\+\_\+\+TIM2\+\_\+\+DMA\+\_\+\+DELAY}~200
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a73e729af6a6a2eb20ef3804cf794e4bd}\label{stm32__ub__vga__screen_8h_a73e729af6a6a2eb20ef3804cf794e4bd} 
+\+\#define {\bfseries VGA\+\_\+\+VSYNC\+\_\+\+PERIODE}~525
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ad3c951f66600690235db2c93e74bc82f}\label{stm32__ub__vga__screen_8h_ad3c951f66600690235db2c93e74bc82f} 
+\+\#define {\bfseries VGA\+\_\+\+VSYNC\+\_\+\+IMP}~2
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a1bf220647b6ad6187cc358cbffbb74fc}\label{stm32__ub__vga__screen_8h_a1bf220647b6ad6187cc358cbffbb74fc} 
+\+\#define {\bfseries VGA\+\_\+\+VSYNC\+\_\+\+BILD\+\_\+\+START}~36
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_abf14fb3313d4de9367100e2dcddcd39f}\label{stm32__ub__vga__screen_8h_abf14fb3313d4de9367100e2dcddcd39f} 
+\+\#define {\bfseries VGA\+\_\+\+VSYNC\+\_\+\+BILD\+\_\+\+STOP}~514
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ab82dd208a7e716e09a3f8c229bfe78d7}\label{stm32__ub__vga__screen_8h_ab82dd208a7e716e09a3f8c229bfe78d7} 
+\+\#define {\bfseries RAM\+\_\+\+SIZE}~(\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\+\_\+\+DISPLAY\+\_\+X}}+1)\texorpdfstring{$\ast$}{*}VGA\+\_\+\+DISPLAY\+\_\+Y
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a758dadcf25d5a3b26f4791e9a332f1bb}\label{stm32__ub__vga__screen_8h_a758dadcf25d5a3b26f4791e9a332f1bb} 
+\+\#define {\bfseries VGA\+\_\+\+GPIOE\+\_\+\+BASE\+\_\+\+ADR}~((uint32\+\_\+t)0x40021000)
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_af70daf7e1e57589c259536efc1187d6c}\label{stm32__ub__vga__screen_8h_af70daf7e1e57589c259536efc1187d6c} 
+\+\#define {\bfseries VGA\+\_\+\+GPIO\+\_\+\+ODR\+\_\+\+OFFSET}~((uint32\+\_\+t)0x00000014)
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_ac3336e31bfbbd8199e506f39164a19eb}\label{stm32__ub__vga__screen_8h_ac3336e31bfbbd8199e506f39164a19eb} 
+\+\#define {\bfseries VGA\+\_\+\+GPIO\+\_\+\+BYTE\+\_\+\+OFFSET}~((uint32\+\_\+t)0x00000001)
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a2fb72da69dd330b1ebbff2b8550d1db2}\label{stm32__ub__vga__screen_8h_a2fb72da69dd330b1ebbff2b8550d1db2} 
+\+\#define {\bfseries VGA\+\_\+\+GPIOE\+\_\+\+ODR\+\_\+\+ADDRESS}~(VGA\+\_\+\+GPIOE\+\_\+\+BASE\+\_\+\+ADR \texorpdfstring{$\vert$}{|} VGA\+\_\+\+GPIO\+\_\+\+ODR\+\_\+\+OFFSET \texorpdfstring{$\vert$}{|} VGA\+\_\+\+GPIO\+\_\+\+BYTE\+\_\+\+OFFSET)
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a114dc879235023dc8e6f360a6f487a6b}\label{stm32__ub__vga__screen_8h_a114dc879235023dc8e6f360a6f487a6b} 
+\+\#define {\bfseries VGA\+\_\+\+GPIO\+\_\+\+HINIBBLE}~((uint16\+\_\+t)0x\+FF00)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \{ \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895ac508a3cf20e926f4ed042994bd77b337}{VGA\+\_\+\+SUCCESS}} = 0
+, \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a212811a1ced733afe61141faf81ac0bc}{VGA\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+COORDINATE}}
+, \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a064bd18c03e5de80aac97f3d8baf9528}{VGA\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+PARAMETER}}
+ \}
+\begin{DoxyCompactList}\small\item\em Status enumeration for VGA operations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_aa63128722f952ece5176141e8a99b6c1}{UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the VGA screen controller. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a3240d526de3220105652852ff9f71611}{UB\+\_\+\+VGA\+\_\+\+Set\+Clip\+Rect}} (const \doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} \texorpdfstring{$\ast$}{*}rect)
+\begin{DoxyCompactList}\small\item\em Sets the clipping rectangle for all drawing operations. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a52429b650cb0c8a326cd0fe50b97c47c}{UB\+\_\+\+VGA\+\_\+\+Get\+Clip\+Rect}} (\doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} \texorpdfstring{$\ast$}{*}rect)
+\begin{DoxyCompactList}\small\item\em Retrieves the current clipping rectangle. \end{DoxyCompactList}\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a7ceaca6379fc2f6e7b88764f61c39211}\label{stm32__ub__vga__screen_8h_a7ceaca6379fc2f6e7b88764f61c39211} 
+void {\bfseries UB\+\_\+\+VGA\+\_\+\+Reset\+Clip\+Rect} (void)
+\begin{DoxyCompactList}\small\item\em Resets the clipping rectangle to the full screen size. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_afc67b29f07d35cc7cc03bf11423446b8}{UB\+\_\+\+VGA\+\_\+\+Fill\+Screen}} (uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Fills the entire screen with a specified color. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a4234ee7a51277444bb9d81b3d3a6f8e0}{UB\+\_\+\+VGA\+\_\+\+Set\+Pixel}} (uint16\+\_\+t xp, uint16\+\_\+t yp, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Sets a single pixel to a specified color. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a60c6ca952d1a560ece08dc9624c804b5}{UB\+\_\+\+VGA\+\_\+\+Fast\+HLine}} (int32\+\_\+t x0, int32\+\_\+t y, int32\+\_\+t x1, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a fast horizontal line. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a2eb8904b2dce105ef0a31e3251c87b41}{UB\+\_\+\+VGA\+\_\+\+Fast\+VLine}} (int32\+\_\+t x, int32\+\_\+t y0, int32\+\_\+t y1, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a fast vertical line. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a25ff84c19996ae8ba340352e7fdcd51a}{UB\+\_\+\+VGA\+\_\+\+Draw\+Line}} (uint16\+\_\+t x1, uint16\+\_\+t y1, uint16\+\_\+t x2, uint16\+\_\+t y2, uint8\+\_\+t color, uint8\+\_\+t thickness)
+\begin{DoxyCompactList}\small\item\em Draws a line with a specified thickness. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_acdaa84f0830a36d88f41941fd1d604ef}{UB\+\_\+\+VGA\+\_\+\+Draw\+Rectangle}} (uint16\+\_\+t x\+\_\+lup, uint16\+\_\+t y\+\_\+lup, uint16\+\_\+t width, uint16\+\_\+t height, uint8\+\_\+t color, uint8\+\_\+t filled)
+\begin{DoxyCompactList}\small\item\em Draws a rectangle outline. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a3a7a678f1f96034038186be82e187b77}{UB\+\_\+\+VGA\+\_\+\+Fill\+Rectangle}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t width, uint16\+\_\+t height, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a filled rectangle. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_accc5cb3abf27eda40dd89afd95714815}{UB\+\_\+\+VGA\+\_\+\+Draw\+Circle}} (uint16\+\_\+t center\+\_\+x, uint16\+\_\+t center\+\_\+y, uint16\+\_\+t radius, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a circle outline. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_afb9cd9ae5c42982195a5a293bab89309}{UB\+\_\+\+VGA\+\_\+\+Fill\+Circle}} (uint16\+\_\+t center\+\_\+x, uint16\+\_\+t center\+\_\+y, uint16\+\_\+t radius, uint8\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a filled circle. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_ab16552c4c010f295eb79533c8e7a0b17}{UB\+\_\+\+VGA\+\_\+\+Draw\+Text}} (uint16\+\_\+t x, uint16\+\_\+t y, uint8\+\_\+t color, const char \texorpdfstring{$\ast$}{*}text, const char \texorpdfstring{$\ast$}{*}font, uint8\+\_\+t size, const char \texorpdfstring{$\ast$}{*}style)
+\begin{DoxyCompactList}\small\item\em Draws a text string. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a1efdac3cba8cb047f9d86d54ac54710d}{UB\+\_\+\+VGA\+\_\+\+Draw\+Bitmap}} (uint8\+\_\+t id, uint16\+\_\+t x\+\_\+lup, uint16\+\_\+t y\+\_\+lup)
+\begin{DoxyCompactList}\small\item\em Draws a pre-\/defined bitmap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{stm32__ub__vga__screen_8h_a0642526bfd4eb59d888572150ee3032a}\label{stm32__ub__vga__screen_8h_a0642526bfd4eb59d888572150ee3032a} 
+\doxymbox{\hyperlink{struct_v_g_a__t}{VGA\+\_\+t}} {\bfseries VGA}
+\begin{DoxyCompactList}\small\item\em Global VGA control structure instance. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_adad76feab97da661d4015659c7a7f9a8}{VGA\+\_\+\+RAM1}} \+[(\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\+\_\+\+DISPLAY\+\_\+X}}+1) \texorpdfstring{$\ast$}{*}VGA\+\_\+\+DISPLAY\+\_\+Y]\+
+\begin{DoxyCompactList}\small\item\em Framebuffer for the VGA display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+VGA-\/\+Screen-\/\+Library for STM32\+F4xx. 
+
+This library offers functions to control a 320x240 pixel VGA screen. It uses TIM1 for the pixel clock, TIM2 for HSync, and DMA2 for transferring pixel data to the GPIO pins.
+
+\begin{DoxyDate}{Date}
+05.\+01.\+2026 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+J. Mullink
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+This library is based on an existing open-\/source project and has been adapted for this specific application. 
+\end{DoxyNote}
+
+
+\label{doc-enum-members}
+\Hypertarget{stm32__ub__vga__screen_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!VGA\_Status@{VGA\_Status}}
+\index{VGA\_Status@{VGA\_Status}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{VGA\_Status}{VGA\_Status}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895} 
+enum \doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}}}
+
+
+
+Status enumeration for VGA operations. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_SUCCESS@{VGA\_SUCCESS}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!VGA\_SUCCESS@{VGA\_SUCCESS}}
+}\Hypertarget{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895ac508a3cf20e926f4ed042994bd77b337}\label{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895ac508a3cf20e926f4ed042994bd77b337} 
+VGA\+\_\+\+SUCCESS&Operation successful \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_ERROR\_INVALID\_COORDINATE@{VGA\_ERROR\_INVALID\_COORDINATE}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!VGA\_ERROR\_INVALID\_COORDINATE@{VGA\_ERROR\_INVALID\_COORDINATE}}
+}\Hypertarget{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a212811a1ced733afe61141faf81ac0bc}\label{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a212811a1ced733afe61141faf81ac0bc} 
+VGA\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+COORDINATE&Coordinate out of bounds \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_ERROR\_INVALID\_PARAMETER@{VGA\_ERROR\_INVALID\_PARAMETER}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!VGA\_ERROR\_INVALID\_PARAMETER@{VGA\_ERROR\_INVALID\_PARAMETER}}
+}\Hypertarget{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a064bd18c03e5de80aac97f3d8baf9528}\label{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895a064bd18c03e5de80aac97f3d8baf9528} 
+VGA\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+PARAMETER&Other invalid parameter (e.\+g., radius=0) \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{stm32__ub__vga__screen_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{stm32__ub__vga__screen_8h_a1efdac3cba8cb047f9d86d54ac54710d}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_DrawBitmap@{UB\_VGA\_DrawBitmap}}
+\index{UB\_VGA\_DrawBitmap@{UB\_VGA\_DrawBitmap}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawBitmap()}{UB\_VGA\_DrawBitmap()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a1efdac3cba8cb047f9d86d54ac54710d} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Draw\+Bitmap (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id}{, }\item[{uint16\+\_\+t}]{x\+\_\+lup}{, }\item[{uint16\+\_\+t}]{y\+\_\+lup}{}\end{DoxyParamCaption})}
+
+
+
+Draws a pre-\/defined bitmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID of the bitmap to draw. \\
+\hline
+{\em x\+\_\+lup} & X-\/coordinate of the top-\/left corner. \\
+\hline
+{\em y\+\_\+lup} & Y-\/coordinate of the top-\/left corner. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error.
+\end{DoxyReturn}
+Draws a pre-\/defined bitmap. \Hypertarget{stm32__ub__vga__screen_8h_accc5cb3abf27eda40dd89afd95714815}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_DrawCircle@{UB\_VGA\_DrawCircle}}
+\index{UB\_VGA\_DrawCircle@{UB\_VGA\_DrawCircle}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawCircle()}{UB\_VGA\_DrawCircle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_accc5cb3abf27eda40dd89afd95714815} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Draw\+Circle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{center\+\_\+x}{, }\item[{uint16\+\_\+t}]{center\+\_\+y}{, }\item[{uint16\+\_\+t}]{radius}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Draws a circle outline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em center\+\_\+x} & X-\/coordinate of the circle\textquotesingle{}s center. \\
+\hline
+{\em center\+\_\+y} & Y-\/coordinate of the circle\textquotesingle{}s center. \\
+\hline
+{\em radius} & Radius of the circle. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_a25ff84c19996ae8ba340352e7fdcd51a}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_DrawLine@{UB\_VGA\_DrawLine}}
+\index{UB\_VGA\_DrawLine@{UB\_VGA\_DrawLine}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawLine()}{UB\_VGA\_DrawLine()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a25ff84c19996ae8ba340352e7fdcd51a} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Draw\+Line (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x1}{, }\item[{uint16\+\_\+t}]{y1}{, }\item[{uint16\+\_\+t}]{x2}{, }\item[{uint16\+\_\+t}]{y2}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{uint8\+\_\+t}]{thickness}{}\end{DoxyParamCaption})}
+
+
+
+Draws a line with a specified thickness. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & Starting X-\/coordinate. \\
+\hline
+{\em y1} & Starting Y-\/coordinate. \\
+\hline
+{\em x2} & Ending X-\/coordinate. \\
+\hline
+{\em y2} & Ending Y-\/coordinate. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+{\em thickness} & Line thickness in pixels. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_acdaa84f0830a36d88f41941fd1d604ef}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_DrawRectangle@{UB\_VGA\_DrawRectangle}}
+\index{UB\_VGA\_DrawRectangle@{UB\_VGA\_DrawRectangle}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawRectangle()}{UB\_VGA\_DrawRectangle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_acdaa84f0830a36d88f41941fd1d604ef} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Draw\+Rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x\+\_\+lup}{, }\item[{uint16\+\_\+t}]{y\+\_\+lup}{, }\item[{uint16\+\_\+t}]{width}{, }\item[{uint16\+\_\+t}]{height}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{uint8\+\_\+t}]{filled}{}\end{DoxyParamCaption})}
+
+
+
+Draws a rectangle outline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate of the top-\/left corner. \\
+\hline
+{\em y} & Y-\/coordinate of the top-\/left corner. \\
+\hline
+{\em width} & Width of the rectangle. \\
+\hline
+{\em height} & Height of the rectangle. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_ab16552c4c010f295eb79533c8e7a0b17}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_DrawText@{UB\_VGA\_DrawText}}
+\index{UB\_VGA\_DrawText@{UB\_VGA\_DrawText}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_DrawText()}{UB\_VGA\_DrawText()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_ab16552c4c010f295eb79533c8e7a0b17} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Draw\+Text (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x}{, }\item[{uint16\+\_\+t}]{y}{, }\item[{uint8\+\_\+t}]{color}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{text}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{font\+\_\+name}{, }\item[{uint8\+\_\+t}]{size}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{style}{}\end{DoxyParamCaption})}
+
+
+
+Draws a text string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate of the top-\/left corner of the text. \\
+\hline
+{\em y} & Y-\/coordinate of the top-\/left corner of the text. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+{\em text} & Pointer to the null-\/terminated string to draw. \\
+\hline
+{\em font} & Pointer to the font name (e.\+g., "{}\+Consolas"{}, "{}\+Arial"{}). \\
+\hline
+{\em size} & Font size. \\
+\hline
+{\em style} & Text style (e.\+g., TEXT\+\_\+\+STYLE\+\_\+\+BOLD). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error.
+\end{DoxyReturn}
+Draws a text string. \Hypertarget{stm32__ub__vga__screen_8h_a60c6ca952d1a560ece08dc9624c804b5}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_FastHLine@{UB\_VGA\_FastHLine}}
+\index{UB\_VGA\_FastHLine@{UB\_VGA\_FastHLine}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FastHLine()}{UB\_VGA\_FastHLine()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a60c6ca952d1a560ece08dc9624c804b5} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Fast\+HLine (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x0}{, }\item[{int32\+\_\+t}]{y}{, }\item[{int32\+\_\+t}]{x1}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Draws a fast horizontal line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & Starting X-\/coordinate. \\
+\hline
+{\em y} & Y-\/coordinate. \\
+\hline
+{\em x1} & Ending X-\/coordinate. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error.
+\end{DoxyReturn}
+Draws a fast horizontal line. \Hypertarget{stm32__ub__vga__screen_8h_a2eb8904b2dce105ef0a31e3251c87b41}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_FastVLine@{UB\_VGA\_FastVLine}}
+\index{UB\_VGA\_FastVLine@{UB\_VGA\_FastVLine}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FastVLine()}{UB\_VGA\_FastVLine()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a2eb8904b2dce105ef0a31e3251c87b41} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Fast\+VLine (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x}{, }\item[{int32\+\_\+t}]{y0}{, }\item[{int32\+\_\+t}]{y1}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Draws a fast vertical line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate. \\
+\hline
+{\em y0} & Starting Y-\/coordinate. \\
+\hline
+{\em y1} & Ending Y-\/coordinate. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error.
+\end{DoxyReturn}
+Draws a fast vertical line. \Hypertarget{stm32__ub__vga__screen_8h_afb9cd9ae5c42982195a5a293bab89309}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_FillCircle@{UB\_VGA\_FillCircle}}
+\index{UB\_VGA\_FillCircle@{UB\_VGA\_FillCircle}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FillCircle()}{UB\_VGA\_FillCircle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_afb9cd9ae5c42982195a5a293bab89309} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Fill\+Circle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{center\+\_\+x}{, }\item[{uint16\+\_\+t}]{center\+\_\+y}{, }\item[{uint16\+\_\+t}]{radius}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Draws a filled circle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em center\+\_\+x} & X-\/coordinate of the circle\textquotesingle{}s center. \\
+\hline
+{\em center\+\_\+y} & Y-\/coordinate of the circle\textquotesingle{}s center. \\
+\hline
+{\em radius} & Radius of the circle. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_a3a7a678f1f96034038186be82e187b77}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_FillRectangle@{UB\_VGA\_FillRectangle}}
+\index{UB\_VGA\_FillRectangle@{UB\_VGA\_FillRectangle}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FillRectangle()}{UB\_VGA\_FillRectangle()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a3a7a678f1f96034038186be82e187b77} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Fill\+Rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x}{, }\item[{uint16\+\_\+t}]{y}{, }\item[{uint16\+\_\+t}]{width}{, }\item[{uint16\+\_\+t}]{height}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Draws a filled rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate of the top-\/left corner. \\
+\hline
+{\em y} & Y-\/coordinate of the top-\/left corner. \\
+\hline
+{\em width} & Width of the rectangle. \\
+\hline
+{\em height} & Height of the rectangle. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_afc67b29f07d35cc7cc03bf11423446b8}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}}
+\index{UB\_VGA\_FillScreen@{UB\_VGA\_FillScreen}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_FillScreen()}{UB\_VGA\_FillScreen()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_afc67b29f07d35cc7cc03bf11423446b8} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Fill\+Screen (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Fills the entire screen with a specified color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+\Hypertarget{stm32__ub__vga__screen_8h_a52429b650cb0c8a326cd0fe50b97c47c}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_GetClipRect@{UB\_VGA\_GetClipRect}}
+\index{UB\_VGA\_GetClipRect@{UB\_VGA\_GetClipRect}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_GetClipRect()}{UB\_VGA\_GetClipRect()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a52429b650cb0c8a326cd0fe50b97c47c} 
+void UB\+\_\+\+VGA\+\_\+\+Get\+Clip\+Rect (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} \texorpdfstring{$\ast$}{*}}]{rect}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the current clipping rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rect} & Pointer to a \doxylink{struct_v_g_a___rect}{VGA\+\_\+\+Rect} structure to store the current clipping area. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{stm32__ub__vga__screen_8h_aa63128722f952ece5176141e8a99b6c1}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}}
+\index{UB\_VGA\_Screen\_Init@{UB\_VGA\_Screen\_Init}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_Screen\_Init()}{UB\_VGA\_Screen\_Init()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_aa63128722f952ece5176141e8a99b6c1} 
+void UB\+\_\+\+VGA\+\_\+\+Screen\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the VGA screen controller. 
+
+This function configures all necessary timers, DMA, and GPIO peripherals to generate the VGA signal. It must be called once at startup.
+
+Initializes the VGA screen controller. \Hypertarget{stm32__ub__vga__screen_8h_a3240d526de3220105652852ff9f71611}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_SetClipRect@{UB\_VGA\_SetClipRect}}
+\index{UB\_VGA\_SetClipRect@{UB\_VGA\_SetClipRect}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_SetClipRect()}{UB\_VGA\_SetClipRect()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a3240d526de3220105652852ff9f71611} 
+void UB\+\_\+\+VGA\+\_\+\+Set\+Clip\+Rect (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} \texorpdfstring{$\ast$}{*}}]{rect}{}\end{DoxyParamCaption})}
+
+
+
+Sets the clipping rectangle for all drawing operations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rect} & Pointer to a \doxylink{struct_v_g_a___rect}{VGA\+\_\+\+Rect} structure defining the clipping area. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{stm32__ub__vga__screen_8h_a4234ee7a51277444bb9d81b3d3a6f8e0}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}}
+\index{UB\_VGA\_SetPixel@{UB\_VGA\_SetPixel}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{UB\_VGA\_SetPixel()}{UB\_VGA\_SetPixel()}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_a4234ee7a51277444bb9d81b3d3a6f8e0} 
+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status}} UB\+\_\+\+VGA\+\_\+\+Set\+Pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{xp}{, }\item[{uint16\+\_\+t}]{yp}{, }\item[{uint8\+\_\+t}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Sets a single pixel to a specified color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xp} & X-\/coordinate of the pixel. \\
+\hline
+{\em yp} & Y-\/coordinate of the pixel. \\
+\hline
+{\em color} & 8-\/bit color value (R3\+G3\+B2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{stm32__ub__vga__screen_8h_a0b88827565186e863b8b6e74c87b1895}{VGA\+\_\+\+Status} indicating success or error. 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{stm32__ub__vga__screen_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{stm32__ub__vga__screen_8h_adad76feab97da661d4015659c7a7f9a8}\index{stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}!VGA\_RAM1@{VGA\_RAM1}}
+\index{VGA\_RAM1@{VGA\_RAM1}!stm32\_ub\_vga\_screen.h@{stm32\_ub\_vga\_screen.h}}
+\doxysubsubsection{\texorpdfstring{VGA\_RAM1}{VGA\_RAM1}}
+{\footnotesize\ttfamily \label{stm32__ub__vga__screen_8h_adad76feab97da661d4015659c7a7f9a8} 
+uint8\+\_\+t VGA\+\_\+\+RAM1\+[(\doxymbox{\hyperlink{stm32__ub__vga__screen_8h_ace7f348dc91111917772d3e19f8821d3}{VGA\+\_\+\+DISPLAY\+\_\+X}}+1) \texorpdfstring{$\ast$}{*}VGA\+\_\+\+DISPLAY\+\_\+Y]\+\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Framebuffer for the VGA display. 
+
+Framebuffer for the VGA display.
+
+The size is (VGA\+\_\+\+DISPLAY\+\_\+X + 1) \texorpdfstring{$\ast$}{*} VGA\+\_\+\+DISPLAY\+\_\+Y to account for a guard pixel at the end of each scanline. 

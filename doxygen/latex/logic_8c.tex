@@ -1,0 +1,372 @@
+\doxysection{Core/\+\+Src/\+logic.c File Reference}
+\hypertarget{logic_8c}{}\label{logic_8c}\index{Core/Src/logic.c@{Core/Src/logic.c}}
+
+
+Bitmap pixel data definitions.  
+
+
+{\ttfamily \+\#include "{}logic.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{logic_8c_a1f9b6c8434384a7e601e8833302379c2}{log\+\_\+commando}} (\doxymbox{\hyperlink{struct_commando}{Commando}} c)
+\begin{DoxyCompactList}\small\item\em Slaat een uitgevoerd commando op in het circulaire geheugen (geschiedenis). \end{DoxyCompactList}\item 
+static int \doxymbox{\hyperlink{logic_8c_aabd536f05488e71df213a87ab50e79b9}{contains}} (const char \texorpdfstring{$\ast$}{*}items\+[$\,$]\+, const int aantal, const char \texorpdfstring{$\ast$}{*}item)
+\begin{DoxyCompactList}\small\item\em Controleert of een string aanwezig is in een lijst van toegestane strings. \end{DoxyCompactList}\item 
+\Hypertarget{logic_8c_acdb2d9a9142562934fff61483cd75d3e}\label{logic_8c_acdb2d9a9142562934fff61483cd75d3e} 
+int {\bfseries valid\+Color} (const char \texorpdfstring{$\ast$}{*}kleur)
+\item 
+\Hypertarget{logic_8c_a18d30f86e6a75099733e1f6a7bcd8a0a}\label{logic_8c_a18d30f86e6a75099733e1f6a7bcd8a0a} 
+int {\bfseries valid\+Font} (const char \texorpdfstring{$\ast$}{*}fontnaam)
+\item 
+\Hypertarget{logic_8c_a30f0aeb85885b362e698664821d421b8}\label{logic_8c_a30f0aeb85885b362e698664821d421b8} 
+int {\bfseries valid\+Fontstijl} (const char \texorpdfstring{$\ast$}{*}stijl)
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{logic_8c_a706041e2317e9275ee752596f97ff859}{kleur\+To\+Code}} (const char \texorpdfstring{$\ast$}{*}kleur)
+\begin{DoxyCompactList}\small\item\em Vertaalt een tekstuele kleurnaam naar een hardware-\/specifieke VGA kleurcode. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_a55bcd6df7b5afccfcb3343c50bdd1974}{lijn}} (int x, int y, int x2, int y2, const char \texorpdfstring{$\ast$}{*}kleur, int dikte)
+\begin{DoxyCompactList}\small\item\em Tekent een lijn op het scherm na validatie van de coördinaten. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_a0b283d6d24767b0a41944065566898b9}{rechthoek}} (int x\+\_\+lup, int y\+\_\+lup, int breedte, int hoogte, const char \texorpdfstring{$\ast$}{*}kleur, int gevuld)
+\begin{DoxyCompactList}\small\item\em Tekent een (gevulde) rechthoek. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_a6f79115f39f7f21204362473364e9e8d}{tekst}} (int x, int y, const char \texorpdfstring{$\ast$}{*}kleur, const char tekst\+[100]\+, const char fontnaam\+[20]\+, int fontgrootte, const char fontstijl\+[20]\+)
+\begin{DoxyCompactList}\small\item\em Plaatst tekst op het scherm met specifiek font en grootte. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_a1ca4088c1959f896ef26590e548295db}{bitmap}} (int nr, int x\+\_\+lup, int y\+\_\+lup)
+\begin{DoxyCompactList}\small\item\em Tekent een voorgedefinieerde bitmap (pijlen of smileys). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_a335b5b1b2445237a3caaaf75095e30f2}{clearscherm}} (const char \texorpdfstring{$\ast$}{*}kleur)
+\begin{DoxyCompactList}\small\item\em Vult het volledige scherm met één kleur. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{logic_8c_aa347cd921fe05823675c3f79c1b35b7e}{wachten}} (int msecs)
+\begin{DoxyCompactList}\small\item\em Een \textquotesingle{}busy-\/wait\textquotesingle{} vertraging gebaseerd op de CPU kloksnelheid. \end{DoxyCompactList}\item 
+\Hypertarget{logic_8c_a3a3f568069a03c6334ffcba8ea8c8cca}\label{logic_8c_a3a3f568069a03c6334ffcba8ea8c8cca} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} {\bfseries wacht} (int msecs)
+\begin{DoxyCompactList}\small\item\em Wrapper voor de wacht-\/functie die ook gelogd wordt in de geschiedenis. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_aad5e26c082c6e0192376171c19984d86}{cirkel}} (int x, int y, int radius, const char \texorpdfstring{$\ast$}{*}kleur)
+\begin{DoxyCompactList}\small\item\em Tekent een cirkel op basis van middelpunt en straal. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_ae9b3369352acf25590a1538accedaf2b}{figuur}} (int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, const char \texorpdfstring{$\ast$}{*}kleur)
+\begin{DoxyCompactList}\small\item\em Tekent een gesloten figuur (5-\/hoek) door 5 punten te verbinden. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_aecec9da5a0191b9f7728a59a3b9c1881}{herhaal}} (int aantal, int hoevaak)
+\begin{DoxyCompactList}\small\item\em Herhaalt een specifiek aantal van de laatst uitgevoerde commando\textquotesingle{}s. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} \doxymbox{\hyperlink{logic_8c_ae2f46c3348d29fdbfa22ef566c0d03ab}{vga\+Status\+To\+Resultaat}} (int status)
+\begin{DoxyCompactList}\small\item\em Vertaalt returncodes van de VGA driver naar de \doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} enum van de logic layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{logic_8c_a2f9a28e8d99961183fc4c3ffeeb4a194}\label{logic_8c_a2f9a28e8d99961183fc4c3ffeeb4a194} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries kleuren} \+[$\,$]\+ = \{ "{}zwart"{}, "{}blauw"{}, "{}lichtblauw"{}, "{}groen"{}, "{}lichtgroen"{}, "{}cyaan"{}, "{}lichtcyaan"{}, "{}rood"{}, "{}lichtrood"{}, "{}magenta"{}, "{}lichtmagenta"{}, "{}bruin"{}, "{}geel"{}, "{}grijs"{}, "{}wit"{}\}
+\item 
+\Hypertarget{logic_8c_a879f87073efc3dc817b0e29ca095f9c9}\label{logic_8c_a879f87073efc3dc817b0e29ca095f9c9} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries fontnamen} \+[$\,$]\+ = \{"{}arial"{}, "{}consolas"{}\}
+\item 
+\Hypertarget{logic_8c_a17edbe800c75950ba6551811375ff595}\label{logic_8c_a17edbe800c75950ba6551811375ff595} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries stijlen} \+[$\,$]\+ = \{"{}normaal"{}, "{}vet"{}, "{}cursief"{}\}
+\item 
+\Hypertarget{logic_8c_a6cfbc0e07849a44159118b9e4c7d7df1}\label{logic_8c_a6cfbc0e07849a44159118b9e4c7d7df1} 
+static \doxymbox{\hyperlink{struct_commando}{Commando}} {\bfseries geschiedenis} \+[20]\+
+\item 
+\Hypertarget{logic_8c_aedf2ce58e4bdc9f221a1969060735281}\label{logic_8c_aedf2ce58e4bdc9f221a1969060735281} 
+static int {\bfseries geschiedenis\+\_\+index} = 0
+\item 
+\Hypertarget{logic_8c_ad2f8f2302fa6c8d0ac61549b9e8bd93f}\label{logic_8c_ad2f8f2302fa6c8d0ac61549b9e8bd93f} 
+static int {\bfseries totaal\+\_\+opgeslagen} = 0
+\item 
+\Hypertarget{logic_8c_abeef542b413647a8285dd7ba003b0074}\label{logic_8c_abeef542b413647a8285dd7ba003b0074} 
+static int {\bfseries aantal\+\_\+kleur} = sizeof(kleuren) /\+ sizeof(kleuren\+[0]\+)
+\item 
+\Hypertarget{logic_8c_a54cb850e7f23d34fa51d4937cee4a7fa}\label{logic_8c_a54cb850e7f23d34fa51d4937cee4a7fa} 
+static int {\bfseries aantal\+\_\+fontnaam} = sizeof(fontnamen) /\+ sizeof(fontnamen\+[0]\+)
+\item 
+\Hypertarget{logic_8c_a3071a6c023fa9430cd0428a6e6153892}\label{logic_8c_a3071a6c023fa9430cd0428a6e6153892} 
+static int {\bfseries aantal\+\_\+stijl} = sizeof(stijlen) /\+ sizeof(stijlen\+[0]\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Bitmap pixel data definitions. 
+
+Logic layer voor VGA-\/tekencommando’s. Deze laag valideert invoer, vertaalt parameters naar VGA-\/codes en vormt de tussenlaag tussen applicatie en VGA-\/driver.
+
+\begin{DoxyDate}{Date}
+12.\+01.\+2026 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+M. Untersalmberger 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{logic_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{logic_8c_a1ca4088c1959f896ef26590e548295db}\index{logic.c@{logic.c}!bitmap@{bitmap}}
+\index{bitmap@{bitmap}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{bitmap()}{bitmap()}}
+{\footnotesize\ttfamily \label{logic_8c_a1ca4088c1959f896ef26590e548295db} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} bitmap (\begin{DoxyParamCaption}\item[{int}]{nr}{, }\item[{int}]{x\+\_\+lup}{, }\item[{int}]{y\+\_\+lup}{}\end{DoxyParamCaption})}
+
+
+
+Tekent een voorgedefinieerde bitmap (pijlen of smileys). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nr} & Index van de bitmap (0-\/5), 0–3 = pijlen, 4–5 = smileys. \\
+\hline
+{\em x\+\_\+lup,y\+\_\+lup} & Positie op het scherm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_aad5e26c082c6e0192376171c19984d86}\index{logic.c@{logic.c}!cirkel@{cirkel}}
+\index{cirkel@{cirkel}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{cirkel()}{cirkel()}}
+{\footnotesize\ttfamily \label{logic_8c_aad5e26c082c6e0192376171c19984d86} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} cirkel (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{int}]{radius}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{}\end{DoxyParamCaption})}
+
+
+
+Tekent een cirkel op basis van middelpunt en straal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x,y} & Middelpunt. \\
+\hline
+{\em radius} & Straal in pixels. \\
+\hline
+{\em kleur} & Kleurnaam. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_a335b5b1b2445237a3caaaf75095e30f2}\index{logic.c@{logic.c}!clearscherm@{clearscherm}}
+\index{clearscherm@{clearscherm}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{clearscherm()}{clearscherm()}}
+{\footnotesize\ttfamily \label{logic_8c_a335b5b1b2445237a3caaaf75095e30f2} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} clearscherm (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{}\end{DoxyParamCaption})}
+
+
+
+Vult het volledige scherm met één kleur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kleur} & Kleurnaam. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_aabd536f05488e71df213a87ab50e79b9}\index{logic.c@{logic.c}!contains@{contains}}
+\index{contains@{contains}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily \label{logic_8c_aabd536f05488e71df213a87ab50e79b9} 
+int contains (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{items}{\+[$\,$]\+, }\item[{const int}]{aantal}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{item}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Controleert of een string aanwezig is in een lijst van toegestane strings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & Array van strings. \\
+\hline
+{\em aantal} & Aantal items in de array. \\
+\hline
+{\em item} & De te zoeken string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 indien gevonden, 0 indien niet gevonden. @time O(n) waarbij n het aantal items is. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_ae9b3369352acf25590a1538accedaf2b}\index{logic.c@{logic.c}!figuur@{figuur}}
+\index{figuur@{figuur}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{figuur()}{figuur()}}
+{\footnotesize\ttfamily \label{logic_8c_ae9b3369352acf25590a1538accedaf2b} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} figuur (\begin{DoxyParamCaption}\item[{int}]{x1}{, }\item[{int}]{y1}{, }\item[{int}]{x2}{, }\item[{int}]{y2}{, }\item[{int}]{x3}{, }\item[{int}]{y3}{, }\item[{int}]{x4}{, }\item[{int}]{y4}{, }\item[{int}]{x5}{, }\item[{int}]{y5}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{}\end{DoxyParamCaption})}
+
+
+
+Tekent een gesloten figuur (5-\/hoek) door 5 punten te verbinden. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1..\+y5} & Coördinaten van de 5 hoekpunten. \\
+\hline
+{\em kleur} & Kleurnaam. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_aecec9da5a0191b9f7728a59a3b9c1881}\index{logic.c@{logic.c}!herhaal@{herhaal}}
+\index{herhaal@{herhaal}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{herhaal()}{herhaal()}}
+{\footnotesize\ttfamily \label{logic_8c_aecec9da5a0191b9f7728a59a3b9c1881} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} herhaal (\begin{DoxyParamCaption}\item[{int}]{aantal}{, }\item[{int}]{hoevaak}{}\end{DoxyParamCaption})}
+
+
+
+Herhaalt een specifiek aantal van de laatst uitgevoerde commando\textquotesingle{}s. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aantal} & Hoeveel voorgaande commando\textquotesingle{}s herhaald moeten worden (max 20). \\
+\hline
+{\em hoevaak} & Hoe vaak deze reeks herhaald moet worden. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_a706041e2317e9275ee752596f97ff859}\index{logic.c@{logic.c}!kleurToCode@{kleurToCode}}
+\index{kleurToCode@{kleurToCode}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{kleurToCode()}{kleurToCode()}}
+{\footnotesize\ttfamily \label{logic_8c_a706041e2317e9275ee752596f97ff859} 
+uint8\+\_\+t kleur\+To\+Code (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{}\end{DoxyParamCaption})}
+
+
+
+Vertaalt een tekstuele kleurnaam naar een hardware-\/specifieke VGA kleurcode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kleur} & String (bijv. "{}rood"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t VGA kleurcode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_a55bcd6df7b5afccfcb3343c50bdd1974}\index{logic.c@{logic.c}!lijn@{lijn}}
+\index{lijn@{lijn}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{lijn()}{lijn()}}
+{\footnotesize\ttfamily \label{logic_8c_a55bcd6df7b5afccfcb3343c50bdd1974} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} lijn (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{int}]{x2}{, }\item[{int}]{y2}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{, }\item[{int}]{dikte}{}\end{DoxyParamCaption})}
+
+
+
+Tekent een lijn op het scherm na validatie van de coördinaten. 
+
+Functies die gebruikt worden in \doxylink{logic_8c}{logic.\+c}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x,y} & Startpunt. \\
+\hline
+{\em x2,y2} & Eindpunt. \\
+\hline
+{\em kleur} & Kleurnaam als string. \\
+\hline
+{\em dikte} & Lijndikte in pixels. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}:\+ OK, ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+BOUNDS, ERROR\+\_\+\+INVALID\+\_\+\+COLOR, etc. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_a1f9b6c8434384a7e601e8833302379c2}\index{logic.c@{logic.c}!log\_commando@{log\_commando}}
+\index{log\_commando@{log\_commando}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{log\_commando()}{log\_commando()}}
+{\footnotesize\ttfamily \label{logic_8c_a1f9b6c8434384a7e601e8833302379c2} 
+void log\+\_\+commando (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_commando}{Commando}}}]{c}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Slaat een uitgevoerd commando op in het circulaire geheugen (geschiedenis). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Het \doxylink{struct_commando}{Commando} struct dat opgeslagen moet worden. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Geen. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Geheugengebruik:\+ Schrijft naar een statische array van 20 structs. 
+\end{DoxyNote}
+\Hypertarget{logic_8c_a0b283d6d24767b0a41944065566898b9}\index{logic.c@{logic.c}!rechthoek@{rechthoek}}
+\index{rechthoek@{rechthoek}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{rechthoek()}{rechthoek()}}
+{\footnotesize\ttfamily \label{logic_8c_a0b283d6d24767b0a41944065566898b9} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} rechthoek (\begin{DoxyParamCaption}\item[{int}]{x\+\_\+lup}{, }\item[{int}]{y\+\_\+lup}{, }\item[{int}]{breedte}{, }\item[{int}]{hoogte}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{, }\item[{int}]{gevuld}{}\end{DoxyParamCaption})}
+
+
+
+Tekent een (gevulde) rechthoek. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+lup,y\+\_\+lup} & Linkerbovenhoek coördinaten. \\
+\hline
+{\em breedte,hoogte} & Afmetingen. \\
+\hline
+{\em kleur} & Kleurnaam. \\
+\hline
+{\em gevuld} & 1 voor gevuld, 0 voor alleen rand. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_a6f79115f39f7f21204362473364e9e8d}\index{logic.c@{logic.c}!tekst@{tekst}}
+\index{tekst@{tekst}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{tekst()}{tekst()}}
+{\footnotesize\ttfamily \label{logic_8c_a6f79115f39f7f21204362473364e9e8d} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} tekst (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{kleur}{, }\item[{const char}]{tekst}{\+[100]\+, }\item[{const char}]{fontnaam}{\+[20]\+, }\item[{int}]{fontgrootte}{, }\item[{const char}]{fontstijl}{\+[20]\+}\end{DoxyParamCaption})}
+
+
+
+Plaatst tekst op het scherm met specifiek font en grootte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x,y} & Startpositie. \\
+\hline
+{\em kleur} & Kleurnaam. \\
+\hline
+{\em tekst} & De te tonen string (max 100 tekens). \\
+\hline
+{\em fontnaam} & "{}arial"{} of "{}consolas"{}. \\
+\hline
+{\em fontgrootte} & 1 (normaal) of 2 (groot). \\
+\hline
+{\em fontstijl} & "{}normaal"{}, "{}vet"{}, of "{}cursief"{}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} statuscode. 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_ae2f46c3348d29fdbfa22ef566c0d03ab}\index{logic.c@{logic.c}!vgaStatusToResultaat@{vgaStatusToResultaat}}
+\index{vgaStatusToResultaat@{vgaStatusToResultaat}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{vgaStatusToResultaat()}{vgaStatusToResultaat()}}
+{\footnotesize\ttfamily \label{logic_8c_ae2f46c3348d29fdbfa22ef566c0d03ab} 
+\doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}} vga\+Status\+To\+Resultaat (\begin{DoxyParamCaption}\item[{int}]{status}{}\end{DoxyParamCaption})}
+
+
+
+Vertaalt returncodes van de VGA driver naar de \doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} enum van de logic layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & Integer status van de driver. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat} enum (OK, ERROR\+\_\+\+VGA\+\_\+...). 
+\end{DoxyReturn}
+\Hypertarget{logic_8c_aa347cd921fe05823675c3f79c1b35b7e}\index{logic.c@{logic.c}!wachten@{wachten}}
+\index{wachten@{wachten}!logic.c@{logic.c}}
+\doxysubsubsection{\texorpdfstring{wachten()}{wachten()}}
+{\footnotesize\ttfamily \label{logic_8c_aa347cd921fe05823675c3f79c1b35b7e} 
+int wachten (\begin{DoxyParamCaption}\item[{int}]{msecs}{}\end{DoxyParamCaption})}
+
+
+
+Een \textquotesingle{}busy-\/wait\textquotesingle{} vertraging gebaseerd op de CPU kloksnelheid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msecs} & Aantal milliseconden om te wachten. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Altijd 0. @bottleneck Blokkeert de volledige CPU uitvoering; niet geschikt voor multitasking. 
+\end{DoxyReturn}

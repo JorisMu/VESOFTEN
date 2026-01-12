@@ -1,0 +1,43 @@
+\doxysection{Font\+Def\+\_\+t Struct Reference}
+\hypertarget{struct_font_def__t}{}\label{struct_font_def__t}\index{FontDef\_t@{FontDef\_t}}
+
+
+Structure defining a complete font.  
+
+
+
+
+{\ttfamily \+\#include $<$fonts.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+const uint8\+\_\+t \doxymbox{\hyperlink{struct_font_def__t_a055f1569b3e51132aea69285354b3b89}{height}}
+\item 
+const \doxymbox{\hyperlink{struct_font_char__t}{Font\+Char\+\_\+t}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{struct_font_def__t_acecc9dd79eafe3fc5273598df02a4b89}{chars}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure defining a complete font. 
+
+\label{doc-variable-members}
+\Hypertarget{struct_font_def__t_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{struct_font_def__t_acecc9dd79eafe3fc5273598df02a4b89}\index{FontDef\_t@{FontDef\_t}!chars@{chars}}
+\index{chars@{chars}!FontDef\_t@{FontDef\_t}}
+\doxysubsubsection{\texorpdfstring{chars}{chars}}
+{\footnotesize\ttfamily \label{struct_font_def__t_acecc9dd79eafe3fc5273598df02a4b89} 
+const \doxymbox{\hyperlink{struct_font_char__t}{Font\+Char\+\_\+t}}\texorpdfstring{$\ast$}{*} Font\+Def\+\_\+t::\+chars}
+
+Pointer to an array of character descriptors. If NULL, the font is treated as fixed-\/width, and the renderer will look for a different data array. \Hypertarget{struct_font_def__t_a055f1569b3e51132aea69285354b3b89}\index{FontDef\_t@{FontDef\_t}!height@{height}}
+\index{height@{height}!FontDef\_t@{FontDef\_t}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily \label{struct_font_def__t_a055f1569b3e51132aea69285354b3b89} 
+const uint8\+\_\+t Font\+Def\+\_\+t::\+height}
+
+Height of the font in pixels. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Core/\+\+Inc/\+\doxymbox{\hyperlink{fonts_8h}{fonts.\+h}}\end{DoxyCompactItemize}

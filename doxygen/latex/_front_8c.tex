@@ -1,0 +1,197 @@
+\doxysection{Core/\+\+Src/\+\+Front.c File Reference}
+\hypertarget{_front_8c}{}\label{_front_8c}\index{Core/Src/Front.c@{Core/Src/Front.c}}
+
+
+VGA\+\_\+core DMA LIB 320x240, 8bit color.  
+
+
+{\ttfamily \+\#include "{}stm32f4xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}front.\+h"{}}\newline
+{\ttfamily \+\#include "{}logic.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_front_8c_ab0249d81dd53336b7810ebcf29511210}\label{_front_8c_ab0249d81dd53336b7810ebcf29511210} 
+\+\#define {\bfseries UART\+\_\+\+BUF\+\_\+\+SIZE}~128
+\item 
+\Hypertarget{_front_8c_a5bdd6772c246436bb14377095de79b31}\label{_front_8c_a5bdd6772c246436bb14377095de79b31} 
+\+\#define {\bfseries UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{_front_8c_af2976c30f33a4f95a8f80b9b4f97973a}{front\+\_\+send\+\_\+error}} (const char \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em Stuurt een foutmelding via UART. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{_front_8c_aff2f151dd6ba8123dc3de64b753e1165}{status\+\_\+to\+\_\+string}} (int code)
+\begin{DoxyCompactList}\small\item\em Converteert een foutcode naar een leesbare string. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095f}{Front\+Status}} \doxymbox{\hyperlink{_front_8c_a0d05762fb2a6f759cf6e38111efc5dfa}{parse\+\_\+command}} (const char \texorpdfstring{$\ast$}{*}input, \doxymbox{\hyperlink{struct_command}{Command}} \texorpdfstring{$\ast$}{*}cmd)
+\begin{DoxyCompactList}\small\item\em Parseert een commando string en vult een \doxylink{struct_command}{Command} struct. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{_front_8c_a24927fff2633d94c0185c8876716475a}{front\+\_\+handle\+\_\+input}} (const char \texorpdfstring{$\ast$}{*}input\+\_\+line)
+\begin{DoxyCompactList}\small\item\em Verwerkt één inputregel, valideert en voert het commando uit. \end{DoxyCompactList}\item 
+\Hypertarget{_front_8c_a328e85a340d7900411a901f12d6eb0aa}\label{_front_8c_a328e85a340d7900411a901f12d6eb0aa} 
+void {\bfseries USART2\+\_\+\+Init} (void)
+\begin{DoxyCompactList}\small\item\em Initialiseert USART2 voor communicatie met PC/\+terminal. Configuratie:\+ 115200 baud, RXNE interrupt enabled. \end{DoxyCompactList}\item 
+\Hypertarget{_front_8c_a0ca6fd0e6f77921dd1123539857ba0a8}\label{_front_8c_a0ca6fd0e6f77921dd1123539857ba0a8} 
+void {\bfseries USART2\+\_\+\+IRQHandler} (void)
+\begin{DoxyCompactList}\small\item\em USART2 interrupt handler. Plaatst ontvangen karakters in de ringbuffer. \end{DoxyCompactList}\item 
+\Hypertarget{_front_8c_aa2f21f8830e2170d4201625e90cb8f4a}\label{_front_8c_aa2f21f8830e2170d4201625e90cb8f4a} 
+void {\bfseries USART2\+\_\+\+Send\+Char} (char c)
+\item 
+void \doxymbox{\hyperlink{_front_8c_a7d6bc1bbf765b615431d0ed02c97812b}{USART2\+\_\+\+Send\+String}} (const char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Stuurt een string via USART2 naar de terminal. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{_front_8c_ae5162b7f2966256d0b483621c71d7ccb}{USART2\+\_\+\+BUFFER}} (void)
+\begin{DoxyCompactList}\small\item\em Verwerkt de ringbuffer. Bouwt dynamische buffer voor volledige lijnen en roept parser aan. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_front_8c_a8cf6f55cf4735df9d67b1bb52f6f861b}\label{_front_8c_a8cf6f55cf4735df9d67b1bb52f6f861b} 
+static char {\bfseries uart\+\_\+rx\+\_\+buffer} \+[UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE]\+
+\item 
+\Hypertarget{_front_8c_a84e0ca759ca1d585710995d29d569a1c}\label{_front_8c_a84e0ca759ca1d585710995d29d569a1c} 
+static uint16\+\_\+t {\bfseries uart\+\_\+rx\+\_\+index} = 0
+\item 
+\Hypertarget{_front_8c_ac091dbdd5d8ef775285a288cb6f01f7a}\label{_front_8c_ac091dbdd5d8ef775285a288cb6f01f7a} 
+static volatile uint8\+\_\+t {\bfseries uart\+\_\+line\+\_\+ready} = 0
+\item 
+\Hypertarget{_front_8c_ac8fed7bec7cfecd9dea97959d1b6105b}\label{_front_8c_ac8fed7bec7cfecd9dea97959d1b6105b} 
+volatile char {\bfseries uart\+\_\+buf} \+[UART\+\_\+\+BUF\+\_\+\+SIZE]\+
+\item 
+\Hypertarget{_front_8c_ab7effc574b62bc0106eedb3b0248439a}\label{_front_8c_ab7effc574b62bc0106eedb3b0248439a} 
+volatile uint16\+\_\+t {\bfseries uart\+\_\+head} = 0
+\item 
+\Hypertarget{_front_8c_ae1af7d04dc923c1174d312c355e278f5}\label{_front_8c_ae1af7d04dc923c1174d312c355e278f5} 
+volatile uint16\+\_\+t {\bfseries uart\+\_\+tail} = 0
+\item 
+\Hypertarget{_front_8c_a48b5776fb79c56d2584cfa6f109e8f22}\label{_front_8c_a48b5776fb79c56d2584cfa6f109e8f22} 
+char \texorpdfstring{$\ast$}{*} {\bfseries line\+\_\+buffer} = NULL
+\begin{DoxyCompactList}\small\item\em Dynamische buffer voor één complete lijn. \end{DoxyCompactList}\item 
+\Hypertarget{_front_8c_accabe7a366c004977f687e42867f316d}\label{_front_8c_accabe7a366c004977f687e42867f316d} 
+uint16\+\_\+t {\bfseries line\+\_\+idx} = 0
+\begin{DoxyCompactList}\small\item\em Index in dynamische buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+VGA\+\_\+core DMA LIB 320x240, 8bit color. 
+
+Deze C-\/code draait op een STM32\+F4 microcontroller en implementeert een UART-\/command interface waarmee je via tekstcommando’s (bijv. via een terminal) grafische opdrachten kunt sturen naar een VGA/\+logic-\/laag.
+
+\begin{DoxyDate}{Date}
+12.\+01.\+2026 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+J. de Bruijne 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{_front_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_front_8c_a24927fff2633d94c0185c8876716475a}\index{Front.c@{Front.c}!front\_handle\_input@{front\_handle\_input}}
+\index{front\_handle\_input@{front\_handle\_input}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{front\_handle\_input()}{front\_handle\_input()}}
+{\footnotesize\ttfamily \label{_front_8c_a24927fff2633d94c0185c8876716475a} 
+void front\+\_\+handle\+\_\+input (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input\+\_\+line}{}\end{DoxyParamCaption})}
+
+
+
+Verwerkt één inputregel, valideert en voert het commando uit. 
+
+Verwerkt een invoerstring volledig:\+ parse + aanroepen logic layer. Fouten worden direct naar terminal gestuurd.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+line} & Input string van UART. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Geen, fouten worden via UART gerapporteerd. 
+\end{DoxyReturn}
+\Hypertarget{_front_8c_af2976c30f33a4f95a8f80b9b4f97973a}\index{Front.c@{Front.c}!front\_send\_error@{front\_send\_error}}
+\index{front\_send\_error@{front\_send\_error}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{front\_send\_error()}{front\_send\_error()}}
+{\footnotesize\ttfamily \label{_front_8c_af2976c30f33a4f95a8f80b9b4f97973a} 
+void front\+\_\+send\+\_\+error (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Stuurt een foutmelding via UART. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & De foutmelding als string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Geen. 
+\end{DoxyReturn}
+\Hypertarget{_front_8c_a0d05762fb2a6f759cf6e38111efc5dfa}\index{Front.c@{Front.c}!parse\_command@{parse\_command}}
+\index{parse\_command@{parse\_command}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{parse\_command()}{parse\_command()}}
+{\footnotesize\ttfamily \label{_front_8c_a0d05762fb2a6f759cf6e38111efc5dfa} 
+\doxymbox{\hyperlink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095f}{Front\+Status}} parse\+\_\+command (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{\doxymbox{\hyperlink{struct_command}{Command}} \texorpdfstring{$\ast$}{*}}]{cmd}{}\end{DoxyParamCaption})}
+
+
+
+Parseert een commando string en vult een \doxylink{struct_command}{Command} struct. 
+
+Parseert een invoerstring en vult een \doxylink{struct_command}{Command} struct.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & De input string (bijv. "{}\+LIJN,0,0,100,100,rood,2"{}). \\
+\hline
+{\em cmd} & Pointer naar \doxylink{struct_command}{Command} struct die gevuld wordt. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{_front_8h_a57b2d4d7e06398ef41b8490b9e9b095f}{Front\+Status} code (FRONT\+\_\+\+OK of foutcode). 
+\end{DoxyReturn}
+\Hypertarget{_front_8c_aff2f151dd6ba8123dc3de64b753e1165}\index{Front.c@{Front.c}!status\_to\_string@{status\_to\_string}}
+\index{status\_to\_string@{status\_to\_string}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{status\_to\_string()}{status\_to\_string()}}
+{\footnotesize\ttfamily \label{_front_8c_aff2f151dd6ba8123dc3de64b753e1165} 
+const char \texorpdfstring{$\ast$}{*} status\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{int}]{code}{}\end{DoxyParamCaption})}
+
+
+
+Converteert een foutcode naar een leesbare string. 
+
+Zet een front-\/ of logic-\/layer foutcode om naar een leesbare string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & Foutcode van Front, Logic of VGA layer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const char\texorpdfstring{$\ast$}{*} Leesbare foutmelding. 
+\end{DoxyReturn}
+\Hypertarget{_front_8c_ae5162b7f2966256d0b483621c71d7ccb}\index{Front.c@{Front.c}!USART2\_BUFFER@{USART2\_BUFFER}}
+\index{USART2\_BUFFER@{USART2\_BUFFER}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{USART2\_BUFFER()}{USART2\_BUFFER()}}
+{\footnotesize\ttfamily \label{_front_8c_ae5162b7f2966256d0b483621c71d7ccb} 
+void USART2\+\_\+\+BUFFER (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Verwerkt de ringbuffer. Bouwt dynamische buffer voor volledige lijnen en roept parser aan. 
+
+Verwerkt de ringbuffer van USART2 en roept parser aan bij volledige lijnen. \Hypertarget{_front_8c_a7d6bc1bbf765b615431d0ed02c97812b}\index{Front.c@{Front.c}!USART2\_SendString@{USART2\_SendString}}
+\index{USART2\_SendString@{USART2\_SendString}!Front.c@{Front.c}}
+\doxysubsubsection{\texorpdfstring{USART2\_SendString()}{USART2\_SendString()}}
+{\footnotesize\ttfamily \label{_front_8c_a7d6bc1bbf765b615431d0ed02c97812b} 
+void USART2\+\_\+\+Send\+String (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+
+
+Stuurt een string via USART2 naar de terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Pointer naar null-\/terminated string \\
+\hline
+\end{DoxyParams}

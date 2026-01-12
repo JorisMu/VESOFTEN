@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['v_0',['V',['../group___c_m_s_i_s__core___debug_functions.html#ga8004d224aacb78ca37774c35f9156e7e',1,'APSR_Type::V'],['../group___c_m_s_i_s__core___debug_functions.html#ga9d447ea313257da757155fd2dd0cae87',1,'APSR_Type::@013063065307201215267304210072277211044031113127::V'],['../group___c_m_s_i_s__core___debug_functions.html#gaf14df16ea0690070c45b95f2116b7a0a',1,'xPSR_Type::V'],['../group___c_m_s_i_s__core___debug_functions.html#ga79cc7b5eebb355409669c90e2b83284c',1,'xPSR_Type::@311321167321017334130373142374052026347222036232::V']]],
+  ['v_203_203_1',['VDD(V) | 3.3',['../system__stm32f4xx_8c.html#autotoc_md16',1,'']]],
+  ['val_2',['VAL',['../group___c_m_s_i_s__core___debug_functions.html#ga0997ff20f11817f8246e8f0edac6f4e4',1,'SysTick_Type']]],
+  ['vdd_20v_203_203_3',['VDD(V) | 3.3',['../system__stm32f4xx_8c.html#autotoc_md16',1,'']]],
+  ['vect_5ftab_5foffset_4',['VECT_TAB_OFFSET',['../group___s_t_m32_f4xx___system___private___defines.html#ga40e1495541cbb4acbe3f1819bd87a9fe',1,'system_stm32f4xx.c']]],
+  ['vga_5',['VGA',['../stm32__ub__vga__screen_8h.html#a0642526bfd4eb59d888572150ee3032a',1,'VGA:&#160;stm32_ub_vga_screen.c'],['../stm32__ub__vga__screen_8c.html#a0642526bfd4eb59d888572150ee3032a',1,'VGA:&#160;stm32_ub_vga_screen.c']]],
+  ['vga_5fbitmaps_6',['vga_bitmaps',['../bitmaps_8h.html#aaf50d3420445dfd4d01dcc84847f2e27',1,'vga_bitmaps:&#160;bitmaps.c'],['../bitmaps_8c.html#aaf50d3420445dfd4d01dcc84847f2e27',1,'vga_bitmaps:&#160;bitmaps.c']]],
+  ['vga_5fcol_5fblack_7',['VGA_COL_BLACK',['../stm32__ub__vga__screen_8h.html#a9fee0c95dea1cdd3eeb3605ece528a8a',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5fdisplay_5fx_8',['VGA_DISPLAY_X',['../stm32__ub__vga__screen_8h.html#ace7f348dc91111917772d3e19f8821d3',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5ferror_5finvalid_5fcoordinate_9',['VGA_ERROR_INVALID_COORDINATE',['../stm32__ub__vga__screen_8h.html#a0b88827565186e863b8b6e74c87b1895a212811a1ced733afe61141faf81ac0bc',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5ferror_5finvalid_5fparameter_10',['VGA_ERROR_INVALID_PARAMETER',['../stm32__ub__vga__screen_8h.html#a0b88827565186e863b8b6e74c87b1895a064bd18c03e5de80aac97f3d8baf9528',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5fram1_11',['VGA_RAM1',['../stm32__ub__vga__screen_8h.html#adad76feab97da661d4015659c7a7f9a8',1,'VGA_RAM1:&#160;stm32_ub_vga_screen.c'],['../stm32__ub__vga__screen_8c.html#adad76feab97da661d4015659c7a7f9a8',1,'VGA_RAM1:&#160;stm32_ub_vga_screen.c']]],
+  ['vga_5frect_12',['VGA_Rect',['../struct_v_g_a___rect.html',1,'']]],
+  ['vga_5fstatus_13',['VGA_Status',['../stm32__ub__vga__screen_8h.html#a0b88827565186e863b8b6e74c87b1895',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5fsuccess_14',['VGA_SUCCESS',['../stm32__ub__vga__screen_8h.html#a0b88827565186e863b8b6e74c87b1895ac508a3cf20e926f4ed042994bd77b337',1,'stm32_ub_vga_screen.h']]],
+  ['vga_5ft_15',['VGA_t',['../struct_v_g_a__t.html',1,'']]],
+  ['vgastatustoresultaat_16',['vgaStatusToResultaat',['../logic_8h.html#ae2f46c3348d29fdbfa22ef566c0d03ab',1,'vgaStatusToResultaat(int status):&#160;logic.c'],['../logic_8c.html#ae2f46c3348d29fdbfa22ef566c0d03ab',1,'vgaStatusToResultaat(int status):&#160;logic.c']]],
+  ['vsc16_17',['vsc16',['../group___exported__types.html#ga369ae0177b957e5afa7c1e62312f97c3',1,'stm32f4xx.h']]],
+  ['vsc32_18',['vsc32',['../group___exported__types.html#gaec1d22666cf030b79051e5daa372fbc8',1,'stm32f4xx.h']]],
+  ['vsc8_19',['vsc8',['../group___exported__types.html#ga47463bcded079ac61d5da46aff497803',1,'stm32f4xx.h']]],
+  ['vtor_20',['VTOR',['../group___c_m_s_i_s__core___debug_functions.html#ga0faf96f964931cadfb71cfa54e051f6f',1,'SCB_Type']]],
+  ['vuc16_21',['vuc16',['../group___exported__types.html#ga7f6037565f0caa27727c8b871daf0d56',1,'stm32f4xx.h']]],
+  ['vuc32_22',['vuc32',['../group___exported__types.html#ga2e08e321a35a55e72c5b3a507e76371f',1,'stm32f4xx.h']]],
+  ['vuc8_23',['vuc8',['../group___exported__types.html#gab0ec90ac9b2c5864755998c8d37c264a',1,'stm32f4xx.h']]]
+];

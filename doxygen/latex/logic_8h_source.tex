@@ -1,0 +1,78 @@
+\doxysection{logic.\+h}
+\hypertarget{logic_8h_source}{}\label{logic_8h_source}\index{Core/Inc/logic.h@{Core/Inc/logic.h}}
+\doxymbox{\hyperlink{logic_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ LOGIC\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LOGIC\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32__ub__vga__screen_8h}{stm32\_ub\_vga\_screen.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Schermdimensies}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ SCHERM\_BREEDTE\ 320}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ SCHERM\_HOOGTE\ 240}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ OK\ =\ 100,}
+\DoxyCodeLine{00032\ \ \ \ \ ERROR\_INVALID\_COLOR,}
+\DoxyCodeLine{00033\ \ \ \ \ ERROR\_INVALID\_PARAM\_THICKNESS,}
+\DoxyCodeLine{00034\ \ \ \ \ ERROR\_INVALID\_PARAM\_SIZE,}
+\DoxyCodeLine{00035\ \ \ \ \ ERROR\_INVALID\_PARAM\_FILLED,}
+\DoxyCodeLine{00036\ \ \ \ \ ERROR\_INVALID\_PARAM\_FONTNAME,}
+\DoxyCodeLine{00037\ \ \ \ \ ERROR\_INVALID\_PARAM\_FONTSIZE,}
+\DoxyCodeLine{00038\ \ \ \ \ ERROR\_INVALID\_PARAM\_FONSTYLE,}
+\DoxyCodeLine{00039\ \ \ \ \ ERROR\_INVALID\_PARAM,}
+\DoxyCodeLine{00040\ \ \ \ \ ERROR\_OUT\_OF\_BOUNDS,}
+\DoxyCodeLine{00041\ \ \ \ \ ERROR\_TEXT\_TOO\_LONG,}
+\DoxyCodeLine{00042\ \ \ \ \ ERROR\_TOO\_MANY\_REPEATS,}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ VGA\_OK\ =\ 200,}
+\DoxyCodeLine{00045\ \ \ \ \ ERROR\_VGA,}
+\DoxyCodeLine{00046\ \ \ \ \ ERROR\_VGA\_INVALID\_COORDINATE,}
+\DoxyCodeLine{00047\ \ \ \ \ ERROR\_VGA\_INVALID\_PARAMETER}
+\DoxyCodeLine{00048\ \}\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ CMD\_LIJN,}
+\DoxyCodeLine{00056\ \ \ \ \ CMD\_RECHTHOEK,}
+\DoxyCodeLine{00057\ \ \ \ \ CMD\_TEKST,}
+\DoxyCodeLine{00058\ \ \ \ \ CMD\_BITMAP,}
+\DoxyCodeLine{00059\ \ \ \ \ CMD\_CLEARSCHERM,}
+\DoxyCodeLine{00060\ \ \ \ \ CMD\_WACHT,}
+\DoxyCodeLine{00061\ \ \ \ \ CMD\_WAIT,}
+\DoxyCodeLine{00062\ \ \ \ \ CMD\_HERHAAL,}
+\DoxyCodeLine{00063\ \ \ \ \ CMD\_CLEAR,}
+\DoxyCodeLine{00064\ \ \ \ \ CMD\_CIRKEL,}
+\DoxyCodeLine{00065\ \ \ \ \ CMD\_FIGUUR,}
+\DoxyCodeLine{00066\ \ \ \ \ CMD\_UNKNOWN}
+\DoxyCodeLine{00067\ \}\ \doxymbox{\hyperlink{logic_8h_a21e038f5b8958e203d28bc4f18472352}{CommandType}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \doxymbox{\hyperlink{logic_8h_a21e038f5b8958e203d28bc4f18472352}{CommandType}}\ type;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ p1,\ p2,\ p3,\ p4,\ p5,\ p6,\ p7,\ p8,\ p9,\ p10;\ \textcolor{comment}{//\ Generieke\ parameters\ (x,\ y,\ breedte,\ dikte,\ etc.)}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{char}\ kleur[20];}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{char}\ tekst\_inhoud[100];}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{char}\ fontnaam[20];}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{char}\ fontstijl[20];}
+\DoxyCodeLine{00080\ \}\ \doxymbox{\hyperlink{struct_commando}{Commando}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00085\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a55bcd6df7b5afccfcb3343c50bdd1974}{lijn}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ x2,\ \textcolor{keywordtype}{int}\ y2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur,\ \textcolor{keywordtype}{int}\ dikte);}
+\DoxyCodeLine{00086\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a0b283d6d24767b0a41944065566898b9}{rechthoek}}(\textcolor{keywordtype}{int}\ x\_lup,\ \textcolor{keywordtype}{int}\ y\_lup,\ \textcolor{keywordtype}{int}\ breedte,\ \textcolor{keywordtype}{int}\ hoogte,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur,\ \textcolor{keywordtype}{int}\ gevuld);}
+\DoxyCodeLine{00087\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a6f79115f39f7f21204362473364e9e8d}{tekst}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{logic_8h_a6f79115f39f7f21204362473364e9e8d}{tekst}}[100],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ fontnaam[20],\ \textcolor{keywordtype}{int}\ fontgrootte,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ fontstijl[20]);}
+\DoxyCodeLine{00088\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a1ca4088c1959f896ef26590e548295db}{bitmap}}(\textcolor{keywordtype}{int}\ nr,\ \textcolor{keywordtype}{int}\ x\_lup,\ \textcolor{keywordtype}{int}\ y\_lup);}
+\DoxyCodeLine{00089\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a335b5b1b2445237a3caaaf75095e30f2}{clearscherm}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur);}
+\DoxyCodeLine{00090\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_a3a3f568069a03c6334ffcba8ea8c8cca}{wacht}}(\textcolor{keywordtype}{int}\ msecs);}
+\DoxyCodeLine{00091\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_aecec9da5a0191b9f7728a59a3b9c1881}{herhaal}}(\textcolor{keywordtype}{int}\ aantal,\ \textcolor{keywordtype}{int}\ hoevaak);}
+\DoxyCodeLine{00092\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_aad5e26c082c6e0192376171c19984d86}{cirkel}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ radius,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur);}
+\DoxyCodeLine{00093\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_ae9b3369352acf25590a1538accedaf2b}{figuur}}(\textcolor{keywordtype}{int}\ x1,\ \textcolor{keywordtype}{int}\ y1,\ \textcolor{keywordtype}{int}\ x2,\ \textcolor{keywordtype}{int}\ y2,\ \textcolor{keywordtype}{int}\ x3,\ \textcolor{keywordtype}{int}\ y3,\ \textcolor{keywordtype}{int}\ x4,\ \textcolor{keywordtype}{int}\ y4,\ \textcolor{keywordtype}{int}\ x5,\ \textcolor{keywordtype}{int}\ y5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *kleur);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \doxymbox{\hyperlink{logic_8h_a08c4735939582c7cf86be1707450668a}{Resultaat}}\ \doxymbox{\hyperlink{logic_8h_ae2f46c3348d29fdbfa22ef566c0d03ab}{vgaStatusToResultaat}}(\textcolor{keywordtype}{int}\ status);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

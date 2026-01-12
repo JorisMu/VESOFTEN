@@ -1,0 +1,41 @@
+\doxysubsubsubsection{DMA\+\_\+interrupt\+\_\+enable\+\_\+definitions }
+\hypertarget{group___d_m_a__interrupt__enable__definitions}{}\label{group___d_m_a__interrupt__enable__definitions}\index{DMA\_interrupt\_enable\_definitions@{DMA\_interrupt\_enable\_definitions}}
+\doxysubsubsubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_ga06e83dd277e0d3e5635cf8ce8dfd6e16}\label{group___d_m_a__interrupt__enable__definitions_ga06e83dd277e0d3e5635cf8ce8dfd6e16} 
+\+\#define {\bfseries DMA\+\_\+\+IT\+\_\+\+TC}~((uint32\+\_\+t)0x00000010)
+\item 
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_gadf11c572b9797e04a14b105fdc2e5f66}\label{group___d_m_a__interrupt__enable__definitions_gadf11c572b9797e04a14b105fdc2e5f66} 
+\+\#define {\bfseries DMA\+\_\+\+IT\+\_\+\+HT}~((uint32\+\_\+t)0x00000008)
+\item 
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_gaf9d92649d2a0146f663ff253d8f3b59e}\label{group___d_m_a__interrupt__enable__definitions_gaf9d92649d2a0146f663ff253d8f3b59e} 
+\+\#define {\bfseries DMA\+\_\+\+IT\+\_\+\+TE}~((uint32\+\_\+t)0x00000004)
+\item 
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_ga71137443f7bdced1ee80697596e9ea98}\label{group___d_m_a__interrupt__enable__definitions_ga71137443f7bdced1ee80697596e9ea98} 
+\+\#define {\bfseries DMA\+\_\+\+IT\+\_\+\+DME}~((uint32\+\_\+t)0x00000002)
+\item 
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_ga93164ec039fc5579662c382e68d7d13f}\label{group___d_m_a__interrupt__enable__definitions_ga93164ec039fc5579662c382e68d7d13f} 
+\+\#define {\bfseries DMA\+\_\+\+IT\+\_\+\+FE}~((uint32\+\_\+t)0x00000080)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__interrupt__enable__definitions_ga47f6af7da302c19aba24516037d305e7}{IS\+\_\+\+DMA\+\_\+\+CONFIG\+\_\+\+IT}}(IT)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsection{Detailed Description}
+
+
+\label{doc-define-members}
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_doc-define-members}
+\doxysubsubsubsubsection{Macro Definition Documentation}
+\Hypertarget{group___d_m_a__interrupt__enable__definitions_ga47f6af7da302c19aba24516037d305e7}\index{DMA\_interrupt\_enable\_definitions@{DMA\_interrupt\_enable\_definitions}!IS\_DMA\_CONFIG\_IT@{IS\_DMA\_CONFIG\_IT}}
+\index{IS\_DMA\_CONFIG\_IT@{IS\_DMA\_CONFIG\_IT}!DMA\_interrupt\_enable\_definitions@{DMA\_interrupt\_enable\_definitions}}
+\doxysubsubsubsubsubsection{\texorpdfstring{IS\_DMA\_CONFIG\_IT}{IS\_DMA\_CONFIG\_IT}}
+{\footnotesize\ttfamily \label{group___d_m_a__interrupt__enable__definitions_ga47f6af7da302c19aba24516037d305e7} 
+\+\#define IS\+\_\+\+DMA\+\_\+\+CONFIG\+\_\+\+IT(\begin{DoxyParamCaption}\item[{}]{IT}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((((IT)\ \&\ 0xFFFFFF61)\ ==\ 0x00)\ \&\&\ ((IT)\ !=\ 0x00))}
+
+\end{DoxyCode}

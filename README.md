@@ -80,3 +80,77 @@ Het is niet alleen belangrijk om commando-fouten af te handelen, maar ook om fou
 3.  `VGA_drawLine` stopt de uitvoering en geeft `ERROR_OUT_OF_BOUNDS` terug aan de `Front Layer`.
 4.  De `Front Layer` vangt deze foutcode op en stuurt de melding "ERROR: Coordinates out of bounds" naar de gebruiker.
 
+
+## Lijst van beschikbare script-commando's
+
+Hieronder volgt een lijst van alle beschikbare commando's die via de seriele poort naar de applicatie gestuurd kunnen worden.
+
+### `lijn`
+* **Functie:** `lijn(x, y, x2, y2, kleur, dikte)`
+* **Variabelen:**
+    * `x`, `y`: Startpunt.
+    * `x2`, `y2`: Eindpunt.
+    * `kleur`: Naam van de kleur.
+    * `dikte`: Dikte in pixels.
+* **Voorbeeld:** `lijn,0,0,50,50,rood,1`
+
+### `rechthoek`
+* **Functie:** `rechthoek(x_lup, y_lup, breedte, hoogte, kleur, gevuld)`
+* **Variabelen:**
+    * `x_lup`, `y_lup`: Linker-bovenhoek positie.
+    * `breedte`, `hoogte`: Afmetingen van de rechthoek.
+    * `kleur`: Naam van de kleur.
+    * `gevuld`: `1` voor gevuld, `0` voor alleen een rand.
+* **Voorbeeld:** `rechthoek,10,10,100,50,blauw,0`
+
+### `tekst`
+* **Functie:** `tekst(x, y, kleur, tekst, fontnaam, fontgrootte, fontstijl)`
+* **Variabelen:**
+    * `x`, `y`: Positie op het scherm.
+    * `kleur`: Naam van de kleur.
+    * `tekst`: De string met de tekstinhoud.
+    * `fontnaam`: "arial" of "consolas".
+    * `fontgrootte`: `1` of `2`.
+    * `fontstijl`: "normaal", "vet" of "cursief".
+* **Voorbeeld:** `tekst,20,20,wit,Hallo,arial,1,normaal`
+
+### `cirkel`
+* **Functie:** `cirkel(x, y, radius, kleur)`
+* **Variabelen:**
+    * `x`, `y`: Middelpunt van de cirkel.
+    * `radius`: De straal van de cirkel.
+    * `kleur`: Naam van de kleur.
+* **Voorbeeld:** `cirkel,150,150,30,geel`
+
+### `figuur`
+* **Functie:** `figuur(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, kleur)`
+* **Variabelen:**
+    * `x1, y1` t/m `x5, y5`: Vijf afzonderlijke coördinatenpunten.
+    * `kleur`: Naam van de kleur.
+* **Voorbeeld:** `figuur,0,0,10,0,10,10,0,10,5,5,groen`
+
+### `bitmap`
+* **Functie:** `bitmap(nr, x_lup, y_lup)`
+* **Variabelen:**
+    * `nr`: Bitmap ID (0-3 voor pijlen, 4-5 voor smileys).
+    * `x_lup`, `y_lup`: Positie op het scherm.
+* **Voorbeeld:** `bitmap,5,50,50`
+
+### `clearscherm`
+* **Functie:** `clearscherm(kleur)`
+* **Variabele:**
+    * `kleur`: De kleur waarmee het hele scherm gevuld wordt.
+* **Voorbeeld:** `clearscherm,zwart`
+
+### `wacht`
+* **Functie:** `wacht(msecs)`
+* **Variabele:**
+    * `msecs`: Aantal milliseconden om te wachten.
+* **Voorbeeld:** `wacht,500`
+
+### `herhaal`
+* **Functie:** `herhaal(aantal, hoevaak)`
+* **Variabelen:**
+    * `aantal`: Aantal voorgaande commando's om te herhalen.
+    * `hoevaak`: Hoe vaak deze reeks herhaald moet worden.
+* **Voorbeeld:** `herhaal,2,10`
