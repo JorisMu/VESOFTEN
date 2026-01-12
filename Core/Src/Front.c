@@ -1,4 +1,17 @@
-//--------------------------------------------------------------
+
+ /**
+ * @file    Front.c
+ * @brief   VGA_core DMA LIB 320x240, 8bit color
+ * @details Deze C-code draait op een STM32F4 microcontroller
+ *          en implementeert een UART-command interface waarmee 
+ *          je via tekstcommando’s (bijv. via een terminal) 
+ *          grafische opdrachten kunt sturen naar een VGA/logic-laag.
+ *
+ * @date    12.01.2026
+ * @author  J. de Bruijne
+ */
+
+ //--------------------------------------------------------------
 // File     : Front.c
 // Datum    : 08/01/2026
 // Version  : 1.0

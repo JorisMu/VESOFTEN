@@ -1,12 +1,12 @@
-/* logic.c
- * ------------------------------------------------------------
- * Functie: Logic layer voor VGA-tekencommando’s. Deze laag
- * valideert invoer, vertaalt parameters naar VGA-codes en
- * vormt de tussenlaag tussen applicatie en VGA-driver.
+ /**
+ * @file    logic.c
+ * @brief   Bitmap pixel data definitions.
+ * @details Logic layer voor VGA-tekencommando’s. Deze laag
+ *          valideert invoer, vertaalt parameters naar VGA-codes en
+ *          vormt de tussenlaag tussen applicatie en VGA-driver.
  *
- * Auteur: Max Untersalmberger
- * Versiebeheer: v1.0 – 2026
- * ------------------------------------------------------------
+ * @date    12.01.2026
+ * @author  M. Untersalmberger
  */
 
 #include "logic.h"
