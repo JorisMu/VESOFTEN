@@ -1,0 +1,39 @@
+\doxysection{bitmaps.\+h}
+\hypertarget{bitmaps_8h_source}{}\label{bitmaps_8h_source}\index{Core/Inc/bitmaps.h@{Core/Inc/bitmaps.h}}
+\doxymbox{\hyperlink{bitmaps_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_\_BITMAPS\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_\_BITMAPS\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32f4xx_8h}{stm32f4xx.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ Bitmap\ Definitions}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ BITMAP\_TRANSPARENT\_COLOR\ 0xFE}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ \doxymbox{\hyperlink{struct_bitmap__t_a00c2e7c666fb5b35e5e1d864b0558f87}{width}};\ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ \doxymbox{\hyperlink{struct_bitmap__t_a88da0a50e976fc5b118c2bb3bfa844ec}{height}};\ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ (*\doxymbox{\hyperlink{struct_bitmap__t_afd9a847b15e23cc315f4ac2713a9e4e7}{data}})[16];\ }
+\DoxyCodeLine{00035\ \}\ \doxymbox{\hyperlink{struct_bitmap__t}{Bitmap\_t}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76afffe9d5ae74559864adc573f5fcc5f03}{BITMAP\_ARROW\_UP}}\ =\ 0,\ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76a7be4b2e9aca2a82ce2e66ecc09d4c625}{BITMAP\_ARROW\_RIGHT}},\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76a66f25026d659d3aad0a98a1172f2c301}{BITMAP\_ARROW\_DOWN}},\ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76af2ae0ec781a6dc526f11999cbea9f14a}{BITMAP\_ARROW\_LEFT}},\ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76a3c0db0fc9cc68f089aa19c898eab77bb}{BITMAP\_SMILEY\_ANGRY}},\ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76a314e97c7f7851b289bd7b5920c08090b}{BITMAP\_SMILEY\_HAPPY}},\ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ Add\ more\ bitmap\ IDs\ here\ as\ needed}}
+\DoxyCodeLine{00050\ \ \ \ \ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76aedcf3a7ead6cc5c3444e9c3ef523bfd2}{NUM\_BITMAPS}}\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \}\ \doxymbox{\hyperlink{bitmaps_8h_a41164408d521f8ad3691d6854c5a7f76}{BITMAP\_ID}};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_bitmap__t}{Bitmap\_t}}\ \doxymbox{\hyperlink{bitmaps_8h_aaf50d3420445dfd4d01dcc84847f2e27}{vga\_bitmaps}}[];}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_BITMAPS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,59 @@
+\doxysection{VGA\+\_\+t Struct Reference}
+\hypertarget{struct_v_g_a__t}{}\label{struct_v_g_a__t}\index{VGA\_t@{VGA\_t}}
+
+
+Main structure for VGA controller settings.  
+
+
+
+
+{\ttfamily \+\#include $<$stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \doxymbox{\hyperlink{struct_v_g_a__t_a88c84d6a39870a48a456e4bec88f3e66}{hsync\+\_\+cnt}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_v_g_a__t_aba4ef9cb071c5e654b8a8f39666327d6}{start\+\_\+adr}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_v_g_a__t_ab42f066d0707696981de59459364cd50}{dma2\+\_\+cr\+\_\+reg}}
+\item 
+\doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} \doxymbox{\hyperlink{struct_v_g_a__t_a4c41db2854d27e41f38a4c0d3829854b}{clip\+\_\+rect}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main structure for VGA controller settings. 
+
+\label{doc-variable-members}
+\Hypertarget{struct_v_g_a__t_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{struct_v_g_a__t_a4c41db2854d27e41f38a4c0d3829854b}\index{VGA\_t@{VGA\_t}!clip\_rect@{clip\_rect}}
+\index{clip\_rect@{clip\_rect}!VGA\_t@{VGA\_t}}
+\doxysubsubsection{\texorpdfstring{clip\_rect}{clip\_rect}}
+{\footnotesize\ttfamily \label{struct_v_g_a__t_a4c41db2854d27e41f38a4c0d3829854b} 
+\doxymbox{\hyperlink{struct_v_g_a___rect}{VGA\+\_\+\+Rect}} VGA\+\_\+t::\+clip\+\_\+rect}
+
+Clipping rectangle for drawing operations \Hypertarget{struct_v_g_a__t_ab42f066d0707696981de59459364cd50}\index{VGA\_t@{VGA\_t}!dma2\_cr\_reg@{dma2\_cr\_reg}}
+\index{dma2\_cr\_reg@{dma2\_cr\_reg}!VGA\_t@{VGA\_t}}
+\doxysubsubsection{\texorpdfstring{dma2\_cr\_reg}{dma2\_cr\_reg}}
+{\footnotesize\ttfamily \label{struct_v_g_a__t_ab42f066d0707696981de59459364cd50} 
+uint32\+\_\+t VGA\+\_\+t::\+dma2\+\_\+cr\+\_\+reg}
+
+Pre-\/calculated value for the DMA2 CR register \Hypertarget{struct_v_g_a__t_a88c84d6a39870a48a456e4bec88f3e66}\index{VGA\_t@{VGA\_t}!hsync\_cnt@{hsync\_cnt}}
+\index{hsync\_cnt@{hsync\_cnt}!VGA\_t@{VGA\_t}}
+\doxysubsubsection{\texorpdfstring{hsync\_cnt}{hsync\_cnt}}
+{\footnotesize\ttfamily \label{struct_v_g_a__t_a88c84d6a39870a48a456e4bec88f3e66} 
+uint16\+\_\+t VGA\+\_\+t::\+hsync\+\_\+cnt}
+
+HSync line counter \Hypertarget{struct_v_g_a__t_aba4ef9cb071c5e654b8a8f39666327d6}\index{VGA\_t@{VGA\_t}!start\_adr@{start\_adr}}
+\index{start\_adr@{start\_adr}!VGA\_t@{VGA\_t}}
+\doxysubsubsection{\texorpdfstring{start\_adr}{start\_adr}}
+{\footnotesize\ttfamily \label{struct_v_g_a__t_aba4ef9cb071c5e654b8a8f39666327d6} 
+uint32\+\_\+t VGA\+\_\+t::\+start\+\_\+adr}
+
+Start address of the current line in VGA\+\_\+\+RAM 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Core/\+\+Inc/\+\doxymbox{\hyperlink{stm32__ub__vga__screen_8h}{stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h}}\end{DoxyCompactItemize}

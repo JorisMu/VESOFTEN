@@ -1,0 +1,420 @@
+\doxysection{Core/\+\+Inc/\+fonts.h File Reference}
+\hypertarget{fonts_8h}{}\label{fonts_8h}\index{Core/Inc/fonts.h@{Core/Inc/fonts.h}}
+
+
+Font definitions for the VGA library.  
+
+
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_font_char__t}{Font\+Char\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure describing a single character in a proportional font. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_font_def__t}{Font\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure defining a complete font. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_font_info__t}{Font\+Info\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure to link a font name (string) to its definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const uint8\+\_\+t \doxymbox{\hyperlink{fonts_8h_a8c75cc8d3563188a9a2b5177f0c975ee}{font\+\_\+consolas\+\_\+data}} \+[128]\+\+[5]\+
+\begin{DoxyCompactList}\small\item\em Bitmap data for the Consolas 5x7 fixed-\/width font. \end{DoxyCompactList}\item 
+static const \doxymbox{\hyperlink{struct_font_def__t}{Font\+Def\+\_\+t}} \doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\+\_\+consolas}}
+\begin{DoxyCompactList}\small\item\em Font definition structure for the Consolas font. \end{DoxyCompactList}\item 
+\Hypertarget{fonts_8h_a47064b917bd3d66558e0c0da8a714e35}\label{fonts_8h_a47064b917bd3d66558e0c0da8a714e35} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+SPC} \+[$\,$]\+ = \{0x00, 0x00\}
+\item 
+\Hypertarget{fonts_8h_a2c1440a4a84cd73092752a1e23ba5933}\label{fonts_8h_a2c1440a4a84cd73092752a1e23ba5933} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+EXC} \+[$\,$]\+ = \{0x5F\}
+\item 
+\Hypertarget{fonts_8h_a34d34a4dc62a5af13dd2735af9cd818a}\label{fonts_8h_a34d34a4dc62a5af13dd2735af9cd818a} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+QUO} \+[$\,$]\+ = \{0x07, 0x00, 0x07\}
+\item 
+\Hypertarget{fonts_8h_a2932c1d0a31ab784f71cf1e8b4c40881}\label{fonts_8h_a2932c1d0a31ab784f71cf1e8b4c40881} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+HSH} \+[$\,$]\+ = \{0x14, 0x7F, 0x14, 0x7F, 0x14\}
+\item 
+\Hypertarget{fonts_8h_a602080d9ff47338ad802d4f4a05fa5c5}\label{fonts_8h_a602080d9ff47338ad802d4f4a05fa5c5} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+DOL} \+[$\,$]\+ = \{0x24, 0x2A, 0x7F, 0x2A, 0x12\}
+\item 
+\Hypertarget{fonts_8h_ad95bbfa822de1f6e11338f763c07c0e9}\label{fonts_8h_ad95bbfa822de1f6e11338f763c07c0e9} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+PCT} \+[$\,$]\+ = \{0x23, 0x13, 0x08, 0x64, 0x62\}
+\item 
+\Hypertarget{fonts_8h_af3e84668a6cf84244661902cea9ffa4d}\label{fonts_8h_af3e84668a6cf84244661902cea9ffa4d} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+AMP} \+[$\,$]\+ = \{0x36, 0x49, 0x55, 0x22, 0x50\}
+\item 
+\Hypertarget{fonts_8h_a685c26130ecd13fe57508d9ebc749f83}\label{fonts_8h_a685c26130ecd13fe57508d9ebc749f83} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+APO} \+[$\,$]\+ = \{0x05, 0x03\}
+\item 
+\Hypertarget{fonts_8h_ac65d9f8396600d5bcc953602df675e3c}\label{fonts_8h_ac65d9f8396600d5bcc953602df675e3c} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+LPA} \+[$\,$]\+ = \{0x1C, 0x22, 0x41\}
+\item 
+\Hypertarget{fonts_8h_a770ca253f03c49e5defb18c1734571ca}\label{fonts_8h_a770ca253f03c49e5defb18c1734571ca} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+RPA} \+[$\,$]\+ = \{0x41, 0x22, 0x1C\}
+\item 
+\Hypertarget{fonts_8h_a9e2ae07a9f51161cae2f03cfeba6da86}\label{fonts_8h_a9e2ae07a9f51161cae2f03cfeba6da86} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+AST} \+[$\,$]\+ = \{0x14, 0x08, 0x3E, 0x08, 0x14\}
+\item 
+\Hypertarget{fonts_8h_ab54a13187468424fedb5348ec8683a18}\label{fonts_8h_ab54a13187468424fedb5348ec8683a18} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+PLS} \+[$\,$]\+ = \{0x08, 0x08, 0x3E, 0x08, 0x08\}
+\item 
+\Hypertarget{fonts_8h_a3df17cba83a37e2c8074bccc483cf805}\label{fonts_8h_a3df17cba83a37e2c8074bccc483cf805} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+COM} \+[$\,$]\+ = \{0x50, 0x30\}
+\item 
+\Hypertarget{fonts_8h_af2064dafbdd7463cced7abccee316017}\label{fonts_8h_af2064dafbdd7463cced7abccee316017} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+MIN} \+[$\,$]\+ = \{0x08, 0x08, 0x08\}
+\item 
+\Hypertarget{fonts_8h_a19fdac27c248dc87b6a43dd4e845c655}\label{fonts_8h_a19fdac27c248dc87b6a43dd4e845c655} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+DOT} \+[$\,$]\+ = \{0x60\}
+\item 
+\Hypertarget{fonts_8h_acc869a71f673c0fd870884e80a73b164}\label{fonts_8h_acc869a71f673c0fd870884e80a73b164} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+SLA} \+[$\,$]\+ = \{0x20, 0x10, 0x08, 0x04, 0x02\}
+\item 
+\Hypertarget{fonts_8h_a4cd084ba53d2003194db7414567e6788}\label{fonts_8h_a4cd084ba53d2003194db7414567e6788} 
+static const uint8\+\_\+t {\bfseries P\+\_\+0} \+[$\,$]\+ = \{0x3E, 0x51, 0x49, 0x3E\}
+\item 
+\Hypertarget{fonts_8h_a9fe055499b5232599fbf80f2848d15bc}\label{fonts_8h_a9fe055499b5232599fbf80f2848d15bc} 
+static const uint8\+\_\+t {\bfseries P\+\_\+1} \+[$\,$]\+ = \{0x42, 0x7F, 0x40\}
+\item 
+\Hypertarget{fonts_8h_acb313bf87b82fb46e8c1d1fd015fb11d}\label{fonts_8h_acb313bf87b82fb46e8c1d1fd015fb11d} 
+static const uint8\+\_\+t {\bfseries P\+\_\+2} \+[$\,$]\+ = \{0x42, 0x61, 0x51, 0x46\}
+\item 
+\Hypertarget{fonts_8h_ad5b23e915ac7bf5bf1106012a0802030}\label{fonts_8h_ad5b23e915ac7bf5bf1106012a0802030} 
+static const uint8\+\_\+t {\bfseries P\+\_\+3} \+[$\,$]\+ = \{0x22, 0x41, 0x49, 0x36\}
+\item 
+\Hypertarget{fonts_8h_ad6a9e45f40d1abdfaf0d9a38b0652591}\label{fonts_8h_ad6a9e45f40d1abdfaf0d9a38b0652591} 
+static const uint8\+\_\+t {\bfseries P\+\_\+4} \+[$\,$]\+ = \{0x18, 0x14, 0x12, 0x7F\}
+\item 
+\Hypertarget{fonts_8h_ad120ab81fda233d6ebed4da65bdfd021}\label{fonts_8h_ad120ab81fda233d6ebed4da65bdfd021} 
+static const uint8\+\_\+t {\bfseries P\+\_\+5} \+[$\,$]\+ = \{0x27, 0x45, 0x45, 0x39\}
+\item 
+\Hypertarget{fonts_8h_a3db1f86a1d78e9c59efd221f38654b8c}\label{fonts_8h_a3db1f86a1d78e9c59efd221f38654b8c} 
+static const uint8\+\_\+t {\bfseries P\+\_\+6} \+[$\,$]\+ = \{0x3C, 0x4A, 0x49, 0x30\}
+\item 
+\Hypertarget{fonts_8h_a23bea068ab23e4a1f96794a8095ff4ac}\label{fonts_8h_a23bea068ab23e4a1f96794a8095ff4ac} 
+static const uint8\+\_\+t {\bfseries P\+\_\+7} \+[$\,$]\+ = \{0x01, 0x71, 0x09, 0x03\}
+\item 
+\Hypertarget{fonts_8h_a7f8a08e87419e05b2939c1c8d27062e0}\label{fonts_8h_a7f8a08e87419e05b2939c1c8d27062e0} 
+static const uint8\+\_\+t {\bfseries P\+\_\+8} \+[$\,$]\+ = \{0x36, 0x49, 0x49, 0x36\}
+\item 
+\Hypertarget{fonts_8h_a917e24f8a9268a76088e37050baad0f5}\label{fonts_8h_a917e24f8a9268a76088e37050baad0f5} 
+static const uint8\+\_\+t {\bfseries P\+\_\+9} \+[$\,$]\+ = \{0x06, 0x49, 0x49, 0x3E\}
+\item 
+\Hypertarget{fonts_8h_a98f86e7f58531581a0d95b52b881208e}\label{fonts_8h_a98f86e7f58531581a0d95b52b881208e} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+COL} \+[$\,$]\+ = \{0x36\}
+\item 
+\Hypertarget{fonts_8h_a5420b623641088e994ccaccbae883548}\label{fonts_8h_a5420b623641088e994ccaccbae883548} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+SCL} \+[$\,$]\+ = \{0x56, 0x36\}
+\item 
+\Hypertarget{fonts_8h_a1c525759add0f04687abdfb2c2df43ce}\label{fonts_8h_a1c525759add0f04687abdfb2c2df43ce} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+LES} \+[$\,$]\+ = \{0x08, 0x14, 0x22\}
+\item 
+\Hypertarget{fonts_8h_a81f669e0c31c6bb49d0974eed0e26d52}\label{fonts_8h_a81f669e0c31c6bb49d0974eed0e26d52} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+EQU} \+[$\,$]\+ = \{0x14, 0x14, 0x14\}
+\item 
+\Hypertarget{fonts_8h_ab3b2df2d9eb1f02e4171c6b11fcb96de}\label{fonts_8h_ab3b2df2d9eb1f02e4171c6b11fcb96de} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+GRE} \+[$\,$]\+ = \{0x22, 0x14, 0x08\}
+\item 
+\Hypertarget{fonts_8h_a139cd7b168e42900750e7a538e224e55}\label{fonts_8h_a139cd7b168e42900750e7a538e224e55} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+QUE} \+[$\,$]\+ = \{0x02, 0x01, 0x51, 0x09, 0x06\}
+\item 
+\Hypertarget{fonts_8h_a415824afe12adce73248bb64378e0a2e}\label{fonts_8h_a415824afe12adce73248bb64378e0a2e} 
+static const uint8\+\_\+t {\bfseries P\+\_\+\+ATS} \+[$\,$]\+ = \{0x32, 0x49, 0x79, 0x41, 0x3E\}
+\item 
+\Hypertarget{fonts_8h_a641aa35818766068e819aecb0a64563f}\label{fonts_8h_a641aa35818766068e819aecb0a64563f} 
+static const uint8\+\_\+t {\bfseries P\+\_\+A} \+[$\,$]\+ = \{0x7E, 0x11, 0x11, 0x7E\}
+\item 
+\Hypertarget{fonts_8h_aa05241ff7e287123d8c079770d26e81f}\label{fonts_8h_aa05241ff7e287123d8c079770d26e81f} 
+static const uint8\+\_\+t {\bfseries P\+\_\+B} \+[$\,$]\+ = \{0x7F, 0x49, 0x49, 0x36\}
+\item 
+\Hypertarget{fonts_8h_a158b88efeb7914a7ffda31e797a30a4c}\label{fonts_8h_a158b88efeb7914a7ffda31e797a30a4c} 
+static const uint8\+\_\+t {\bfseries P\+\_\+C} \+[$\,$]\+ = \{0x3E, 0x41, 0x41, 0x22\}
+\item 
+\Hypertarget{fonts_8h_a750dfca2ad4d9771a0757fcf1e87b510}\label{fonts_8h_a750dfca2ad4d9771a0757fcf1e87b510} 
+static const uint8\+\_\+t {\bfseries P\+\_\+D} \+[$\,$]\+ = \{0x7F, 0x41, 0x41, 0x3E\}
+\item 
+\Hypertarget{fonts_8h_adcff64106c29813577263753b29290b5}\label{fonts_8h_adcff64106c29813577263753b29290b5} 
+static const uint8\+\_\+t {\bfseries P\+\_\+E} \+[$\,$]\+ = \{0x7F, 0x49, 0x49, 0x41\}
+\item 
+\Hypertarget{fonts_8h_af2bac1433ba4d8eb6048ebdae2000409}\label{fonts_8h_af2bac1433ba4d8eb6048ebdae2000409} 
+static const uint8\+\_\+t {\bfseries P\+\_\+F} \+[$\,$]\+ = \{0x7F, 0x09, 0x09, 0x01\}
+\item 
+\Hypertarget{fonts_8h_a767d78d64c717a691ec8004e93c6e833}\label{fonts_8h_a767d78d64c717a691ec8004e93c6e833} 
+static const uint8\+\_\+t {\bfseries P\+\_\+G} \+[$\,$]\+ = \{0x3E, 0x41, 0x49, 0x7A\}
+\item 
+\Hypertarget{fonts_8h_a8d5258dfbfd6407fd8edb7593ee51708}\label{fonts_8h_a8d5258dfbfd6407fd8edb7593ee51708} 
+static const uint8\+\_\+t {\bfseries P\+\_\+H} \+[$\,$]\+ = \{0x7F, 0x08, 0x08, 0x7F\}
+\item 
+\Hypertarget{fonts_8h_a52dbe81ebf93598a90afef07b24118e0}\label{fonts_8h_a52dbe81ebf93598a90afef07b24118e0} 
+static const uint8\+\_\+t {\bfseries P\+\_\+I} \+[$\,$]\+ = \{0x7F\}
+\item 
+\Hypertarget{fonts_8h_ac13f260ff16046563209d87f124f93d4}\label{fonts_8h_ac13f260ff16046563209d87f124f93d4} 
+static const uint8\+\_\+t {\bfseries P\+\_\+J} \+[$\,$]\+ = \{0x20, 0x40, 0x41, 0x3F\}
+\item 
+\Hypertarget{fonts_8h_a28463fbb12898c31206a921718c9ef86}\label{fonts_8h_a28463fbb12898c31206a921718c9ef86} 
+static const uint8\+\_\+t {\bfseries P\+\_\+K} \+[$\,$]\+ = \{0x7F, 0x08, 0x14, 0x41\}
+\item 
+\Hypertarget{fonts_8h_a7ab10c2b1d5f5089a336d2b8c08b561f}\label{fonts_8h_a7ab10c2b1d5f5089a336d2b8c08b561f} 
+static const uint8\+\_\+t {\bfseries P\+\_\+L} \+[$\,$]\+ = \{0x7F, 0x40, 0x40\}
+\item 
+\Hypertarget{fonts_8h_ac9a5472d87b91f20be0a89a632a83175}\label{fonts_8h_ac9a5472d87b91f20be0a89a632a83175} 
+static const uint8\+\_\+t {\bfseries P\+\_\+M} \+[$\,$]\+ = \{0x7F, 0x02, 0x0C, 0x02, 0x7F\}
+\item 
+\Hypertarget{fonts_8h_af9a954962208403fd619602b0bcff09a}\label{fonts_8h_af9a954962208403fd619602b0bcff09a} 
+static const uint8\+\_\+t {\bfseries P\+\_\+N} \+[$\,$]\+ = \{0x7F, 0x04, 0x08, 0x7F\}
+\item 
+\Hypertarget{fonts_8h_a167f9605c2c3b04c1282324a33baea41}\label{fonts_8h_a167f9605c2c3b04c1282324a33baea41} 
+static const uint8\+\_\+t {\bfseries P\+\_\+O} \+[$\,$]\+ = \{0x3E, 0x41, 0x41, 0x3E\}
+\item 
+\Hypertarget{fonts_8h_a60c16640d870aab679de0310554cb257}\label{fonts_8h_a60c16640d870aab679de0310554cb257} 
+static const uint8\+\_\+t {\bfseries P\+\_\+P} \+[$\,$]\+ = \{0x7F, 0x09, 0x09, 0x06\}
+\item 
+\Hypertarget{fonts_8h_a4fc7b7bf1cd43f658a7820f322519df7}\label{fonts_8h_a4fc7b7bf1cd43f658a7820f322519df7} 
+static const uint8\+\_\+t {\bfseries P\+\_\+Q} \+[$\,$]\+ = \{0x3E, 0x41, 0x51, 0x5E\}
+\item 
+\Hypertarget{fonts_8h_a2b0d22798571c5811a6d19abe9997b94}\label{fonts_8h_a2b0d22798571c5811a6d19abe9997b94} 
+static const uint8\+\_\+t {\bfseries P\+\_\+R} \+[$\,$]\+ = \{0x7F, 0x09, 0x19, 0x46\}
+\item 
+\Hypertarget{fonts_8h_aae62827963eea1dc3ebfa8edaa303d67}\label{fonts_8h_aae62827963eea1dc3ebfa8edaa303d67} 
+static const uint8\+\_\+t {\bfseries P\+\_\+S} \+[$\,$]\+ = \{0x46, 0x49, 0x49, 0x31\}
+\item 
+\Hypertarget{fonts_8h_a3e84f9abf5685fcf6664ff6bf9ea2f46}\label{fonts_8h_a3e84f9abf5685fcf6664ff6bf9ea2f46} 
+static const uint8\+\_\+t {\bfseries P\+\_\+T} \+[$\,$]\+ = \{0x01, 0x7F, 0x01\}
+\item 
+\Hypertarget{fonts_8h_a61052e1d28803b99512770f48f9b9ea6}\label{fonts_8h_a61052e1d28803b99512770f48f9b9ea6} 
+static const uint8\+\_\+t {\bfseries P\+\_\+U} \+[$\,$]\+ = \{0x3F, 0x40, 0x40, 0x3F\}
+\item 
+\Hypertarget{fonts_8h_aacd3df12da42d8caa96028b3cba48ae1}\label{fonts_8h_aacd3df12da42d8caa96028b3cba48ae1} 
+static const uint8\+\_\+t {\bfseries P\+\_\+V} \+[$\,$]\+ = \{0x1F, 0x20, 0x40, 0x20, 0x1F\}
+\item 
+\Hypertarget{fonts_8h_a5d14e047bbb5f497601d90320d93e3a3}\label{fonts_8h_a5d14e047bbb5f497601d90320d93e3a3} 
+static const uint8\+\_\+t {\bfseries P\+\_\+W} \+[$\,$]\+ = \{0x3F, 0x40, 0x38, 0x40, 0x3F\}
+\item 
+\Hypertarget{fonts_8h_a37fc3060f6f2f0f7d7d6a74852db6538}\label{fonts_8h_a37fc3060f6f2f0f7d7d6a74852db6538} 
+static const uint8\+\_\+t {\bfseries P\+\_\+X} \+[$\,$]\+ = \{0x63, 0x14, 0x08, 0x14, 0x63\}
+\item 
+\Hypertarget{fonts_8h_af616bbec9ac6cea6b7144afd3f15a93f}\label{fonts_8h_af616bbec9ac6cea6b7144afd3f15a93f} 
+static const uint8\+\_\+t {\bfseries P\+\_\+Y} \+[$\,$]\+ = \{0x07, 0x08, 0x70, 0x08, 0x07\}
+\item 
+\Hypertarget{fonts_8h_a14831ab95f7b9df1d14cb043dd7f145c}\label{fonts_8h_a14831ab95f7b9df1d14cb043dd7f145c} 
+static const uint8\+\_\+t {\bfseries P\+\_\+Z} \+[$\,$]\+ = \{0x61, 0x51, 0x49, 0x43\}
+\item 
+\Hypertarget{fonts_8h_a25dbcaa115743adabb97fa922018bd03}\label{fonts_8h_a25dbcaa115743adabb97fa922018bd03} 
+static const uint8\+\_\+t {\bfseries P\+\_\+a} \+[$\,$]\+ = \{0x20, 0x54, 0x54, 0x78\}
+\item 
+\Hypertarget{fonts_8h_ab2ce7b0936599b1465d87ae26e0a012f}\label{fonts_8h_ab2ce7b0936599b1465d87ae26e0a012f} 
+static const uint8\+\_\+t {\bfseries P\+\_\+b} \+[$\,$]\+ = \{0x7F, 0x48, 0x44, 0x38\}
+\item 
+\Hypertarget{fonts_8h_a5f741ce1a07d02bd8966d249bb55ff53}\label{fonts_8h_a5f741ce1a07d02bd8966d249bb55ff53} 
+static const uint8\+\_\+t {\bfseries P\+\_\+c} \+[$\,$]\+ = \{0x38, 0x44, 0x44, 0x20\}
+\item 
+\Hypertarget{fonts_8h_a29e4ec0ac2e810dc54105273f223e3ab}\label{fonts_8h_a29e4ec0ac2e810dc54105273f223e3ab} 
+static const uint8\+\_\+t {\bfseries P\+\_\+d} \+[$\,$]\+ = \{0x38, 0x44, 0x48, 0x7F\}
+\item 
+\Hypertarget{fonts_8h_af33394c472f677632025e962a8c1654b}\label{fonts_8h_af33394c472f677632025e962a8c1654b} 
+static const uint8\+\_\+t {\bfseries P\+\_\+e} \+[$\,$]\+ = \{0x38, 0x54, 0x54, 0x18\}
+\item 
+\Hypertarget{fonts_8h_a5553f6ce2f751327fd6b9e0334c33c18}\label{fonts_8h_a5553f6ce2f751327fd6b9e0334c33c18} 
+static const uint8\+\_\+t {\bfseries P\+\_\+f} \+[$\,$]\+ = \{0x08, 0x7E, 0x09\}
+\item 
+\Hypertarget{fonts_8h_a7eaa3f703d37658e2fa66e4b1287a2af}\label{fonts_8h_a7eaa3f703d37658e2fa66e4b1287a2af} 
+static const uint8\+\_\+t {\bfseries P\+\_\+g} \+[$\,$]\+ = \{0x0c, 0x52, 0x52, 0x3e\}
+\item 
+\Hypertarget{fonts_8h_a8f363f39dd63ddbab999fe9bfe70d333}\label{fonts_8h_a8f363f39dd63ddbab999fe9bfe70d333} 
+static const uint8\+\_\+t {\bfseries P\+\_\+h} \+[$\,$]\+ = \{0x7f, 0x08, 0x04, 0x78\}
+\item 
+\Hypertarget{fonts_8h_a4fb857af64b8cc9f7902b27dd0404a05}\label{fonts_8h_a4fb857af64b8cc9f7902b27dd0404a05} 
+static const uint8\+\_\+t {\bfseries P\+\_\+i} \+[$\,$]\+ = \{0x44, 0x7d, 0x40\}
+\item 
+\Hypertarget{fonts_8h_a6016830ab4f76e55fa2d6635a643e68e}\label{fonts_8h_a6016830ab4f76e55fa2d6635a643e68e} 
+static const uint8\+\_\+t {\bfseries P\+\_\+j} \+[$\,$]\+ = \{0x20, 0x40, 0x44, 0x3d\}
+\item 
+\Hypertarget{fonts_8h_ab72c6803d81fb5d3781c1d639575e550}\label{fonts_8h_ab72c6803d81fb5d3781c1d639575e550} 
+static const uint8\+\_\+t {\bfseries P\+\_\+k} \+[$\,$]\+ = \{0x7f, 0x10, 0x28, 0x44\}
+\item 
+\Hypertarget{fonts_8h_ae5a77a3e2afc0f9d467cc232bcbcc25a}\label{fonts_8h_ae5a77a3e2afc0f9d467cc232bcbcc25a} 
+static const uint8\+\_\+t {\bfseries P\+\_\+l} \+[$\,$]\+ = \{0x41, 0x7f, 0x40\}
+\item 
+\Hypertarget{fonts_8h_ae499da637f9015fdb3956ba316ee021e}\label{fonts_8h_ae499da637f9015fdb3956ba316ee021e} 
+static const uint8\+\_\+t {\bfseries P\+\_\+m} \+[$\,$]\+ = \{0x7c, 0x04, 0x18, 0x04, 0x78\}
+\item 
+\Hypertarget{fonts_8h_a49b8dd3c7898aa2ed6215b252a7234f5}\label{fonts_8h_a49b8dd3c7898aa2ed6215b252a7234f5} 
+static const uint8\+\_\+t {\bfseries P\+\_\+n} \+[$\,$]\+ = \{0x7c, 0x08, 0x04, 0x78\}
+\item 
+\Hypertarget{fonts_8h_aa181c02fb47f9172c1a919dfe62cf416}\label{fonts_8h_aa181c02fb47f9172c1a919dfe62cf416} 
+static const uint8\+\_\+t {\bfseries P\+\_\+o} \+[$\,$]\+ = \{0x38, 0x44, 0x44, 0x38\}
+\item 
+\Hypertarget{fonts_8h_ac9d90878d22cd92f842ead280a19d40c}\label{fonts_8h_ac9d90878d22cd92f842ead280a19d40c} 
+static const uint8\+\_\+t {\bfseries P\+\_\+p} \+[$\,$]\+ = \{0x7c, 0x14, 0x14, 0x08\}
+\item 
+\Hypertarget{fonts_8h_a2a222108ee942b0f39adfdba412c9741}\label{fonts_8h_a2a222108ee942b0f39adfdba412c9741} 
+static const uint8\+\_\+t {\bfseries P\+\_\+q} \+[$\,$]\+ = \{0x08, 0x14, 0x14, 0x7c\}
+\item 
+\Hypertarget{fonts_8h_a4e047cf6404c7df892a6a124bfb80f15}\label{fonts_8h_a4e047cf6404c7df892a6a124bfb80f15} 
+static const uint8\+\_\+t {\bfseries P\+\_\+r} \+[$\,$]\+ = \{0x7c, 0x08, 0x04\}
+\item 
+\Hypertarget{fonts_8h_a5194938b2421958e66dd5e3a90253f39}\label{fonts_8h_a5194938b2421958e66dd5e3a90253f39} 
+static const uint8\+\_\+t {\bfseries P\+\_\+s} \+[$\,$]\+ = \{0x48, 0x54, 0x54, 0x20\}
+\item 
+\Hypertarget{fonts_8h_a2d29fa4a8ece2dc16673e7a68de5b795}\label{fonts_8h_a2d29fa4a8ece2dc16673e7a68de5b795} 
+static const uint8\+\_\+t {\bfseries P\+\_\+t} \+[$\,$]\+ = \{0x04, 0x3f, 0x44\}
+\item 
+\Hypertarget{fonts_8h_add02ac7a284a6dc34847d35f212c9c01}\label{fonts_8h_add02ac7a284a6dc34847d35f212c9c01} 
+static const uint8\+\_\+t {\bfseries P\+\_\+u} \+[$\,$]\+ = \{0x3c, 0x40, 0x20, 0x7c\}
+\item 
+\Hypertarget{fonts_8h_ad3d1b4b482bb6aca225d1e1c82375b5d}\label{fonts_8h_ad3d1b4b482bb6aca225d1e1c82375b5d} 
+static const uint8\+\_\+t {\bfseries P\+\_\+v} \+[$\,$]\+ = \{0x1c, 0x20, 0x40, 0x20, 0x1c\}
+\item 
+\Hypertarget{fonts_8h_a664d80f71c85a9e780c4f3dc575aa071}\label{fonts_8h_a664d80f71c85a9e780c4f3dc575aa071} 
+static const uint8\+\_\+t {\bfseries P\+\_\+w} \+[$\,$]\+ = \{0x3c, 0x40, 0x30, 0x40, 0x3c\}
+\item 
+\Hypertarget{fonts_8h_abd5f5e6929ef1aa8a5a1344fb1d38c22}\label{fonts_8h_abd5f5e6929ef1aa8a5a1344fb1d38c22} 
+static const uint8\+\_\+t {\bfseries P\+\_\+x} \+[$\,$]\+ = \{0x44, 0x28, 0x10, 0x28, 0x44\}
+\item 
+\Hypertarget{fonts_8h_abfa269e13256c433dfc7b17fb4102479}\label{fonts_8h_abfa269e13256c433dfc7b17fb4102479} 
+static const uint8\+\_\+t {\bfseries P\+\_\+y} \+[$\,$]\+ = \{0x0c, 0x50, 0x50, 0x50, 0x3c\}
+\item 
+\Hypertarget{fonts_8h_a91476a87415eeb1cdb446e1bdc33429a}\label{fonts_8h_a91476a87415eeb1cdb446e1bdc33429a} 
+static const uint8\+\_\+t {\bfseries P\+\_\+z} \+[$\,$]\+ = \{0x44, 0x64, 0x54, 0x4c\}
+\item 
+static const \doxymbox{\hyperlink{struct_font_char__t}{Font\+Char\+\_\+t}} \doxymbox{\hyperlink{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199}{font\+\_\+arial\+\_\+chars}} \+[128]\+
+\begin{DoxyCompactList}\small\item\em Mapping table for the Arial proportional font. \end{DoxyCompactList}\item 
+static const \doxymbox{\hyperlink{struct_font_def__t}{Font\+Def\+\_\+t}} \doxymbox{\hyperlink{fonts_8h_adab249ebf718053e6cbaf89f2842b66b}{font\+\_\+arial}}
+\begin{DoxyCompactList}\small\item\em Font definition structure for the Arial font. \end{DoxyCompactList}\item 
+static const \doxymbox{\hyperlink{struct_font_info__t}{Font\+Info\+\_\+t}} \doxymbox{\hyperlink{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}{available\+\_\+fonts}} \+[$\,$]\+
+\begin{DoxyCompactList}\small\item\em An array that allows selecting a font by its name. \end{DoxyCompactList}\item 
+\Hypertarget{fonts_8h_add8fd4d59f191ec49dc1386d42599891}\label{fonts_8h_add8fd4d59f191ec49dc1386d42599891} 
+static const uint8\+\_\+t {\bfseries NUM\+\_\+\+AVAILABLE\+\_\+\+FONTS} = sizeof(\doxymbox{\hyperlink{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}{available\+\_\+fonts}}) /\+ sizeof(\doxymbox{\hyperlink{struct_font_info__t}{Font\+Info\+\_\+t}})
+\begin{DoxyCompactList}\small\item\em The total number of fonts available in the {\ttfamily \doxylink{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}{available\+\_\+fonts}} table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Font definitions for the VGA library. 
+
+This file provides the data and structures for rendering text. It includes two fonts:\+
+\begin{DoxyEnumerate}
+\item Consolas:\+ A 5x7 monospaced font for a classic, fixed-\/width look.
+\item Arial:\+ A proportional font for more natural-\/looking text.
+\end{DoxyEnumerate}
+
+\begin{DoxyDate}{Date}
+05.\+01.\+2026 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+J. Mullink 
+\end{DoxyAuthor}
+
+
+\label{doc-var-members}
+\Hypertarget{fonts_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}\index{fonts.h@{fonts.h}!available\_fonts@{available\_fonts}}
+\index{available\_fonts@{available\_fonts}!fonts.h@{fonts.h}}
+\doxysubsubsection{\texorpdfstring{available\_fonts}{available\_fonts}}
+{\footnotesize\ttfamily \label{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6} 
+const \doxymbox{\hyperlink{struct_font_info__t}{Font\+Info\+\_\+t}} available\+\_\+fonts\+[$\,$]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}monospace"{}},\ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}consolas"{}},\ \ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}arial"{}},\ \ \ \ \ \&\doxymbox{\hyperlink{fonts_8h_adab249ebf718053e6cbaf89f2842b66b}{font\_arial}}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}default"{}},\ \ \ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+An array that allows selecting a font by its name. 
+
+The text rendering function uses this table to find the font data corresponding to a given font name string. \Hypertarget{fonts_8h_adab249ebf718053e6cbaf89f2842b66b}\index{fonts.h@{fonts.h}!font\_arial@{font\_arial}}
+\index{font\_arial@{font\_arial}!fonts.h@{fonts.h}}
+\doxysubsubsection{\texorpdfstring{font\_arial}{font\_arial}}
+{\footnotesize\ttfamily \label{fonts_8h_adab249ebf718053e6cbaf89f2842b66b} 
+const \doxymbox{\hyperlink{struct_font_def__t}{Font\+Def\+\_\+t}} font\+\_\+arial\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ .height\ =\ 7,}
+\DoxyCodeLine{\ \ \ \ .chars\ =\ \doxymbox{\hyperlink{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199}{font\_arial\_chars}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Font definition structure for the Arial font. 
+
+\Hypertarget{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199}\index{fonts.h@{fonts.h}!font\_arial\_chars@{font\_arial\_chars}}
+\index{font\_arial\_chars@{font\_arial\_chars}!fonts.h@{fonts.h}}
+\doxysubsubsection{\texorpdfstring{font\_arial\_chars}{font\_arial\_chars}}
+{\footnotesize\ttfamily \label{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199} 
+const \doxymbox{\hyperlink{struct_font_char__t}{Font\+Char\+\_\+t}} font\+\_\+arial\+\_\+chars\+[128]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ [0\ ...\ 31]\ =\ \{0,\ NULL\},}
+\DoxyCodeLine{\ \ \ \ [32]\ =\ \{2,\ P\_SPC\},\ [33]\ =\ \{1,\ P\_EXC\},\ [34]\ =\ \{3,\ P\_QUO\},\ [35]\ =\ \{5,\ P\_HSH\},}
+\DoxyCodeLine{\ \ \ \ [36]\ =\ \{5,\ P\_DOL\},\ [37]\ =\ \{5,\ P\_PCT\},\ [38]\ =\ \{5,\ P\_AMP\},\ [39]\ =\ \{2,\ P\_APO\},}
+\DoxyCodeLine{\ \ \ \ [40]\ =\ \{3,\ P\_LPA\},\ [41]\ =\ \{3,\ P\_RPA\},\ [42]\ =\ \{5,\ P\_AST\},\ [43]\ =\ \{5,\ P\_PLS\},}
+\DoxyCodeLine{\ \ \ \ [44]\ =\ \{2,\ P\_COM\},\ [45]\ =\ \{3,\ P\_MIN\},\ [46]\ =\ \{1,\ P\_DOT\},\ [47]\ =\ \{5,\ P\_SLA\},}
+\DoxyCodeLine{\ \ \ \ [48]\ =\ \{4,\ P\_0\},\ \ \ [49]\ =\ \{3,\ P\_1\},\ [50]\ =\ \{4,\ P\_2\},\ [51]\ =\ \{4,\ P\_3\},}
+\DoxyCodeLine{\ \ \ \ [52]\ =\ \{4,\ P\_4\},\ \ \ [53]\ =\ \{4,\ P\_5\},\ [54]\ =\ \{4,\ P\_6\},\ [55]\ =\ \{4,\ P\_7\},}
+\DoxyCodeLine{\ \ \ \ [56]\ =\ \{4,\ P\_8\},\ \ \ [57]\ =\ \{4,\ P\_9\},\ [58]\ =\ \{1,\ P\_COL\},\ [59]\ =\ \{2,\ P\_SCL\},}
+\DoxyCodeLine{\ \ \ \ [60]\ =\ \{3,\ P\_LES\},\ [61]\ =\ \{3,\ P\_EQU\},\ [62]\ =\ \{3,\ P\_GRE\},\ [63]\ =\ \{5,\ P\_QUE\},}
+\DoxyCodeLine{\ \ \ \ [64]\ =\ \{5,\ P\_ATS\},}
+\DoxyCodeLine{\ \ \ \ [65]\ =\ \{4,\ P\_A\},\ [66]\ =\ \{4,\ P\_B\},\ [67]\ =\ \{4,\ P\_C\},\ [68]\ =\ \{4,\ P\_D\},}
+\DoxyCodeLine{\ \ \ \ [69]\ =\ \{4,\ P\_E\},\ [70]\ =\ \{4,\ P\_F\},\ [71]\ =\ \{4,\ P\_G\},\ [72]\ =\ \{4,\ P\_H\},}
+\DoxyCodeLine{\ \ \ \ [73]\ =\ \{1,\ P\_I\},\ [74]\ =\ \{4,\ P\_J\},\ [75]\ =\ \{4,\ P\_K\},\ [76]\ =\ \{3,\ P\_L\},}
+\DoxyCodeLine{\ \ \ \ [77]\ =\ \{5,\ P\_M\},\ [78]\ =\ \{4,\ P\_N\},\ [79]\ =\ \{4,\ P\_O\},\ [80]\ =\ \{4,\ P\_P\},}
+\DoxyCodeLine{\ \ \ \ [81]\ =\ \{4,\ P\_Q\},\ [82]\ =\ \{4,\ P\_R\},\ [83]\ =\ \{4,\ P\_S\},\ [84]\ =\ \{3,\ P\_T\},}
+\DoxyCodeLine{\ \ \ \ [85]\ =\ \{4,\ P\_U\},\ [86]\ =\ \{5,\ P\_V\},\ [87]\ =\ \{5,\ P\_W\},\ [88]\ =\ \{5,\ P\_X\},}
+\DoxyCodeLine{\ \ \ \ [89]\ =\ \{5,\ P\_Y\},\ [90]\ =\ \{4,\ P\_Z\},}
+\DoxyCodeLine{\ \ \ \ [91]\ =\ \{2,\ P\_LPA\},\ [92]\ =\ \{5,\ P\_SLA\},\ [93]\ =\ \{2,\ P\_RPA\},\ }
+\DoxyCodeLine{\ \ \ \ [97]\ =\ \{4,\ P\_a\},\ [98]\ =\ \{4,\ P\_b\},\ [99]\ =\ \{4,\ P\_c\},\ [100]\ =\ \{4,\ P\_d\},}
+\DoxyCodeLine{\ \ \ \ [101]\ =\ \{4,\ P\_e\},\ [102]\ =\ \{3,\ P\_f\},\ [103]\ =\ \{4,\ P\_g\},\ [104]\ =\ \{4,\ P\_h\},}
+\DoxyCodeLine{\ \ \ \ [105]\ =\ \{3,\ P\_i\},\ [106]\ =\ \{4,\ P\_j\},\ [107]\ =\ \{4,\ P\_k\},\ [108]\ =\ \{3,\ P\_l\},}
+\DoxyCodeLine{\ \ \ \ [109]\ =\ \{5,\ P\_m\},\ [110]\ =\ \{4,\ P\_n\},\ [111]\ =\ \{4,\ P\_o\},\ [112]\ =\ \{4,\ P\_p\},}
+\DoxyCodeLine{\ \ \ \ [113]\ =\ \{4,\ P\_q\},\ [114]\ =\ \{3,\ P\_r\},\ [115]\ =\ \{4,\ P\_s\},\ [116]\ =\ \{3,\ P\_t\},}
+\DoxyCodeLine{\ \ \ \ [117]\ =\ \{4,\ P\_u\},\ [118]\ =\ \{5,\ P\_v\},\ [119]\ =\ \{5,\ P\_w\},\ [120]\ =\ \{5,\ P\_x\},}
+\DoxyCodeLine{\ \ \ \ [121]\ =\ \{4,\ P\_y\},\ [122]\ =\ \{4,\ P\_z\},}
+\DoxyCodeLine{\ \ \ \ [123\ ...\ 127]\ =\ \{0,\ NULL\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Mapping table for the Arial proportional font. 
+
+This array maps ASCII values to their corresponding character data and width. \Hypertarget{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}\index{fonts.h@{fonts.h}!font\_consolas@{font\_consolas}}
+\index{font\_consolas@{font\_consolas}!fonts.h@{fonts.h}}
+\doxysubsubsection{\texorpdfstring{font\_consolas}{font\_consolas}}
+{\footnotesize\ttfamily \label{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a} 
+const \doxymbox{\hyperlink{struct_font_def__t}{Font\+Def\+\_\+t}} font\+\_\+consolas\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ .height\ =\ 7,}
+\DoxyCodeLine{\ \ \ \ .chars\ =\ NULL\ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Font definition structure for the Consolas font. 
+
+\Hypertarget{fonts_8h_a8c75cc8d3563188a9a2b5177f0c975ee}\index{fonts.h@{fonts.h}!font\_consolas\_data@{font\_consolas\_data}}
+\index{font\_consolas\_data@{font\_consolas\_data}!fonts.h@{fonts.h}}
+\doxysubsubsection{\texorpdfstring{font\_consolas\_data}{font\_consolas\_data}}
+{\footnotesize\ttfamily \label{fonts_8h_a8c75cc8d3563188a9a2b5177f0c975ee} 
+const uint8\+\_\+t font\+\_\+consolas\+\_\+data\+[128]\+\+[5]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Bitmap data for the Consolas 5x7 fixed-\/width font. 
+
+Each character is 5 pixels wide and 7 pixels high. The data is stored as 5 bytes per character, with each byte representing a vertical column. 

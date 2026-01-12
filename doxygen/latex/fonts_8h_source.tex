@@ -1,0 +1,300 @@
+\doxysection{fonts.\+h}
+\hypertarget{fonts_8h_source}{}\label{fonts_8h_source}\index{Core/Inc/fonts.h@{Core/Inc/fonts.h}}
+\doxymbox{\hyperlink{fonts_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ INC\_FONTS\_H\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ INC\_FONTS\_H\_}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Data\ Structures\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ \doxymbox{\hyperlink{struct_font_char__t_ad49ae4b98dd54f4d838eedb9ca8af7e6}{width}};\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\doxymbox{\hyperlink{struct_font_char__t_a93022af042da6858b1852b6b341613c1}{data}};\ }
+\DoxyCodeLine{00027\ \}\ \doxymbox{\hyperlink{struct_font_char__t}{FontChar\_t}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ \doxymbox{\hyperlink{struct_font_def__t_a055f1569b3e51132aea69285354b3b89}{height}};\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_char__t}{FontChar\_t}}\ *\doxymbox{\hyperlink{struct_font_def__t_acecc9dd79eafe3fc5273598df02a4b89}{chars}};\ \ }
+\DoxyCodeLine{00037\ \}\ \doxymbox{\hyperlink{struct_font_def__t}{FontDef\_t}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ 1.\ CONSOLAS\ (Fixed-\/width\ 5x7)}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ \doxymbox{\hyperlink{fonts_8h_a8c75cc8d3563188a9a2b5177f0c975ee}{font\_consolas\_data}}[128][5]\ =\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ NUL}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ ...\ Standard\ ASCII\ characters\ ...}}
+\DoxyCodeLine{00051\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00052\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00053\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00054\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00055\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00056\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00057\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00058\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},}
+\DoxyCodeLine{00059\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 32\ SPACE}}
+\DoxyCodeLine{00060\ \ \ \ \ \{0x00,\ 0x00,\ 0x5f,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 33\ !}}
+\DoxyCodeLine{00061\ \ \ \ \ \{0x00,\ 0x07,\ 0x00,\ 0x07,\ 0x00\},\ \textcolor{comment}{//\ 34\ "{}}}
+\DoxyCodeLine{00062\ \ \ \ \ \{0x14,\ 0x7f,\ 0x14,\ 0x7f,\ 0x14\},\ \textcolor{comment}{//\ 35\ \#}}
+\DoxyCodeLine{00063\ \ \ \ \ \{0x24,\ 0x2a,\ 0x7f,\ 0x2a,\ 0x12\},\ \textcolor{comment}{//\ 36\ \$}}
+\DoxyCodeLine{00064\ \ \ \ \ \{0x23,\ 0x13,\ 0x08,\ 0x64,\ 0x62\},\ \textcolor{comment}{//\ 37\ \%}}
+\DoxyCodeLine{00065\ \ \ \ \ \{0x36,\ 0x49,\ 0x55,\ 0x22,\ 0x50\},\ \textcolor{comment}{//\ 38\ \&}}
+\DoxyCodeLine{00066\ \ \ \ \ \{0x00,\ 0x05,\ 0x03,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 39\ '}}
+\DoxyCodeLine{00067\ \ \ \ \ \{0x00,\ 0x1c,\ 0x22,\ 0x41,\ 0x00\},\ \textcolor{comment}{//\ 40\ (}}
+\DoxyCodeLine{00068\ \ \ \ \ \{0x00,\ 0x41,\ 0x22,\ 0x1c,\ 0x00\},\ \textcolor{comment}{//\ 41\ )}}
+\DoxyCodeLine{00069\ \ \ \ \ \{0x14,\ 0x08,\ 0x3e,\ 0x08,\ 0x14\},\ \textcolor{comment}{//\ 42\ *}}
+\DoxyCodeLine{00070\ \ \ \ \ \{0x08,\ 0x08,\ 0x3e,\ 0x08,\ 0x08\},\ \textcolor{comment}{//\ 43\ +}}
+\DoxyCodeLine{00071\ \ \ \ \ \{0x00,\ 0x50,\ 0x30,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 44\ ,}}
+\DoxyCodeLine{00072\ \ \ \ \ \{0x08,\ 0x08,\ 0x08,\ 0x08,\ 0x08\},\ \textcolor{comment}{//\ 45\ -\/}}
+\DoxyCodeLine{00073\ \ \ \ \ \{0x00,\ 0x60,\ 0x60,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 46\ .}}
+\DoxyCodeLine{00074\ \ \ \ \ \{0x20,\ 0x10,\ 0x08,\ 0x04,\ 0x02\},\ \textcolor{comment}{//\ 47\ /}}
+\DoxyCodeLine{00075\ \ \ \ \ \{0x3e,\ 0x51,\ 0x49,\ 0x45,\ 0x3e\},\ \textcolor{comment}{//\ 48\ 0}}
+\DoxyCodeLine{00076\ \ \ \ \ \{0x00,\ 0x42,\ 0x7f,\ 0x40,\ 0x00\},\ \textcolor{comment}{//\ 49\ 1}}
+\DoxyCodeLine{00077\ \ \ \ \ \{0x42,\ 0x61,\ 0x51,\ 0x49,\ 0x46\},\ \textcolor{comment}{//\ 50\ 2}}
+\DoxyCodeLine{00078\ \ \ \ \ \{0x21,\ 0x41,\ 0x45,\ 0x4b,\ 0x31\},\ \textcolor{comment}{//\ 51\ 3}}
+\DoxyCodeLine{00079\ \ \ \ \ \{0x18,\ 0x14,\ 0x12,\ 0x7f,\ 0x10\},\ \textcolor{comment}{//\ 52\ 4}}
+\DoxyCodeLine{00080\ \ \ \ \ \{0x27,\ 0x45,\ 0x45,\ 0x45,\ 0x39\},\ \textcolor{comment}{//\ 53\ 5}}
+\DoxyCodeLine{00081\ \ \ \ \ \{0x3c,\ 0x4a,\ 0x49,\ 0x49,\ 0x30\},\ \textcolor{comment}{//\ 54\ 6}}
+\DoxyCodeLine{00082\ \ \ \ \ \{0x01,\ 0x71,\ 0x09,\ 0x05,\ 0x03\},\ \textcolor{comment}{//\ 55\ 7}}
+\DoxyCodeLine{00083\ \ \ \ \ \{0x36,\ 0x49,\ 0x49,\ 0x49,\ 0x36\},\ \textcolor{comment}{//\ 56\ 8}}
+\DoxyCodeLine{00084\ \ \ \ \ \{0x06,\ 0x49,\ 0x49,\ 0x29,\ 0x1e\},\ \textcolor{comment}{//\ 57\ 9}}
+\DoxyCodeLine{00085\ \ \ \ \ \{0x00,\ 0x36,\ 0x36,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 58\ :}}
+\DoxyCodeLine{00086\ \ \ \ \ \{0x00,\ 0x56,\ 0x36,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 59\ ;}}
+\DoxyCodeLine{00087\ \ \ \ \ \{0x08,\ 0x14,\ 0x22,\ 0x41,\ 0x00\},\ \textcolor{comment}{//\ 60\ <}}
+\DoxyCodeLine{00088\ \ \ \ \ \{0x14,\ 0x14,\ 0x14,\ 0x14,\ 0x14\},\ \textcolor{comment}{//\ 61\ =}}
+\DoxyCodeLine{00089\ \ \ \ \ \{0x00,\ 0x41,\ 0x22,\ 0x14,\ 0x08\},\ \textcolor{comment}{//\ 62\ >}}
+\DoxyCodeLine{00090\ \ \ \ \ \{0x02,\ 0x01,\ 0x51,\ 0x09,\ 0x06\},\ \textcolor{comment}{//\ 63\ ?}}
+\DoxyCodeLine{00091\ \ \ \ \ \{0x32,\ 0x49,\ 0x79,\ 0x41,\ 0x3e\},\ \textcolor{comment}{//\ 64\ @}}
+\DoxyCodeLine{00092\ \ \ \ \ \{0x7e,\ 0x11,\ 0x11,\ 0x11,\ 0x7e\},\ \textcolor{comment}{//\ 65\ A}}
+\DoxyCodeLine{00093\ \ \ \ \ \{0x7f,\ 0x49,\ 0x49,\ 0x49,\ 0x36\},\ \textcolor{comment}{//\ 66\ B}}
+\DoxyCodeLine{00094\ \ \ \ \ \{0x3e,\ 0x41,\ 0x41,\ 0x41,\ 0x22\},\ \textcolor{comment}{//\ 67\ C}}
+\DoxyCodeLine{00095\ \ \ \ \ \{0x7f,\ 0x41,\ 0x41,\ 0x22,\ 0x1c\},\ \textcolor{comment}{//\ 68\ D}}
+\DoxyCodeLine{00096\ \ \ \ \ \{0x7f,\ 0x49,\ 0x49,\ 0x49,\ 0x41\},\ \textcolor{comment}{//\ 69\ E}}
+\DoxyCodeLine{00097\ \ \ \ \ \{0x7f,\ 0x09,\ 0x09,\ 0x09,\ 0x01\},\ \textcolor{comment}{//\ 70\ F}}
+\DoxyCodeLine{00098\ \ \ \ \ \{0x3e,\ 0x41,\ 0x49,\ 0x49,\ 0x7a\},\ \textcolor{comment}{//\ 71\ G}}
+\DoxyCodeLine{00099\ \ \ \ \ \{0x7f,\ 0x08,\ 0x08,\ 0x08,\ 0x7f\},\ \textcolor{comment}{//\ 72\ H}}
+\DoxyCodeLine{00100\ \ \ \ \ \{0x00,\ 0x41,\ 0x7f,\ 0x41,\ 0x00\},\ \textcolor{comment}{//\ 73\ I}}
+\DoxyCodeLine{00101\ \ \ \ \ \{0x20,\ 0x40,\ 0x41,\ 0x3f,\ 0x01\},\ \textcolor{comment}{//\ 74\ J}}
+\DoxyCodeLine{00102\ \ \ \ \ \{0x7f,\ 0x08,\ 0x14,\ 0x22,\ 0x41\},\ \textcolor{comment}{//\ 75\ K}}
+\DoxyCodeLine{00103\ \ \ \ \ \{0x7f,\ 0x40,\ 0x40,\ 0x40,\ 0x40\},\ \textcolor{comment}{//\ 76\ L}}
+\DoxyCodeLine{00104\ \ \ \ \ \{0x7f,\ 0x02,\ 0x0c,\ 0x02,\ 0x7f\},\ \textcolor{comment}{//\ 77\ M}}
+\DoxyCodeLine{00105\ \ \ \ \ \{0x7f,\ 0x04,\ 0x08,\ 0x10,\ 0x7f\},\ \textcolor{comment}{//\ 78\ N}}
+\DoxyCodeLine{00106\ \ \ \ \ \{0x3e,\ 0x41,\ 0x41,\ 0x41,\ 0x3e\},\ \textcolor{comment}{//\ 79\ O}}
+\DoxyCodeLine{00107\ \ \ \ \ \{0x7f,\ 0x09,\ 0x09,\ 0x09,\ 0x06\},\ \textcolor{comment}{//\ 80\ P}}
+\DoxyCodeLine{00108\ \ \ \ \ \{0x3e,\ 0x41,\ 0x51,\ 0x21,\ 0x5e\},\ \textcolor{comment}{//\ 81\ Q}}
+\DoxyCodeLine{00109\ \ \ \ \ \{0x7f,\ 0x09,\ 0x19,\ 0x29,\ 0x46\},\ \textcolor{comment}{//\ 82\ R}}
+\DoxyCodeLine{00110\ \ \ \ \ \{0x46,\ 0x49,\ 0x49,\ 0x49,\ 0x31\},\ \textcolor{comment}{//\ 83\ S}}
+\DoxyCodeLine{00111\ \ \ \ \ \{0x01,\ 0x01,\ 0x7f,\ 0x01,\ 0x01\},\ \textcolor{comment}{//\ 84\ T}}
+\DoxyCodeLine{00112\ \ \ \ \ \{0x3f,\ 0x40,\ 0x40,\ 0x40,\ 0x3f\},\ \textcolor{comment}{//\ 85\ U}}
+\DoxyCodeLine{00113\ \ \ \ \ \{0x1f,\ 0x20,\ 0x40,\ 0x20,\ 0x1f\},\ \textcolor{comment}{//\ 86\ V}}
+\DoxyCodeLine{00114\ \ \ \ \ \{0x3f,\ 0x40,\ 0x38,\ 0x40,\ 0x3f\},\ \textcolor{comment}{//\ 87\ W}}
+\DoxyCodeLine{00115\ \ \ \ \ \{0x63,\ 0x14,\ 0x08,\ 0x14,\ 0x63\},\ \textcolor{comment}{//\ 88\ X}}
+\DoxyCodeLine{00116\ \ \ \ \ \{0x07,\ 0x08,\ 0x70,\ 0x08,\ 0x07\},\ \textcolor{comment}{//\ 89\ Y}}
+\DoxyCodeLine{00117\ \ \ \ \ \{0x61,\ 0x51,\ 0x49,\ 0x45,\ 0x43\},\ \textcolor{comment}{//\ 90\ Z}}
+\DoxyCodeLine{00118\ \ \ \ \ \{0x00,\ 0x7f,\ 0x41,\ 0x41,\ 0x00\},\ \textcolor{comment}{//\ 91\ [}}
+\DoxyCodeLine{00119\ \ \ \ \ \{0x02,\ 0x04,\ 0x08,\ 0x10,\ 0x20\},\ \textcolor{comment}{//\ 92\ \(\backslash\)//}}
+\DoxyCodeLine{00120\ \ \ \ \ \{0x00,\ 0x41,\ 0x41,\ 0x7f,\ 0x00\},\ \textcolor{comment}{//\ 93\ ]}}
+\DoxyCodeLine{00121\ \ \ \ \ \{0x04,\ 0x02,\ 0x01,\ 0x02,\ 0x04\},\ \textcolor{comment}{//\ 94\ \string^}}
+\DoxyCodeLine{00122\ \ \ \ \ \{0x40,\ 0x40,\ 0x40,\ 0x40,\ 0x40\},\ \textcolor{comment}{//\ 95\ \_}}
+\DoxyCodeLine{00123\ \ \ \ \ \{0x00,\ 0x01,\ 0x02,\ 0x04,\ 0x00\},\ \textcolor{comment}{//\ 96\ \`{}}}
+\DoxyCodeLine{00124\ \ \ \ \ \{0x20,\ 0x54,\ 0x54,\ 0x54,\ 0x78\},\ \textcolor{comment}{//\ 97\ a}}
+\DoxyCodeLine{00125\ \ \ \ \ \{0x7f,\ 0x48,\ 0x44,\ 0x44,\ 0x38\},\ \textcolor{comment}{//\ 98\ b}}
+\DoxyCodeLine{00126\ \ \ \ \ \{0x38,\ 0x44,\ 0x44,\ 0x44,\ 0x20\},\ \textcolor{comment}{//\ 99\ c}}
+\DoxyCodeLine{00127\ \ \ \ \ \{0x38,\ 0x44,\ 0x44,\ 0x48,\ 0x7f\},\ \textcolor{comment}{//\ 100\ d}}
+\DoxyCodeLine{00128\ \ \ \ \ \{0x38,\ 0x54,\ 0x54,\ 0x54,\ 0x18\},\ \textcolor{comment}{//\ 101\ e}}
+\DoxyCodeLine{00129\ \ \ \ \ \{0x08,\ 0x7e,\ 0x09,\ 0x01,\ 0x02\},\ \textcolor{comment}{//\ 102\ f}}
+\DoxyCodeLine{00130\ \ \ \ \ \{0x0c,\ 0x52,\ 0x52,\ 0x52,\ 0x3e\},\ \textcolor{comment}{//\ 103\ g}}
+\DoxyCodeLine{00131\ \ \ \ \ \{0x7f,\ 0x08,\ 0x04,\ 0x04,\ 0x78\},\ \textcolor{comment}{//\ 104\ h}}
+\DoxyCodeLine{00132\ \ \ \ \ \{0x00,\ 0x44,\ 0x7d,\ 0x40,\ 0x00\},\ \textcolor{comment}{//\ 105\ i}}
+\DoxyCodeLine{00133\ \ \ \ \ \{0x20,\ 0x40,\ 0x44,\ 0x3d,\ 0x00\},\ \textcolor{comment}{//\ 106\ j}}
+\DoxyCodeLine{00134\ \ \ \ \ \{0x7f,\ 0x10,\ 0x28,\ 0x44,\ 0x00\},\ \textcolor{comment}{//\ 107\ k}}
+\DoxyCodeLine{00135\ \ \ \ \ \{0x00,\ 0x41,\ 0x7f,\ 0x40,\ 0x00\},\ \textcolor{comment}{//\ 108\ l}}
+\DoxyCodeLine{00136\ \ \ \ \ \{0x7c,\ 0x04,\ 0x18,\ 0x04,\ 0x78\},\ \textcolor{comment}{//\ 109\ m}}
+\DoxyCodeLine{00137\ \ \ \ \ \{0x7c,\ 0x08,\ 0x04,\ 0x04,\ 0x78\},\ \textcolor{comment}{//\ 110\ n}}
+\DoxyCodeLine{00138\ \ \ \ \ \{0x38,\ 0x44,\ 0x44,\ 0x44,\ 0x38\},\ \textcolor{comment}{//\ 111\ o}}
+\DoxyCodeLine{00139\ \ \ \ \ \{0x7c,\ 0x14,\ 0x14,\ 0x14,\ 0x08\},\ \textcolor{comment}{//\ 112\ p}}
+\DoxyCodeLine{00140\ \ \ \ \ \{0x08,\ 0x14,\ 0x14,\ 0x18,\ 0x7c\},\ \textcolor{comment}{//\ 113\ q}}
+\DoxyCodeLine{00141\ \ \ \ \ \{0x7c,\ 0x08,\ 0x04,\ 0x04,\ 0x08\},\ \textcolor{comment}{//\ 114\ r}}
+\DoxyCodeLine{00142\ \ \ \ \ \{0x48,\ 0x54,\ 0x54,\ 0x54,\ 0x20\},\ \textcolor{comment}{//\ 115\ s}}
+\DoxyCodeLine{00143\ \ \ \ \ \{0x04,\ 0x3f,\ 0x44,\ 0x40,\ 0x20\},\ \textcolor{comment}{//\ 116\ t}}
+\DoxyCodeLine{00144\ \ \ \ \ \{0x3c,\ 0x40,\ 0x40,\ 0x20,\ 0x7c\},\ \textcolor{comment}{//\ 117\ u}}
+\DoxyCodeLine{00145\ \ \ \ \ \{0x1c,\ 0x20,\ 0x40,\ 0x20,\ 0x1c\},\ \textcolor{comment}{//\ 118\ v}}
+\DoxyCodeLine{00146\ \ \ \ \ \{0x3c,\ 0x40,\ 0x30,\ 0x40,\ 0x3c\},\ \textcolor{comment}{//\ 119\ w}}
+\DoxyCodeLine{00147\ \ \ \ \ \{0x44,\ 0x28,\ 0x10,\ 0x28,\ 0x44\},\ \textcolor{comment}{//\ 120\ x}}
+\DoxyCodeLine{00148\ \ \ \ \ \{0x0c,\ 0x50,\ 0x50,\ 0x50,\ 0x3c\},\ \textcolor{comment}{//\ 121\ y}}
+\DoxyCodeLine{00149\ \ \ \ \ \{0x44,\ 0x64,\ 0x54,\ 0x4c,\ 0x44\},\ \textcolor{comment}{//\ 122\ z}}
+\DoxyCodeLine{00150\ \ \ \ \ \{0x00,\ 0x08,\ 0x36,\ 0x41,\ 0x00\},\ \textcolor{comment}{//\ 123\ \{}}
+\DoxyCodeLine{00151\ \ \ \ \ \{0x00,\ 0x00,\ 0x7f,\ 0x00,\ 0x00\},\ \textcolor{comment}{//\ 124\ |}}
+\DoxyCodeLine{00152\ \ \ \ \ \{0x00,\ 0x41,\ 0x36,\ 0x08,\ 0x00\},\ \textcolor{comment}{//\ 125\ \}}}
+\DoxyCodeLine{00153\ \ \ \ \ \{0x08,\ 0x04,\ 0x08,\ 0x04,\ 0x08\},\ \textcolor{comment}{//\ 126\ \string~}}
+\DoxyCodeLine{00154\ \ \ \ \ \{0x00,\ 0x00,\ 0x00,\ 0x00,\ 0x00\}\ \ \textcolor{comment}{//\ 127\ DEL}}
+\DoxyCodeLine{00155\ \};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_def__t}{FontDef\_t}}\ \doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\ =\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ .height\ =\ 7,}
+\DoxyCodeLine{00162\ \ \ \ \ .chars\ =\ NULL\ \textcolor{comment}{//\ A\ NULL\ chars\ pointer\ signals\ to\ the\ renderer\ to\ use\ the\ fixed-\/width\ array.}}
+\DoxyCodeLine{00163\ \};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ \ \ 2.\ ARIAL\ (Variable\ Width\ /\ Proportional)}}
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ Proportional\ fonts\ define\ data\ for\ each\ character\ with\ a\ specific\ width,}}
+\DoxyCodeLine{00170\ \textcolor{comment}{//\ making\ text\ look\ more\ natural\ (e.g.,\ 'i'\ is\ narrower\ than\ 'W').}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ Helper\ definitions\ for\ character\ data\ to\ save\ memory\ and\ improve\ readability.}}
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ Bit\ order:\ LSB\ is\ top,\ same\ as\ Consolas.}}
+\DoxyCodeLine{00174\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_SPC[]\ =\ \{0x00,\ 0x00\};\ \textcolor{comment}{//\ Space\ (2px\ wide)}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_EXC[]\ =\ \{0x5F\};\ \ \ \ \ \ \ \textcolor{comment}{//\ !\ (1px\ wide)}}
+\DoxyCodeLine{00176\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_QUO[]\ =\ \{0x07,\ 0x00,\ 0x07\};\ \textcolor{comment}{//\ "{}}}
+\DoxyCodeLine{00177\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_HSH[]\ =\ \{0x14,\ 0x7F,\ 0x14,\ 0x7F,\ 0x14\};\ \textcolor{comment}{//\ \#}}
+\DoxyCodeLine{00178\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_DOL[]\ =\ \{0x24,\ 0x2A,\ 0x7F,\ 0x2A,\ 0x12\};\ \textcolor{comment}{//\ \$}}
+\DoxyCodeLine{00179\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_PCT[]\ =\ \{0x23,\ 0x13,\ 0x08,\ 0x64,\ 0x62\};\ \textcolor{comment}{//\ \%}}
+\DoxyCodeLine{00180\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_AMP[]\ =\ \{0x36,\ 0x49,\ 0x55,\ 0x22,\ 0x50\};\ \textcolor{comment}{//\ \&}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_APO[]\ =\ \{0x05,\ 0x03\};\ \textcolor{comment}{//\ '}}
+\DoxyCodeLine{00182\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_LPA[]\ =\ \{0x1C,\ 0x22,\ 0x41\};\ \textcolor{comment}{//\ (}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_RPA[]\ =\ \{0x41,\ 0x22,\ 0x1C\};\ \textcolor{comment}{//\ )}}
+\DoxyCodeLine{00184\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_AST[]\ =\ \{0x14,\ 0x08,\ 0x3E,\ 0x08,\ 0x14\};\ \textcolor{comment}{//\ *}}
+\DoxyCodeLine{00185\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_PLS[]\ =\ \{0x08,\ 0x08,\ 0x3E,\ 0x08,\ 0x08\};\ \textcolor{comment}{//\ +}}
+\DoxyCodeLine{00186\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_COM[]\ =\ \{0x50,\ 0x30\};\ \textcolor{comment}{//\ ,}}
+\DoxyCodeLine{00187\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_MIN[]\ =\ \{0x08,\ 0x08,\ 0x08\};\ \textcolor{comment}{//\ -\/}}
+\DoxyCodeLine{00188\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_DOT[]\ =\ \{0x60\};\ \textcolor{comment}{//\ .\ (1px\ wide)}}
+\DoxyCodeLine{00189\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_SLA[]\ =\ \{0x20,\ 0x10,\ 0x08,\ 0x04,\ 0x02\};\ \textcolor{comment}{//\ /}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ Numbers\ (generally\ look\ better\ monospaced,\ but\ set\ to\ 4px\ for\ this\ font)}}
+\DoxyCodeLine{00192\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_0[]\ =\ \{0x3E,\ 0x51,\ 0x49,\ 0x3E\};}
+\DoxyCodeLine{00193\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_1[]\ =\ \{0x42,\ 0x7F,\ 0x40\};}
+\DoxyCodeLine{00194\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_2[]\ =\ \{0x42,\ 0x61,\ 0x51,\ 0x46\};}
+\DoxyCodeLine{00195\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_3[]\ =\ \{0x22,\ 0x41,\ 0x49,\ 0x36\};}
+\DoxyCodeLine{00196\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_4[]\ =\ \{0x18,\ 0x14,\ 0x12,\ 0x7F\};}
+\DoxyCodeLine{00197\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_5[]\ =\ \{0x27,\ 0x45,\ 0x45,\ 0x39\};}
+\DoxyCodeLine{00198\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_6[]\ =\ \{0x3C,\ 0x4A,\ 0x49,\ 0x30\};}
+\DoxyCodeLine{00199\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_7[]\ =\ \{0x01,\ 0x71,\ 0x09,\ 0x03\};}
+\DoxyCodeLine{00200\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_8[]\ =\ \{0x36,\ 0x49,\ 0x49,\ 0x36\};}
+\DoxyCodeLine{00201\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_9[]\ =\ \{0x06,\ 0x49,\ 0x49,\ 0x3E\};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_COL[]\ =\ \{0x36\};\ \textcolor{comment}{//\ :}}
+\DoxyCodeLine{00204\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_SCL[]\ =\ \{0x56,\ 0x36\};\ \textcolor{comment}{//\ ;}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_LES[]\ =\ \{0x08,\ 0x14,\ 0x22\};\ \textcolor{comment}{//\ <}}
+\DoxyCodeLine{00206\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_EQU[]\ =\ \{0x14,\ 0x14,\ 0x14\};\ \textcolor{comment}{//\ =}}
+\DoxyCodeLine{00207\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_GRE[]\ =\ \{0x22,\ 0x14,\ 0x08\};\ \textcolor{comment}{//\ >}}
+\DoxyCodeLine{00208\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_QUE[]\ =\ \{0x02,\ 0x01,\ 0x51,\ 0x09,\ 0x06\};\ \textcolor{comment}{//\ ?}}
+\DoxyCodeLine{00209\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_ATS[]\ =\ \{0x32,\ 0x49,\ 0x79,\ 0x41,\ 0x3E\};\ \textcolor{comment}{//\ @}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ Uppercase\ letters\ (variable\ widths)}}
+\DoxyCodeLine{00212\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_A[]\ =\ \{0x7E,\ 0x11,\ 0x11,\ 0x7E\};}
+\DoxyCodeLine{00213\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_B[]\ =\ \{0x7F,\ 0x49,\ 0x49,\ 0x36\};}
+\DoxyCodeLine{00214\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_C[]\ =\ \{0x3E,\ 0x41,\ 0x41,\ 0x22\};}
+\DoxyCodeLine{00215\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_D[]\ =\ \{0x7F,\ 0x41,\ 0x41,\ 0x3E\};}
+\DoxyCodeLine{00216\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_E[]\ =\ \{0x7F,\ 0x49,\ 0x49,\ 0x41\};}
+\DoxyCodeLine{00217\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_F[]\ =\ \{0x7F,\ 0x09,\ 0x09,\ 0x01\};}
+\DoxyCodeLine{00218\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_G[]\ =\ \{0x3E,\ 0x41,\ 0x49,\ 0x7A\};}
+\DoxyCodeLine{00219\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_H[]\ =\ \{0x7F,\ 0x08,\ 0x08,\ 0x7F\};}
+\DoxyCodeLine{00220\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_I[]\ =\ \{0x7F\};\ \textcolor{comment}{//\ Narrow}}
+\DoxyCodeLine{00221\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_J[]\ =\ \{0x20,\ 0x40,\ 0x41,\ 0x3F\};}
+\DoxyCodeLine{00222\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_K[]\ =\ \{0x7F,\ 0x08,\ 0x14,\ 0x41\};}
+\DoxyCodeLine{00223\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_L[]\ =\ \{0x7F,\ 0x40,\ 0x40\};}
+\DoxyCodeLine{00224\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_M[]\ =\ \{0x7F,\ 0x02,\ 0x0C,\ 0x02,\ 0x7F\};\ \textcolor{comment}{//\ Wide}}
+\DoxyCodeLine{00225\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_N[]\ =\ \{0x7F,\ 0x04,\ 0x08,\ 0x7F\};}
+\DoxyCodeLine{00226\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_O[]\ =\ \{0x3E,\ 0x41,\ 0x41,\ 0x3E\};}
+\DoxyCodeLine{00227\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_P[]\ =\ \{0x7F,\ 0x09,\ 0x09,\ 0x06\};}
+\DoxyCodeLine{00228\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_Q[]\ =\ \{0x3E,\ 0x41,\ 0x51,\ 0x5E\};}
+\DoxyCodeLine{00229\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_R[]\ =\ \{0x7F,\ 0x09,\ 0x19,\ 0x46\};}
+\DoxyCodeLine{00230\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_S[]\ =\ \{0x46,\ 0x49,\ 0x49,\ 0x31\};}
+\DoxyCodeLine{00231\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_T[]\ =\ \{0x01,\ 0x7F,\ 0x01\};}
+\DoxyCodeLine{00232\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_U[]\ =\ \{0x3F,\ 0x40,\ 0x40,\ 0x3F\};}
+\DoxyCodeLine{00233\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_V[]\ =\ \{0x1F,\ 0x20,\ 0x40,\ 0x20,\ 0x1F\};}
+\DoxyCodeLine{00234\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_W[]\ =\ \{0x3F,\ 0x40,\ 0x38,\ 0x40,\ 0x3F\};\ \textcolor{comment}{//\ Wide}}
+\DoxyCodeLine{00235\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_X[]\ =\ \{0x63,\ 0x14,\ 0x08,\ 0x14,\ 0x63\};}
+\DoxyCodeLine{00236\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_Y[]\ =\ \{0x07,\ 0x08,\ 0x70,\ 0x08,\ 0x07\};}
+\DoxyCodeLine{00237\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_Z[]\ =\ \{0x61,\ 0x51,\ 0x49,\ 0x43\};}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{comment}{//\ Lowercase\ letters}}
+\DoxyCodeLine{00240\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_a[]\ =\ \{0x20,\ 0x54,\ 0x54,\ 0x78\};}
+\DoxyCodeLine{00241\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_b[]\ =\ \{0x7F,\ 0x48,\ 0x44,\ 0x38\};}
+\DoxyCodeLine{00242\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_c[]\ =\ \{0x38,\ 0x44,\ 0x44,\ 0x20\};}
+\DoxyCodeLine{00243\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_d[]\ =\ \{0x38,\ 0x44,\ 0x48,\ 0x7F\};}
+\DoxyCodeLine{00244\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_e[]\ =\ \{0x38,\ 0x54,\ 0x54,\ 0x18\};}
+\DoxyCodeLine{00245\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_f[]\ =\ \{0x08,\ 0x7E,\ 0x09\};}
+\DoxyCodeLine{00246\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_g[]\ =\ \{0x0c,\ 0x52,\ 0x52,\ 0x3e\};}
+\DoxyCodeLine{00247\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_h[]\ =\ \{0x7f,\ 0x08,\ 0x04,\ 0x78\};}
+\DoxyCodeLine{00248\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_i[]\ =\ \{0x44,\ 0x7d,\ 0x40\};}
+\DoxyCodeLine{00249\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_j[]\ =\ \{0x20,\ 0x40,\ 0x44,\ 0x3d\};}
+\DoxyCodeLine{00250\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_k[]\ =\ \{0x7f,\ 0x10,\ 0x28,\ 0x44\};}
+\DoxyCodeLine{00251\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_l[]\ =\ \{0x41,\ 0x7f,\ 0x40\};}
+\DoxyCodeLine{00252\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_m[]\ =\ \{0x7c,\ 0x04,\ 0x18,\ 0x04,\ 0x78\};}
+\DoxyCodeLine{00253\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_n[]\ =\ \{0x7c,\ 0x08,\ 0x04,\ 0x78\};}
+\DoxyCodeLine{00254\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_o[]\ =\ \{0x38,\ 0x44,\ 0x44,\ 0x38\};}
+\DoxyCodeLine{00255\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_p[]\ =\ \{0x7c,\ 0x14,\ 0x14,\ 0x08\};}
+\DoxyCodeLine{00256\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_q[]\ =\ \{0x08,\ 0x14,\ 0x14,\ 0x7c\};}
+\DoxyCodeLine{00257\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_r[]\ =\ \{0x7c,\ 0x08,\ 0x04\};}
+\DoxyCodeLine{00258\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_s[]\ =\ \{0x48,\ 0x54,\ 0x54,\ 0x20\};}
+\DoxyCodeLine{00259\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_t[]\ =\ \{0x04,\ 0x3f,\ 0x44\};}
+\DoxyCodeLine{00260\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_u[]\ =\ \{0x3c,\ 0x40,\ 0x20,\ 0x7c\};}
+\DoxyCodeLine{00261\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_v[]\ =\ \{0x1c,\ 0x20,\ 0x40,\ 0x20,\ 0x1c\};}
+\DoxyCodeLine{00262\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_w[]\ =\ \{0x3c,\ 0x40,\ 0x30,\ 0x40,\ 0x3c\};}
+\DoxyCodeLine{00263\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_x[]\ =\ \{0x44,\ 0x28,\ 0x10,\ 0x28,\ 0x44\};}
+\DoxyCodeLine{00264\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_y[]\ =\ \{0x0c,\ 0x50,\ 0x50,\ 0x50,\ 0x3c\};}
+\DoxyCodeLine{00265\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ P\_z[]\ =\ \{0x44,\ 0x64,\ 0x54,\ 0x4c\};}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00272\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_char__t}{FontChar\_t}}\ \doxymbox{\hyperlink{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199}{font\_arial\_chars}}[128]\ =\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ [0\ ...\ 31]\ =\ \{0,\ NULL\},}
+\DoxyCodeLine{00274\ \ \ \ \ [32]\ =\ \{2,\ P\_SPC\},\ [33]\ =\ \{1,\ P\_EXC\},\ [34]\ =\ \{3,\ P\_QUO\},\ [35]\ =\ \{5,\ P\_HSH\},}
+\DoxyCodeLine{00275\ \ \ \ \ [36]\ =\ \{5,\ P\_DOL\},\ [37]\ =\ \{5,\ P\_PCT\},\ [38]\ =\ \{5,\ P\_AMP\},\ [39]\ =\ \{2,\ P\_APO\},}
+\DoxyCodeLine{00276\ \ \ \ \ [40]\ =\ \{3,\ P\_LPA\},\ [41]\ =\ \{3,\ P\_RPA\},\ [42]\ =\ \{5,\ P\_AST\},\ [43]\ =\ \{5,\ P\_PLS\},}
+\DoxyCodeLine{00277\ \ \ \ \ [44]\ =\ \{2,\ P\_COM\},\ [45]\ =\ \{3,\ P\_MIN\},\ [46]\ =\ \{1,\ P\_DOT\},\ [47]\ =\ \{5,\ P\_SLA\},}
+\DoxyCodeLine{00278\ \ \ \ \ [48]\ =\ \{4,\ P\_0\},\ \ \ [49]\ =\ \{3,\ P\_1\},\ [50]\ =\ \{4,\ P\_2\},\ [51]\ =\ \{4,\ P\_3\},}
+\DoxyCodeLine{00279\ \ \ \ \ [52]\ =\ \{4,\ P\_4\},\ \ \ [53]\ =\ \{4,\ P\_5\},\ [54]\ =\ \{4,\ P\_6\},\ [55]\ =\ \{4,\ P\_7\},}
+\DoxyCodeLine{00280\ \ \ \ \ [56]\ =\ \{4,\ P\_8\},\ \ \ [57]\ =\ \{4,\ P\_9\},\ [58]\ =\ \{1,\ P\_COL\},\ [59]\ =\ \{2,\ P\_SCL\},}
+\DoxyCodeLine{00281\ \ \ \ \ [60]\ =\ \{3,\ P\_LES\},\ [61]\ =\ \{3,\ P\_EQU\},\ [62]\ =\ \{3,\ P\_GRE\},\ [63]\ =\ \{5,\ P\_QUE\},}
+\DoxyCodeLine{00282\ \ \ \ \ [64]\ =\ \{5,\ P\_ATS\},}
+\DoxyCodeLine{00283\ \ \ \ \ [65]\ =\ \{4,\ P\_A\},\ [66]\ =\ \{4,\ P\_B\},\ [67]\ =\ \{4,\ P\_C\},\ [68]\ =\ \{4,\ P\_D\},}
+\DoxyCodeLine{00284\ \ \ \ \ [69]\ =\ \{4,\ P\_E\},\ [70]\ =\ \{4,\ P\_F\},\ [71]\ =\ \{4,\ P\_G\},\ [72]\ =\ \{4,\ P\_H\},}
+\DoxyCodeLine{00285\ \ \ \ \ [73]\ =\ \{1,\ P\_I\},\ [74]\ =\ \{4,\ P\_J\},\ [75]\ =\ \{4,\ P\_K\},\ [76]\ =\ \{3,\ P\_L\},}
+\DoxyCodeLine{00286\ \ \ \ \ [77]\ =\ \{5,\ P\_M\},\ [78]\ =\ \{4,\ P\_N\},\ [79]\ =\ \{4,\ P\_O\},\ [80]\ =\ \{4,\ P\_P\},}
+\DoxyCodeLine{00287\ \ \ \ \ [81]\ =\ \{4,\ P\_Q\},\ [82]\ =\ \{4,\ P\_R\},\ [83]\ =\ \{4,\ P\_S\},\ [84]\ =\ \{3,\ P\_T\},}
+\DoxyCodeLine{00288\ \ \ \ \ [85]\ =\ \{4,\ P\_U\},\ [86]\ =\ \{5,\ P\_V\},\ [87]\ =\ \{5,\ P\_W\},\ [88]\ =\ \{5,\ P\_X\},}
+\DoxyCodeLine{00289\ \ \ \ \ [89]\ =\ \{5,\ P\_Y\},\ [90]\ =\ \{4,\ P\_Z\},}
+\DoxyCodeLine{00290\ \ \ \ \ [91]\ =\ \{2,\ P\_LPA\},\ [92]\ =\ \{5,\ P\_SLA\},\ [93]\ =\ \{2,\ P\_RPA\},\ \textcolor{comment}{//\ Simple\ mapping\ for\ brackets}}
+\DoxyCodeLine{00291\ \ \ \ \ [97]\ =\ \{4,\ P\_a\},\ [98]\ =\ \{4,\ P\_b\},\ [99]\ =\ \{4,\ P\_c\},\ [100]\ =\ \{4,\ P\_d\},}
+\DoxyCodeLine{00292\ \ \ \ \ [101]\ =\ \{4,\ P\_e\},\ [102]\ =\ \{3,\ P\_f\},\ [103]\ =\ \{4,\ P\_g\},\ [104]\ =\ \{4,\ P\_h\},}
+\DoxyCodeLine{00293\ \ \ \ \ [105]\ =\ \{3,\ P\_i\},\ [106]\ =\ \{4,\ P\_j\},\ [107]\ =\ \{4,\ P\_k\},\ [108]\ =\ \{3,\ P\_l\},}
+\DoxyCodeLine{00294\ \ \ \ \ [109]\ =\ \{5,\ P\_m\},\ [110]\ =\ \{4,\ P\_n\},\ [111]\ =\ \{4,\ P\_o\},\ [112]\ =\ \{4,\ P\_p\},}
+\DoxyCodeLine{00295\ \ \ \ \ [113]\ =\ \{4,\ P\_q\},\ [114]\ =\ \{3,\ P\_r\},\ [115]\ =\ \{4,\ P\_s\},\ [116]\ =\ \{3,\ P\_t\},}
+\DoxyCodeLine{00296\ \ \ \ \ [117]\ =\ \{4,\ P\_u\},\ [118]\ =\ \{5,\ P\_v\},\ [119]\ =\ \{5,\ P\_w\},\ [120]\ =\ \{5,\ P\_x\},}
+\DoxyCodeLine{00297\ \ \ \ \ [121]\ =\ \{4,\ P\_y\},\ [122]\ =\ \{4,\ P\_z\},}
+\DoxyCodeLine{00298\ \ \ \ \ [123\ ...\ 127]\ =\ \{0,\ NULL\}}
+\DoxyCodeLine{00299\ \};}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00304\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_def__t}{FontDef\_t}}\ \doxymbox{\hyperlink{fonts_8h_adab249ebf718053e6cbaf89f2842b66b}{font\_arial}}\ =\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ .height\ =\ 7,}
+\DoxyCodeLine{00306\ \ \ \ \ .chars\ =\ \doxymbox{\hyperlink{fonts_8h_aa70b3edf1cb85a6d6377fd26f723d199}{font\_arial\_chars}}}
+\DoxyCodeLine{00307\ \};}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00311\ \textcolor{comment}{//\ \ \ FONT\ SELECTION\ TABLE}}
+\DoxyCodeLine{00312\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \doxymbox{\hyperlink{struct_font_info__t_a5241c7594643474e935173fef65779b8}{name}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_def__t}{FontDef\_t}}*\ \doxymbox{\hyperlink{struct_font_info__t_af342e581a2431aaf012cd99eb820c3f8}{font\_def}};\ \ }
+\DoxyCodeLine{00320\ \}\ \doxymbox{\hyperlink{struct_font_info__t}{FontInfo\_t}};}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00327\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_font_info__t}{FontInfo\_t}}\ \doxymbox{\hyperlink{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}{available\_fonts}}[]\ =\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \{\textcolor{stringliteral}{"{}monospace"{}},\ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\},}
+\DoxyCodeLine{00329\ \ \ \ \ \{\textcolor{stringliteral}{"{}consolas"{}},\ \ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\},}
+\DoxyCodeLine{00330\ \ \ \ \ \{\textcolor{stringliteral}{"{}arial"{}},\ \ \ \ \ \&\doxymbox{\hyperlink{fonts_8h_adab249ebf718053e6cbaf89f2842b66b}{font\_arial}}\},}
+\DoxyCodeLine{00331\ \ \ \ \ \{\textcolor{stringliteral}{"{}default"{}},\ \ \ \&\doxymbox{\hyperlink{fonts_8h_a57edb9274426dba1d75f4e19acc9ce2a}{font\_consolas}}\}}
+\DoxyCodeLine{00332\ \};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ \doxymbox{\hyperlink{fonts_8h_add8fd4d59f191ec49dc1386d42599891}{NUM\_AVAILABLE\_FONTS}}\ =\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{fonts_8h_add536f8bcfd6c09d1159aa2d8d5158f6}{available\_fonts}})\ /\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{struct_font_info__t}{FontInfo\_t}});}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_FONTS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
