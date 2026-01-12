@@ -1,3 +1,14 @@
+/**
+ * @file Front.h
+ * @author JB (mods by J. de Bruijne)
+ * @brief Front-end interface voor de VGA-aansturing op de STM32F4.
+ * @details Deze module verzorgt de communicatie (UART), het parseren van 
+ * tekstuele commando's en het doorsturen daarvan naar de logische laag.
+ * @version 1.0
+ * @date 2026-01-08
+ * * @note Gebruikt de VGA_core DMA bibliotheek voor 320x240 resolutie met 8-bit kleur.
+ */
+
 //--------------------------------------------------------------
 // File     : Front.h
 // Datum    : 08/01/2026

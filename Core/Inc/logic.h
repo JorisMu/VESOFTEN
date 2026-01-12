@@ -1,3 +1,13 @@
+/**
+ * @file logic.h
+ * @author Jouw Naam
+ * @brief Logica en commando-verwerking voor het VGA-scherm aansturingssysteem.
+ * @version 0.1
+ * @date 2024-05-22
+ * * Deze header bevat de definities voor commando-types, resultaatcodes en 
+ * tekenfuncties die worden gebruikt om het VGA-scherm aan te sturen via de STM32.
+ */
+
 #ifndef LOGIC_H
 #define LOGIC_H
 
@@ -8,9 +18,15 @@
 #include "stm32f4xx_hal.h"
 
 // Schermdimensies
+/** @brief Breedte van het scherm in pixels. */
 #define SCHERM_BREEDTE 320
+/** @brief Hoogte van het scherm in pixels. */
 #define SCHERM_HOOGTE 240
 
+/**
+ * @enum Resultaat
+ * @brief Mogelijke returnwaarden voor functies binnen de logica-laag.
+ */
 typedef enum {
     OK = 100,
     ERROR_INVALID_COLOR,
@@ -31,6 +47,10 @@ typedef enum {
 	ERROR_VGA_INVALID_PARAMETER
 } Resultaat;
 
+/**
+ * @enum CommandType
+ * @brief Beschikbare grafische commando's.
+ */
 typedef enum {
     CMD_LIJN,
     CMD_RECHTHOEK,
@@ -46,6 +66,10 @@ typedef enum {
     CMD_UNKNOWN
 } CommandType;
 
+/**
+ * @struct Commando
+ * @brief Structuur voor het opslaan van geparste commando-gegevens.
+ */
 typedef struct {
     CommandType type;
     int p1, p2, p3, p4, p5, p6, p7, p8, p9, p10; // Generieke parameters (x, y, breedte, dikte, etc.)
@@ -55,8 +79,9 @@ typedef struct {
     char fontstijl[20];
 } Commando;
 
-// Functies
-// Functies met const char* om string-overruns te voorkomen
+/**
+ * @brief Functies die gebruikt worden in logic.c
+ */
 Resultaat lijn(int x, int y, int x2, int y2, const char *kleur, int dikte);
 Resultaat rechthoek(int x_lup, int y_lup, int breedte, int hoogte, const char *kleur, int gevuld);
 Resultaat tekst(int x, int y, const char *kleur, const char tekst[100], const char fontnaam[20], int fontgrootte, const char fontstijl[20]);
